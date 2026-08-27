@@ -7,3 +7,6 @@ __pycache__/
 # Python 虚拟环境
 .venv/
 venv/
+
+# 解密后的中间产物（明文存档数据，体积大，不入库）
+decoded/
