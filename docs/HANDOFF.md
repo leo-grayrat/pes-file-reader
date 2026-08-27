@@ -18,7 +18,7 @@
 - **勤提交 git**，按阶段及时 commit。
 - 交流用简体中文；主动、连续、详细汇报进展。
 - 技术栈决策：**直接编译原版 C 源码**（`the4chancup/pesXdecrypter`，public domain）作为正式工具，Python 版保留作对拍。
-- `examples/`（约 350 MB）和 `decoded/`（解密中间产物）均不入 git（已加 `.gitignore`）。
+- `examples/`（约 426.3 MB，58 个文件）和 `decoded/`（解密中间产物）均不入 git（已加 `.gitignore`）。
 
 ## 关键发现
 
@@ -64,11 +64,11 @@
 
 ## 已完成
 
-已完成并提交 git（5 个 commit：`924e761`, `e5ad1c2`, `760e5ad`, `f16b5a1`, `321e365`）：
+已完成并提交 git（5 个 commit：`924e761`, `e5ad1c2`, `760e74b`, `f16b5a1`, `321e365`）：
 
 1. **探查脚本** `probe.py` / `analyze.py` / `check_bl_ml.py`：确认三类存档整体加密。
 2. **Python 解密器** `pes_decrypt.py`：完整复刻 MT19937+链式密钥算法，含 `decrypt()` 和 `encrypt()`，roundtrip 逐字节验证通过。
-3. **导出脚本** `export_data.py`：将 7 个关键样本（BL00000000/01、ML00000000/13、REPLAY00000000/01/02）解密后的 data 块导出到 `decoded/`。
+3. **导出脚本** `export_data.py`：将样本解密后的 data 块导出到 `decoded/`；当前 `decoded/` 共 27 个 `.data`（8 个 BL/ML + 19 个回放），`_headers.json` 只保留 7 个关键样本（BL00000000/01、ML00000000/13、REPLAY00000000/01/02）的头信息。
 4. **编译原版 C 工具**（`third_party/pesXdecrypter/`）：落盘全部 8 个源文件 + `NOTICE.md`，用 `gcc -DUSE_PES21_MASTER_KEY -O2` 编译出 `decrypter.exe` / `encrypter.exe`；两处最小适配（`MasterKeyZero` 补 extern、`writeFileDir` 用 Windows API `GetFileAttributesA`/`CreateDirectoryA`）；实测解密结果与 Python 版逐字节一致。
 5. **BL/ML 逆向初步**：`bl_ml_analyze.py` + `probe2.py`，已摸清头部结构、球队记录布局（0x100 起、0x690 步长、700 条、队名在 +0x55）。
 
