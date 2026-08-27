@@ -19,6 +19,10 @@
   python replay_analyze.py tail         # 只跑尾部布局分析
   python replay_analyze.py records      # 只跑记录数组验证
   python replay_analyze.py fields       # 只跑全样本头字段对比
+  python replay_analyze.py boundary     # 只跑 0x3AA0 分段边界验证（50 样本）
+  python replay_analyze.py headseg      # 只跑 0x80~0x3AA0 头部/名单段解析
+  python replay_analyze.py frames       # 只跑事件流帧网格验证（660×8112）
+  python replay_analyze.py events       # 只跑事件区槽结构解析
 """
 import os
 import sys
@@ -461,6 +465,257 @@ def analyze_fields(names):
           f"0x51EC60-0x50=0x{0x51EC60 - 0x50:X}，若相等则 +0x08 为负载长度")
 
 
+# ---------- 九、0x3AA0 分段边界验证 ----------
+SEG_OFF = 0x3AA0          # exe 写出例程：前段（名单/头部）长度 15,008
+SEG_HEAD = 0x3AA0         # 头部/名单段字节数（即事件流起点）
+SEG_EVT = 0x51B1C0        # 事件流字节数（5,353,920）
+
+
+def _ent(seg):
+    c = Counter(seg)
+    n = len(seg)
+    return -sum((v / n) * math.log2(v / n) for v in c.values())
+
+
+def analyze_boundary(names):
+    """验证 exe 侧锚点：data 块 = 0x3AA0（名单/头部）+ 0x51B1C0（事件流）。
+    检查：① 名单数组 + 全名/队名表是否完整落在 0x3AA0 之内；
+          ② 0x3AA0 处是否有结构突变（熵/非零密度/跨样本差异率跳变）；
+          ③ 头部 +0x54 是否恒等于 0x3AA0（自洽闭环）。"""
+    print("\n" + "=" * 72)
+    print("九、分段边界验证：事件流起点 = 0x3AA0（exe 写出例程 0x01FDC500 锚点）")
+    print("=" * 72)
+    n_ok = seg_eq_54 = 0
+    last_nonzero, last_string, last_record = [], [], []
+    for nm in names:
+        b = load(nm)
+        if len(b) != SEG_HEAD + SEG_EVT:
+            continue
+        n_ok += 1
+        if u32(b, 0x54) == SEG_HEAD:
+            seg_eq_54 += 1
+        head = b[:SEG_OFF]
+        nz = [i for i, x in enumerate(head) if x]
+        last_nonzero.append(nz[-1] if nz else -1)
+        last_string.append(max((o + len(s) for o, s in ascii_strings(head)), default=-1))
+        # 名单记录数组最后一条非全零记录（0x80 起 0xA0 步长）
+        r = 0
+        last_rec = -1
+        while 0x80 + r * 0xA0 + 0xA0 <= SEG_OFF:
+            off = 0x80 + r * 0xA0
+            if any(head[off:off + 0xA0]):
+                last_rec = off + 0xA0
+            r += 1
+        last_record.append(last_rec)
+    print(f"  样本数 {len(names)}，满足 len == 0x3AA0+0x51B1C0 = 0x51EC60: {n_ok}/{len(names)}")
+    print(f"  头部 +0x54 == 0x3AA0(15008): {seg_eq_54}/{n_ok}")
+    print(f"  [0,0x3AA0) 内最后非零字节: max=0x{max(last_nonzero):X}  "
+          f"min=0x{min(last_nonzero):X}")
+    print(f"  [0,0x3AA0) 内最后 ASCII 串结尾: max=0x{max(last_string):X}")
+    print(f"  名单数组最后非零记录尾: max=0x{max(last_record):X}")
+
+    # 结构突变：以 0x3AA0 为中心的滑动窗熵 + 非零密度 + 样本0/1 差异率（样本0）
+    b0 = load(names[0])
+    print(f"\n  [{names[0]}] 以 0x3AA0 为中心的滑动窗（窗宽 0x100，步长 0x40）:")
+    print("    窗口起点   熵     非零%   diff%(vs 样本1)")
+    b1 = load(names[1]) if len(names) > 1 else None
+    for w in range(SEG_OFF - 0x300, SEG_OFF + 0x340, 0x40):
+        seg = b0[w:w + 0x100]
+        e = _ent(seg)
+        nzp = 100.0 * sum(1 for x in seg if x) / len(seg)
+        d = ""
+        if b1 is not None:
+            s2 = b1[w:w + 0x100]
+            dp = 100.0 * sum(1 for i in range(len(seg)) if seg[i] != s2[i]) / len(seg)
+            d = f"{dp:5.1f}"
+        mark = "  <-- 0x3AA0" if w == SEG_OFF else ""
+        print(f"    0x{w:05X}   {e:5.2f}  {nzp:5.1f}   {d}{mark}")
+
+    # 事件流起点跨样本首 64 字节对比（前 4 样本）
+    print(f"\n  事件流起点（0x3AA0）跨样本首 64 字节:")
+    for nm in names[:4]:
+        b = load(nm)
+        print(f"    [{nm}] {b[SEG_OFF:SEG_OFF + 32].hex(' ').upper()}")
+        print(f"    {' ' * len(nm)}  {b[SEG_OFF + 32:SEG_OFF + 64].hex(' ').upper()}")
+
+
+# ---------- 十、0x80~0x3AA0 头部/名单段解析 ----------
+def analyze_headseg(names):
+    """名单数组之外还有什么：扫描 [0,0x3AA0) 内的字符串、小结构、跨样本恒定区。"""
+    print("\n" + "=" * 72)
+    print("十、0x80~0x3AA0 头部/名单段解析（名单之外：替补？教练？元信息？）")
+    print("=" * 72)
+    b = load(names[0])
+    # 1) 区域内字符串（含小写"扰码"串）
+    print(f"\n  [{names[0]}] [0x0,0x3AA0) 内可打印 ASCII 串（长度>=3）:")
+    for off, s in ascii_strings(b[:SEG_OFF], minlen=3, min_alpha=2)[:60]:
+        print(f"    0x{off:05X}  {s[:64]!r}")
+    # 2) 名单记录数：统计非零记录条数与魔数分布（全段）
+    print(f"\n  [{names[0]}] [0x80,0x3AA0) 内按 0xA0 步长的记录扫描:")
+    mags = Counter()
+    used = 0
+    for r in range((SEG_OFF - 0x80) // 0xA0):
+        off = 0x80 + r * 0xA0
+        rec = b[off:off + 0xA0]
+        if any(rec):
+            used += 1
+            mags[u32(b, off)] += 1
+    print(f"    非零记录数: {used}/{(SEG_OFF - 0x80) // 0xA0}")
+    print(f"    魔数分布: { {f'{m:08X}': c for m, c in mags.most_common(12)} }")
+    # 3) 记录数组结束后到 0x3AA0 的区域概览（每 0x100 一行摘要）
+    arr_end = 0x80 + 40 * 0xA0  # 已知前 40 条覆盖到 0x1980
+    print(f"\n  [{names[0]}] 记录数组尾(0x{arr_end:X})至 0x3AA0 的区域摘要（0x100 步长）:")
+    for w in range(arr_end, SEG_OFF, 0x100):
+        seg = b[w:w + 0x100]
+        nz = sum(1 for x in seg if x)
+        top = Counter(seg).most_common(1)[0]
+        print(f"    0x{w:05X}  非零 {nz:3d}/256  众数字节 {top[0]:02X}x{top[1]}")
+    # 4) 跨样本：[0,0x3AA0) 恒定/变化占比（5 样本）
+    subs = [load(nm)[:SEG_OFF] for nm in names[:5]]
+    nn = SEG_OFF
+    acc_a = int.from_bytes(subs[0], "little")
+    acc_o = acc_a
+    for s in subs[1:]:
+        acc_a &= int.from_bytes(s, "little")
+        acc_o |= int.from_bytes(s, "little")
+    mask = (acc_a ^ acc_o).to_bytes(nn, "little")
+    const = mask.count(0)
+    print(f"\n  [0,0x3AA0) 5 样本恒定字节占比: {100.0 * const / nn:.2f}%")
+    # 变化 run（找随比赛变化的子区 = 元信息候选）
+    runs = []
+    i = 0
+    while i < nn:
+        if mask[i] != 0:
+            j = i
+            while j < nn and mask[j] != 0:
+                j += 1
+            if j - i >= 8:
+                runs.append((i, j))
+            i = j
+        else:
+            i += 1
+    print(f"  变化 run(>=8B) 数: {len(runs)}，前 24 个:")
+    for s, e in runs[:24]:
+        print(f"    [{s:05X}, {e:05X}) len={e - s}")
+
+
+# ---------- 十一、事件流帧网格验证 ----------
+EVT_HDR_OFF = 0x58        # 头部 +0x58 = 帧大小（8112）
+EVT_CNT_OFF = 0x60        # 头部 +0x60 = 帧数（660）
+EVT_FRAME = 0x1FB0        # 8112 字节/帧（样本实测恒定）
+EVT_NF = 660              # 660 帧（样本实测恒定）
+EVT_TBL = 4112            # 帧内：16B 帧头 + 256×16B 状态表(至4112) + 4000B 事件区
+
+
+def analyze_frames(names):
+    """事件流 = 660 帧 × 8112 字节（帧头 +0x58/+0x60 给出，50/50 闭合）。
+    帧 = 16B 帧头（含时间戳） + 256×16B 状态表 + 4000B 事件区。"""
+    print("\n" + "=" * 72)
+    print("十一、事件流帧网格验证：+0x58(帧大小) × +0x60(帧数) == 0x51B1C0")
+    print("=" * 72)
+    ok = 0
+    for nm in names:
+        b = load(nm)
+        if u32(b, EVT_HDR_OFF) * u32(b, EVT_CNT_OFF) == SEG_EVT:
+            ok += 1
+    print(f"  闭合样本数: {ok}/{len(names)}（帧大小={u32(load(names[0]), EVT_HDR_OFF)}，"
+          f"帧数={u32(load(names[0]), EVT_CNT_OFF)}）")
+    b0 = load(names[0])
+    ev = b0[SEG_OFF:]
+    # 帧时间戳：帧头字节 [1:3] 为 u16 时钟，单调递增，步长 5 或 10（疑与回放倍速/暂停有关）。
+    steps = Counter((u16(ev, k * EVT_FRAME + 1) - u16(ev, (k - 1) * EVT_FRAME + 1)) & 0xFFFF
+                    for k in range(1, EVT_NF))
+    print(f"\n  [{names[0]}] 帧头时钟（字节[1:3] u16）相邻步长分布: {dict(steps)}")
+    print(f"  帧0 时钟={u16(ev, 1)}(0x{u16(ev, 1):04X})，帧659 时钟={u16(ev, 659 * EVT_FRAME + 1)}"
+          f"（总增量 {((u16(ev, 659 * EVT_FRAME + 1) - u16(ev, 1)) & 0xFFFF)}，"
+          f"660帧×5=3300 / ×10=6600，与实际增量对照可推平均步长）")
+    # 帧内布局抽样：帧头 + 状态表首 2 条 + 事件区头 16B（前 3 帧）
+    print("\n  帧内布局抽样（帧头16B / 表首16B / 事件区头16B）:")
+    for k in (0, 1, 2):
+        fo = k * EVT_FRAME
+        print(f"    帧{k:3d} 帧头   : {ev[fo:fo + 16].hex(' ').upper()}")
+        print(f"          表首   : {ev[fo + 16:fo + 32].hex(' ').upper()}")
+        print(f"          事件区 : {ev[fo + EVT_TBL:fo + EVT_TBL + 16].hex(' ').upper()}")
+    # 事件区头模板：+8..+16 是否恒为 01 00 00...
+    c = Counter(ev[k * EVT_FRAME + EVT_TBL + 8:k * EVT_FRAME + EVT_TBL + 16]
+                for k in range(EVT_NF))
+    print(f"  事件区头 +8~+16 模板分布: {c.most_common(2)}")
+    # 帧间差异：表区与事件区各自相同占比（帧0 vs 帧1）
+    tbl_same = sum(1 for i in range(16, EVT_TBL)
+                   if ev[i] == ev[EVT_FRAME + i])
+    evt_same = sum(1 for i in range(EVT_TBL, EVT_FRAME)
+                   if ev[i] == ev[EVT_FRAME + i])
+    print(f"  帧0 vs 帧1：状态表相同 {100.0 * tbl_same / (EVT_TBL - 16):.1f}%，"
+          f"事件区相同 {100.0 * evt_same / (EVT_FRAME - EVT_TBL):.1f}%")
+
+
+# ---------- 十二、事件区槽结构解析 ----------
+def _slot_marks(area):
+    """槽标记：00 00 01 XX（2<=XX<=40），返回标记偏移列表。"""
+    marks = []
+    for j in range(2, len(area) - 1):
+        if area[j] == 0x01 and area[j - 1] == 0 and area[j - 2] == 0 \
+           and 2 <= area[j + 1] <= 40 and area[j + 1] != 1:
+            marks.append(j)
+    return marks
+
+
+def analyze_events(names, npack=100):
+    """事件区（帧内 +4112 起 4000 字节）内为每帧 ~10 个球员槽包：
+    槽标记 01 XX（槽号 12~21），间距恒 300 字节；
+    槽 = 12B 头 + 20×i16 小整数（疑动画/姿态码） + 高熵 blob（约150B，疑压缩/加密轨迹）。"""
+    print("\n" + "=" * 72)
+    print("十二、事件区槽结构解析（前 %d 个槽包）" % npack)
+    print("=" * 72)
+    b0 = load(names[0])
+    ev = b0[SEG_OFF:]
+    # 1) 槽数与槽号跨帧统计（样本0 抽样 20 帧）
+    print(f"\n  (1) [{names[0]}] 槽数跨帧抽样:")
+    for k in range(0, EVT_NF, 66):
+        area = ev[k * EVT_FRAME + EVT_TBL:k * EVT_FRAME + EVT_FRAME]
+        marks = _slot_marks(area)
+        ids = [area[m + 1] for m in marks]
+        gaps = [marks[i + 1] - marks[i] for i in range(len(marks) - 1)]
+        print(f"    帧{k:3d}: 槽数 {len(marks)}，槽号 {ids}，间距 {Counter(gaps).most_common(2)}")
+    # 2) 前 npack 个槽包切分与候选解读（跨帧收集）
+    packs = []
+    k = 0
+    while len(packs) < npack and k < EVT_NF:
+        area = ev[k * EVT_FRAME + EVT_TBL:k * EVT_FRAME + EVT_FRAME]
+        for m in _slot_marks(area):
+            packs.append((k, m, area))
+        k += 1
+    print(f"\n  (2) 前 {min(npack, len(packs))} 个槽包切分（帧号, 槽号, 12B头, 20×i16 前10个）:")
+    print("      槽间距恒 300 字节 → 每槽 = 12B头 + 20×i16(40B) + 约248B 高熵 blob")
+    for idx, (fk, m, area) in enumerate(packs[:npack]):
+        slot = area[m:]
+        sid = slot[1]
+        i16s = struct.unpack_from("<10h", slot, 12)
+        print(f"    #{idx:3d} 帧{fk:3d} 槽{sid:2d} 头={slot[:12].hex(' ')} "
+              f"i16={list(i16s)}")
+    # 3) 同一槽跨帧对比（说明 i16 码随帧变化 = 逐帧姿态数据）
+    print("\n  (3) 槽 12 跨帧 i16 对比（帧0/1/2）:")
+    for fk in (0, 1, 2):
+        area = ev[fk * EVT_FRAME + EVT_TBL:fk * EVT_FRAME + EVT_FRAME]
+        for m in _slot_marks(area):
+            if area[m + 1] == 12:
+                i16s = struct.unpack_from("<10h", area, m + 12)
+                print(f"    帧{fk}: {list(i16s)}")
+                break
+    # 4) 跨样本槽结构一致性（前 4 样本帧0）
+    print("\n  (4) 跨样本帧0 槽结构:")
+    for nm in names[:4]:
+        b = load(nm)
+        area = b[SEG_OFF + EVT_TBL:SEG_OFF + EVT_FRAME]
+        marks = _slot_marks(area)
+        print(f"    [{nm[-12:]}] 槽数 {len(marks)}，槽号 {[area[m + 1] for m in marks]}")
+    # 5) 事件区头字段统计（样本0 全帧）
+    c0 = Counter(u16(ev, k * EVT_FRAME + EVT_TBL) for k in range(EVT_NF))
+    c2 = Counter(u16(ev, k * EVT_FRAME + EVT_TBL + 2) for k in range(EVT_NF))
+    print(f"\n  (5) 事件区头字段分布（样本0 660 帧）: "
+          f"u16@+0 top3={c0.most_common(3)}, u16@+2 top3={c2.most_common(3)}")
+
+
 def main():
     names = list_replays()
     if not names:
@@ -485,6 +740,14 @@ def main():
         analyze_records(names)
     if mode in ("all", "fields"):
         analyze_fields(names)
+    if mode in ("all", "boundary"):
+        analyze_boundary(names)
+    if mode in ("all", "headseg"):
+        analyze_headseg(names)
+    if mode in ("all", "frames"):
+        analyze_frames(names)
+    if mode in ("all", "events"):
+        analyze_events(names)
 
 
 if __name__ == "__main__":
