@@ -226,6 +226,34 @@ def decrypt(blob, master_key=MASTERKEY_PES21):
     }
 
 
+def encrypt(desc, master_key=MASTERKEY_PES21):
+    """把解密出的各块重新加密回完整文件（与 decrypt 对称）。"""
+    h = desc["hdr"]
+    total = (ENCRYPTION_HEADER_SIZE + FILE_HEADER_SIZE +
+             h["descSize"] + h["logoSize"] + h["dataSize"] + h["serialLength"] * 2)
+    result = bytearray(total)
+
+    result[0:ENCRYPTION_HEADER_SIZE] = crypt_header(desc["encHeader"], master_key)
+    pos = ENCRYPTION_HEADER_SIZE
+
+    rolling_key = bytearray(desc["encHeader"][:64])
+    xor_repeating_blocks(rolling_key, desc["encHeader"][64:64 + 256], 256)
+
+    def enc_block(param, data):
+        nonlocal pos
+        intermediate = bytearray(64)
+        xor_with_long_param(rolling_key, intermediate, param)
+        result[pos:pos + len(data)] = crypt_stream(bytes(intermediate), data, len(data))
+        pos += len(data)
+
+    enc_block(FILE_HEADER_SIZE, desc["fileHeader"])
+    enc_block(0, desc["description"])
+    enc_block(1, desc["logo"])
+    enc_block(2, desc["data"])
+    enc_block(3, desc["serial"])
+    return bytes(result)
+
+
 def _clean(b):
     return "".join(chr(x) if 32 <= x < 127 else "." for x in b)
 
