@@ -14,5 +14,8 @@ decoded/
 # 原始存档样例（体积大，不入库）
 examples/
 
+# 游戏本体与第三方 dll（大二进制，不入库）
+game/
+
 # 工具/IDE 生成的快照文件
 .merkle-snapshot.json
