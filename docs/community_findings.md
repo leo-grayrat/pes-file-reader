@@ -75,6 +75,9 @@
   即对第四节验证过的同一条用户球员记录做写入；
 - 自带 `decrypter21.exe/encrypter21.exe`，与本仓库 pesXdecrypter 同源；
 - 其存档偏移常量藏在混淆后的 IL 中，静态提取成本高，暂不作为首选路线。
+- **2026-08-28 复勘**：确认为 **.NET Reactor 强混淆**——元数据根内 `#Strings/#Blob/#GUID` 流名重复、
+  流 offset/size 被篡改（`stream is too small: wanted 0xX found 0x4`），标准 `dnfile/dnlib` 无法读取
+  元数据表，方法体 IL 无法遍历；反编译需 de4dot 专门去混淆（本机无、代理下载受限），此路线**放弃**。
 
 ## 六、对未解项的战术意义
 
