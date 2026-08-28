@@ -17,5 +17,8 @@ examples/
 # 游戏本体与第三方 dll（大二进制，不入库）
 game/
 
+# 社区工具资源（含可执行文件与大型附件，不入库）
+resources/
+
 # 工具/IDE 生成的快照文件
 .merkle-snapshot.json
