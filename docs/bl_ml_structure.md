@@ -426,10 +426,23 @@
 - 事件 `f2_hi` 是**球员引用 ID**，分两类：① 直接就是数据库球员 ID（在 EDIT 名表内）→ 直接取名字；② 是注册索引（在 `reg2db` 内）→ 经 `reg_index → db_id → 名字` 取名字。
 - 结果（`bl_ml_probe46` → `outputs/event_table_named.csv`）：297 条事件，**已命名 122 条 = 41.1%**（直接 56 + 经注册表 66）。
 
-**4. 残差根因（剩余 175 条，58.9%，非 bug）**
+**4. 残差根因（剩余 175 条，58.9%，非 bug，已严格核验）**
 - 未解析的 `f2_hi`（2096..65534）**既不在 EDIT 数据库 ID 集，也不在注册表键集**——它们是**游戏默认数据库**里、但**未包含在这个 EDIT option file** 中的球员。
 - 即：你提供的 `EDIT00000000` 是一份 option file，覆盖本 ML 存档约 41% 的参赛者；其余球员需游戏**默认 `Player.bin`**（在 CPK 内，按约定暂停解包）→ 这是把覆盖率推过 41% 的唯一来源。
 - 覆盖上限验证：EDIT 名表 ID 已到 146167，确认非"EDIT 缺高 ID"所致，而是 option file 与默认库 ID 分配不完全重叠。
+
+**4b. 推升覆盖率的实证排查（`bl_ml_probe47`，用户授权"解包默认 Player.bin"后执行）**
+- **分类探针结论（确定性）**：对 175 条未命名 `f2_hi` 做四分类——
+  - A. 直接在 EDIT id 集（疑似漏提）：**0 条**（又用"放宽 aid 检查直扫 EDIT stride-312"二次核验，175 个值**无一**出现在 EDIT 球员 id 位置 → 彻底排除"提取漏掉"）。
+  - B. 是 reg_index 且 db_id 在 EDIT（注册表没抓全）：**0 条**。
+  - C. 是 reg_index 但 db_id 不在 EDIT：**0 条**（完整 reg 表 18390 条，`c in eids` 13704 条，但 175 个值**无一是 reg 键**）。
+  - D. 既非 EDIT 也非 reg 键（默认 db_id 直引）：**175 条（全部）**。
+  - → 这 175 条就是事件流里**直接按默认库 db_id 引用**的球员，且默认库不在本 option file 内。推升覆盖**唯一杠杆就是默认 `Player.bin`**。
+- **默认 Player.bin 物理定位（已排除所有可读包）**：
+  - `dt10_x64.cpk`（可读，pesdb 37 文件）**不含主球员库**——只有空 `InstallVersionPlayer.bin`(0B)、空 `PlayerDeleteList.bin`(0B)、微小 `PlayerWeekly.bin`(346B)，其余为球队/联赛/国家/球场等辅助表。
+  - 全局扫描 47 个可读 CPK（含 dt12/dt19 等大包）`Player.bin` **精确命中 0**；dt19/dt12 命中的 `player` 串全是过场动画文件（`dml_md_player_greeting`），非数据库。
+  - **唯一候选是加密的 `dt00_x64.cpk`（166MB）**：LibCPK 报 `read past end of stream`（CPK 变种/版本），纯 Python TOC 枚举也找不到 `@UTF` 标记（TOC 字符串全加密）。社区中文帖明确"烟补官方加密了球员数据库"，且现有解密工具（Devil Cold52 等）只针对**存档**（EDIT/ML）不针对 CPK `dt00`。
+  - → 默认 `Player.bin` 用现有工具链**取不到**；突破需逆向 CRIWARE CPK 加密（深坑，且有意规避加密的灰色地带），不宜盲目推进。
 
 **5. 交付物**
 - `outputs/event_table_named.csv`：带名字的事件表（122/297 有 `name` 列）。
