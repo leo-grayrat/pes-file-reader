@@ -1,0 +1,463 @@
+# 共发现 48 个 CPK（仅解析 TOC，不展开数据）
+
+## dt00_4K_x64.cpk: 9 个 FILE 条目
+## dt00_x64.cpk: ERROR Attempted to read past the end of the stream.
+   在 LibCPK.EndianReader.FillMyBuffer(Int32 numBytes)
+   在 LibCPK.EndianReader.ReadUInt64()
+   在 LibCPK.TypeData.UpdateTypedData(EndianReader br, Int32 flags, Int64 strings_offset, Int64 data_offset, Encoding encoding)
+   在 LibCPK.UTF.ReadUTF(EndianReader br, Encoding encoding)
+   在 LibCPK.CPK.ReadCPK(String sPath, Encoding encoding)
+## dt10_x64.cpk: 37 个 FILE 条目
+## dt11_4K_x64.cpk: 13 个 FILE 条目
+## dt11_x64.cpk: 678 个 FILE 条目
+## dt12_g4.cpk: 18262 个 FILE 条目
+## dt13_all.cpk: 416 个 FILE 条目
+## dt14_all.cpk: 22659 个 FILE 条目
+## dt15_x64.cpk: 6020 个 FILE 条目
+## dt16_all.cpk: 2128 个 FILE 条目
+## dt17_x64.cpk: 1 个 FILE 条目
+## dt18_all.cpk: 9 个 FILE 条目
+## dt19_x64.cpk: 422 个 FILE 条目
+## dt20_4k_chi_x64.cpk: 5 个 FILE 条目
+## dt20_4k_kor_x64.cpk: 5 个 FILE 条目
+## dt20_4k_zha_x64.cpk: 5 个 FILE 条目
+## dt20_ara_x64.cpk: 6 个 FILE 条目
+## dt20_bra_x64.cpk: 6 个 FILE 条目
+## dt20_chi_x64.cpk: 11 个 FILE 条目
+## dt20_eng_x64.cpk: 6 个 FILE 条目
+## dt20_fra_x64.cpk: 6 个 FILE 条目
+## dt20_ger_x64.cpk: 6 个 FILE 条目
+## dt20_gre_x64.cpk: 6 个 FILE 条目
+## dt20_ita_x64.cpk: 6 个 FILE 条目
+## dt20_jpn_x64.cpk: 6 个 FILE 条目
+## dt20_kor_x64.cpk: 11 个 FILE 条目
+## dt20_mex_x64.cpk: 6 个 FILE 条目
+## dt20_nld_x64.cpk: 6 个 FILE 条目
+## dt20_por_x64.cpk: 6 个 FILE 条目
+## dt20_rus_x64.cpk: 6 个 FILE 条目
+## dt20_spa_x64.cpk: 6 个 FILE 条目
+## dt20_swe_x64.cpk: 6 个 FILE 条目
+## dt20_tur_x64.cpk: 6 个 FILE 条目
+## dt20_zha_x64.cpk: 11 个 FILE 条目
+## dt30_g4.cpk: 1797 个 FILE 条目
+## dt32_g4.cpk: 3549 个 FILE 条目
+## dt33_g4.cpk: 1803 个 FILE 条目
+## dt34_g4.cpk: 15287 个 FILE 条目
+## dt35_g4.cpk: 409 个 FILE 条目
+## dt36_g4.cpk: 2779 个 FILE 条目
+## dt40_all.cpk: 45 个 FILE 条目
+## dt41_eng_all.cpk: 10 个 FILE 条目
+## dt41_man_all.cpk: 10 个 FILE 条目
+## dt42_all.cpk: 5 个 FILE 条目
+## dt43_eng_all.cpk: 2 个 FILE 条目
+## dt43_man_all.cpk: 2 个 FILE 条目
+## dt44_all.cpk: 76 个 FILE 条目
+## dt70_x64.cpk: 65 个 FILE 条目
+
+# === Player.bin 精确命中 ===
+  (无)
+
+# === Team.bin 精确命中 ===
+  dt10_x64.cpk :: common/etc/Team.bin
+
+# === 关键字命中(去重) ===
+  dt10_x64.cpk :: common/etc/pesdb/InstallVersionPlayer.bin
+  dt10_x64.cpk :: common/etc/Team.bin
+  dt11_x64.cpk :: common/menu/general/awardPlayer.bin
+  dt11_x64.cpk :: common/menu/general/budgetReport.bin
+  dt11_x64.cpk :: common/menu/general/groupLeagueTable.bin
+  dt11_x64.cpk :: common/menu/general/informationTransferMarket.bin
+  dt11_x64.cpk :: common/menu/general/matchMenuIcon_tex/matchMenuIcon_playerRecord.bin
+  dt11_x64.cpk :: common/menu/general/playerListBaseCompare.bin
+  dt11_x64.cpk :: common/menu/general/playerListBaseCount.bin
+  dt11_x64.cpk :: common/menu/general/playerRecord.bin
+  dt11_x64.cpk :: common/menu/general/positionSelectPlayer.bin
+  dt11_x64.cpk :: common/menu/general/rankingGroupLeaguePes.bin
+  dt11_x64.cpk :: common/menu/general/rankingTeam.bin
+  dt11_x64.cpk :: common/menu/general/teamRecord.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/teamTacticalComparision.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCollection.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_cesa.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_e3_1.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_e3_2.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_fcb.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_gc_1.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_gc_2.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_jfa.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_kickoff.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_latamTour_1.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_latamTour_2.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_obt.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_spgame.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_tgs.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_tex/titleCorporate_trialJp.bin
+  dt11_x64.cpk :: common/menu/general/titleCorporate_trialJpOperation.bin
+  dt11_x64.cpk :: common/menu/general/titlePressStart_tex/titleCorporate_trial_1.bin
+  dt11_x64.cpk :: common/menu/general/titlePressStart_tex/titleCorporate_trial_2.bin
+  dt11_x64.cpk :: common/menu/general/trainingSkillSettingsTeam.bin
+  dt11_x64.cpk :: common/menu/licence/game2dFranceCompeWinner.bin
+  dt11_x64.cpk :: common/menu/licence/rankingGroupLeagueAcl.bin
+  dt11_x64.cpk :: common/menu/licence/resultTeamRecordAcl.bin
+  dt11_x64.cpk :: common/menu/licence/resultTeamRecordBrazil.bin
+  dt11_x64.cpk :: common/menu/licence/resultTeamRecordEngland.bin
+  dt11_x64.cpk :: common/menu/licence/resultTeamRecordEuro.bin
+  dt11_x64.cpk :: common/menu/licence/resultTeamRecordFrance.bin
+  dt11_x64.cpk :: common/menu/licence/resultTeamRecordItaly.bin
+  dt11_x64.cpk :: common/menu/mode/resultTeamRecordPes.bin
+  dt11_x64.cpk :: common/menu/mode/resultTeamRecordSpain.bin
+  dt11_x64.cpk :: common/menu/mode/resultTeamRecordUcl.bin
+  dt11_x64.cpk :: common/menu/mode/availableTeamsPesLeague.bin
+  dt11_x64.cpk :: common/menu/mode/compeList_tex/compeBerthPesLeague.bin
+  dt11_x64.cpk :: common/menu/mode/compeCheckInPesLeague.bin
+  dt11_x64.cpk :: common/menu/mode/compeResultPesLeague.bin
+  dt11_x64.cpk :: common/menu/mode/editLeagueOrganize.bin
+  dt11_x64.cpk :: common/menu/mode/editLeagueOrganizeMenu.bin
+  dt11_x64.cpk :: common/menu/mode/editPlayerNameCommentary.bin
+  dt11_x64.cpk :: common/menu/mode/match1on1MenuPesLeague.bin
+  dt11_x64.cpk :: common/menu/mode/myClubMainMenu_tex/myClubItemResultTeam.bin
+  dt11_x64.cpk :: common/menu/mode/myClubMainMenu_tex/myClubMainMenuTile_0_onlineCompetition.bin
+  dt11_x64.cpk :: common/menu/mode/myClubMainMenu_tex/myClubMainMenuTile_0_pesLeague.bin
+  dt11_x64.cpk :: common/menu/mode/myClubMainMenu_tex/myClubMainMenuTile_2_loanPlayer.bin
+  dt11_x64.cpk :: common/menu/mode/myClubMainMenu_tex/myClubMainMenuTile_3_rankingPesLeague.bin
+  dt11_x64.cpk :: common/menu/mode/myClubMainMenu_tex/myClubMainMenuTile_3_statisticsPesLeague.bin
+  dt11_x64.cpk :: common/menu/mode/myClubMainMenuTile_resume_onlineCompetition.bin
+  dt11_x64.cpk :: common/menu/mode/myClubMainMenuTile_resume_pesLeague.bin
+  dt11_x64.cpk :: common/menu/mode/netDivisionPointRecord.bin
+  dt11_x64.cpk :: common/menu/saveicon/pes/saveicon_pes_league.png
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_end_champione01_cup_conmebol_reco.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_end_champione01_cup_conmebol_reco_cup_conmebol_reco_hi.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_end_champione01_cup_conmebol_reco_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_end_trophy01_cup_conmebol_reco.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_end_trophy01_cup_conmebol_reco_cup_conmebol_reco_hi.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_end_trophy01_cup_conmebol_reco_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_op_transfer_ML_manager.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_op_transfer_ML_manager_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_01.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_01_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_01_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_01_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_02a.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_02a_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_02a_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_02a_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_02b.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_02b_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_02b_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_guide_02b_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_handshake.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_handshake_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_handshake_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_handshake_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_lead.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_lead_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_lead_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_lead_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_01a.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_01a_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_01a_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_01a_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_01b.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_01b_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_01b_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_01b_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_02.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_02_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_02_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_02_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_02_sub1_gadget_smartphone.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_03.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_03_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_03_gadget_pen.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_03_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_photo_03_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_sign.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_sign_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_sign_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_sign_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_sign_sub1_gadget_pen.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_speech_01.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_speech_01_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_speech_01_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_speech_01_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_01.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_01_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_01_gadget_smartphone.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_01_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_01_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_01_sub2.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_01_sub2_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_02.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_02_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_02_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_02_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_02_sub1_gadget_smartphone.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_02_sub2.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_02_sub2_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_02_sub3.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_02_sub3_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_03.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_03_ball.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_03_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_03_sub1.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_03_sub1_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/Animations/dml_md_transfer_visit_03_sub1_gadget_smartphone.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/CharacterAssets/cup_conmebol_reco_hi_anim_skel.ask
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/CharacterAssets/cup_conmebol_reco_hi_render_skel.ask
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/FixDemo/CharacterAssets/cup_conmebol_reco_hi_skel.frig
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/Interface/titlecollection_01.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/Interface/titlecollection_01_eyes_target.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/Interface/titlecollection_01_face.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/Interface/titlecollection_01_Lhand.gani
+  dt12_g4.cpk :: common/demo/anime/FoxAnim/Interface/titlecollection_01_Rhand.gani
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_news_sp_transfer_01.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_news_sp_transfer_02.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_news_sp_transfer_03a.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_news_sp_transfer_03b.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_conf_item_cmn_A3.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_conf_item_cmn_A4.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_conf_item_id184.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_guide_01_cam_A.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_guide_01_cam_B.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_guide_01_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_guide_02a_cam.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_guide_02a_fx.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_guide_02a_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_guide_02b_cam_A.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_guide_02b_cam_B.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_guide_02b_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_01a_cam.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_01a_fx.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_01a_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_01b_cam.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_01b_fx.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_01b_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_02_cam.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_02_cut_a.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_02_cut_b.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_02_fx.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_02_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_03_cam.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_03_fx.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_photo_03_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_sign_item_cmn.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_sign_item_writing.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_sign_mannequin.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_speech_01_cam_a.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_speech_01_cam_b.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_speech_01_cam_c.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_speech_01_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_visit_01_cam_A.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_visit_01_cam_B.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_visit_01_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_visit_02_cam_A.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_visit_02_cam_B.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_visit_02_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_visit_03_cam_A.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_visit_03_cam_B.fdc
+  dt12_g4.cpk :: common/demo/fixdemo/mode/cut_data/mode_transfer_visit_03_pl.fdc
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#Win/item_bg_honor_nrm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#Win/item_bg_honor_srm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#Win/item_bg_honor.xml
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#Win/item_bg_transfer.fpk
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#windx11/item_bg_transfer.fpkd
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#windx11/light_config.fpk
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#windx11/light_config.fpkd
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#windx11/item_bg_transfer_bsm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#windx11/item_bg_transfer_bsm_nomip_alp.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#windx11/item_bg_transfer_nrm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#windx11/item_bg_transfer_q_srm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#windx11/item_bg_transfer_srm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/#windx11/plane_bsm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/plane_nrm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer/sourceimages/tga/#windx11/plane_srm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer_02/#Win/sys_zero_bsm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer_02/#Win/item_bg_transfer.xml
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer_02/#windx11/bd_tr_FILTERLUT.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer_02/#windx11/item_bg_transfer_02.fpk
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer_02/#windx11/item_bg_transfer_02.fpkd
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer_02/#windx11/item_bg_transfer_02_bsm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer_02/#windx11/item_bg_transfer_02_mtm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer_02/#windx11/item_bg_transfer_02_nrm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_bg_transfer_02/item_bg_transfer_02_srm.ftex
+  dt12_g4.cpk :: common/demo/fixdemoobj/item_boots_adidas_F30_R/sourceimages/tga/#windx11/item_bg_transfer_02.xml
+  dt15_x64.cpk :: common/render/model/bg/hit/bill/championsleague/t_signpost.fpk
+  dt15_x64.cpk :: common/render/model/bg/hit/bill/europaleague/t_signpost.fpkd
+  dt16_all.cpk :: common/script/flow/BL/BLBelongLeagueSel.json
+  dt16_all.cpk :: common/script/flow/BL/BLReturnBelongLeagueSel.json
+  dt16_all.cpk :: common/script/flow/Common/CmnLeagueRankingEU.json
+  dt16_all.cpk :: common/script/flow/Common/CmnLeagueRankingSA.json
+  dt16_all.cpk :: common/script/flow/Common/CmnMatchInfoRecopaSud.json
+  dt16_all.cpk :: common/script/flow/Common/CmnMatchResultSudSecond.json
+  dt16_all.cpk :: common/script/flow/Common/CmnOffModeCoopSideSelect.json
+  dt16_all.cpk :: common/script/flow/Common/CmnPlayerRecord.json
+  dt16_all.cpk :: common/script/flow/Common/CmnStandingsLeagueMenu.json
+  dt16_all.cpk :: common/script/flow/Common/CmnStandingsLeagueRanking.json
+  dt16_all.cpk :: common/script/flow/Common/CmnTeamInfoTeamRecord.json
+  dt16_all.cpk :: common/script/flow/Common/CmnTeamRecordMenu.json
+  dt16_all.cpk :: common/script/flow/Common/CmnTeamSelectPlayerRecord.json
+  dt16_all.cpk :: common/script/flow/Common/CmnTransferMarket.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditTmImPlayerNationalityCheckProcess.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditTmImTutorialResult.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditTmImTutorialResultDialog.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditLeagueCupCategorySelect.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditLeagueCupMain.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditLeagueCupSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditLgCpCardTypeSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditLgCpChangeName.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditLgCpDetailSetting.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditLgCpEmblemDataImportDialog.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditLgCpEmblemDataLoadProcess.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueCup/EditLgCpEmblemDataSaveProcess.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueOrganize/EditLgCpEmblemDefaultDialog.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueOrganize/EditLgCpEmblemEditMain.json
+  dt16_all.cpk :: common/script/flow/Edit/LeagueOrganize/EditLgCpEmblemPhotoDataSaveProcess.json
+  dt16_all.cpk :: common/script/flow/Edit/Load/EditLeagueOrganizeAreaSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Load/EditLeagueOrganizeMain.json
+  dt16_all.cpk :: common/script/flow/Edit/Load/EditLeagueOrganizeTeamNum.json
+  dt16_all.cpk :: common/script/flow/Edit/Player/EditPlAccessoryGloveColorSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Player/EditPlBaseCopyCheckProcess.json
+  dt16_all.cpk :: common/script/flow/Edit/Player/EditPlBaseCopyIntoNationDialog.json
+  dt16_all.cpk :: common/script/flow/Edit/Player/EditPlBaseCopyIntoProceedDialog.json
+  dt16_all.cpk :: common/script/flow/Edit/Player/EditPlBaseCopyIntoProceedDlgSel.json
+  dt16_all.cpk :: common/script/flow/Edit/Player/EditPlBaseCopyOutProceedDialog.json
+  dt16_all.cpk :: common/script/flow/Edit/Player/EditPlBaseCopyPlayerList.json
+  dt16_all.cpk :: common/script/flow/Edit/Player/EditPlBaseCopyReturnProcess.json
+  dt16_all.cpk :: common/script/flow/Edit/Player/EditPlBaseCopyTeamSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Player/EditPlMontageEyeColorSetting.json
+  dt16_all.cpk :: common/script/flow/Edit/Team/EditTmChangeCoachList.json
+  dt16_all.cpk :: common/script/flow/Edit/Team/EditTmMarkingNameColorSetting.json
+  dt16_all.cpk :: common/script/flow/Edit/Team/EditTmUniBaseColorSetting.json
+  dt16_all.cpk :: common/script/flow/Edit/Team/EditTmUniCaptainMarkBaseColorSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Team/EditTmUniPantsColorSelectBaseColor.json
+  dt16_all.cpk :: common/script/flow/Edit/Team/EditTmUniShirtBaseColorSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Team/EditTmUniSocksColorSelectBaseColor.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTmUniSocksColorSelectDesign.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTmUniSocksDesignSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTmUniSocksPartsSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditRepresentativeAfterPlayerSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditRepresentativeBeforePlayerSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditRepresentativeTeamSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTransferAfterPlayerSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTransferAfterTeamSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTransferBeforePlayerSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTransferBeforeTeamSelect.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTransferSearchNationality.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTransferSearchParameter.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTransferSearchPerformance.json
+  dt16_all.cpk :: common/script/flow/Edit/Transfer/EditTransferSearchPlayer.json
+  dt16_all.cpk :: common/script/flow/Exhibition/EditTransferSearchPosition.json
+  dt16_all.cpk :: common/script/flow/Exhibition/EditTransferSearchSkill.json
+  dt16_all.cpk :: common/script/flow/Exhibition/EditTransferSearchTeam.json
+  dt16_all.cpk :: common/script/flow/Exhibition/ExhibiChangeCompeDesignKind.json
+  dt16_all.cpk :: common/script/flow/League/LiveDataCheck.json
+  dt16_all.cpk :: common/script/flow/League/LiveDataRemove.json
+  dt16_all.cpk :: common/script/flow/League/LiveDataSet.json
+  dt16_all.cpk :: common/script/flow/League/LeagueExitDialog.json
+  dt16_all.cpk :: common/script/flow/League/LeagueGeneralSettings.json
+  dt16_all.cpk :: common/script/flow/League/LeagueGeneralSettingsCancel.json
+  dt16_all.cpk :: common/script/flow/League/LeagueGeneralSettingsMain.json
+  dt16_all.cpk :: common/script/flow/League/LeagueGroupings.json
+  dt16_all.cpk :: common/script/flow/League/LeagueMainMenu.json
+  dt16_all.cpk :: common/script/flow/League/LeaguePDKeyConfig.json
+  dt16_all.cpk :: common/script/flow/League/LeaguePDKeyConfigTypeSelect.json
+  dt16_all.cpk :: common/script/flow/League/LeaguePDSel.json
+  dt16_all.cpk :: common/script/flow/League/LeaguePDSettingsMenu.json
+  dt16_all.cpk :: common/script/flow/League/LeaguePlayersSetup.json
+  dt16_all.cpk :: common/script/flow/League/LeaguePostUsersCheck.json
+  dt16_all.cpk :: common/script/flow/League/LeaguePostUsersCheckReturn.json
+  dt16_all.cpk :: common/script/flow/League/LeagueRegulationSettings.json
+  dt16_all.cpk :: common/script/flow/League/LeagueSeasonEndRanking.json
+  dt16_all.cpk :: common/script/flow/League/LeagueSel.json
+  dt16_all.cpk :: common/script/flow/League/LeagueSelCardType.json
+  dt16_all.cpk :: common/script/flow/League/LeagueTeamInfoMemberList.json
+  dt16_all.cpk :: common/script/flow/League/LeagueTeamInfoTeamSelection.json
+  dt16_all.cpk :: common/script/flow/League/LeagueTeamInfoUserNumCheck.json
+  dt16_all.cpk :: common/script/flow/League/LeagueTeamSel.json
+  dt16_all.cpk :: common/script/flow/Match/LeagueTeamSelGroupingsChange.json
+  dt16_all.cpk :: common/script/flow/Match/LeagueTeamSelPD.json
+  dt16_all.cpk :: common/script/flow/Match/LeagueTypeCheck.json
+  dt16_all.cpk :: common/script/flow/Match/MatchPlayerSelectCheckWithoutRoleContrl.json
+  dt16_all.cpk :: common/script/flow/ML/Accounting/MLAccountingSalaryDetail.json
+  dt16_all.cpk :: common/script/flow/ML/ClubTeam/MLAccountingTransferFeeDetail.json
+  dt16_all.cpk :: common/script/flow/ML/MLBelongLeagueSel.json
+  dt16_all.cpk :: common/script/flow/ML/MLBudgetReport.json
+  dt16_all.cpk :: common/script/flow/ML/MLBudgetSetting.json
+  dt16_all.cpk :: common/script/flow/ML/MLPlayerRecord.json
+  dt16_all.cpk :: common/script/flow/ML/MLSeasonSalary.json
+  dt16_all.cpk :: common/script/flow/ML/Negociation/MLNegoActionRecord.json
+  dt16_all.cpk :: common/script/flow/ML/Negociation/MLNegoPlayerSearchMenuPlayStyleCom.json
+  dt16_all.cpk :: common/script/flow/Online/CoopMatch/CoopProcessRemoveCoopRejectList.json
+  dt16_all.cpk :: common/script/flow/Online/DivMatch/MenuDivisionRecords.json
+  dt16_all.cpk :: common/script/flow/Online/DivMatch/MenuMatchRecords.json
+  dt16_all.cpk :: common/script/flow/Online/DivMatch/ProcGetDivisionRecords.json
+  dt16_all.cpk :: common/script/flow/Online/DivMatch/ProcGetMatchRecords.json
+  dt16_all.cpk :: common/script/flow/Online/Information/InformationMenuNoticeCompeToList.json
+  dt16_all.cpk :: common/script/flow/Online/Information/InformationOldMatchRecord.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/CoachContract/MenuDispUpdateCoach.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/eFootballPoint/ProcessUpdateCoach.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/Information/MenuNoticeCompe.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/Information/MenuNoticeContract.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/MenuBuyPesPointEulaRecoveryAllSquad.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/MenuBuyPesPointEulaRecoveryOneSquad.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/MenuBuyPesPointRecoveryAllSquad.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/MenuBuyPesPointRecoveryOneSquad.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/MenuEstimateCoach.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/MenuEstimateRecoveryAllSquad.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/MenuEstimateRecoveryOneSquad.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/MenuScoutPlayerSearchMenuPlayStyleCom.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/MenuSuspendPlayerListPesLeague.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/PlayerSearch/MenuPlayerSearchMenuPlayStyleCom.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/ProcessBuyPesPointEulaRecoveryAllSquad.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/ProcessBuyPesPointEulaRecoveryOneSquad.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/ProcessCheckMatchSquadPesLeague.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/ProcessConfirmationRecoveryAllSquad.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/ProcessConfirmationRecoveryGameplayer.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/ProcessConfirmationRecoveryOneSquad.json
+  dt16_all.cpk :: common/script/flow/Online/MyClub/ProcessRankingPsnProfileCoach.json
+  dt18_all.cpk :: common/match/constant/constant_player.bin
+  dt18_all.cpk :: constant_team.bin
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/#Win/au_l_srm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/#Win/o_phonelight_alp.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/o_strobo_alp.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/championsleague.fpk
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/championsleague.fpkd
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/90systemAd_face_01_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/90systemAd_face_02_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/90systemAd_face_03_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/90systemAd_face_04_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/90systemAd_face_05_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/90systemAd_face_06_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/90systemAd_face_07_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/championsleague/sourceimages/#windx11/90systemAd_face_08_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/#Win/scroll_face_rgm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/#Win/scroll_face_spe.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/scroll_face_srm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/europaleague.fpk
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/europaleague.fpkd
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/90systemAd_face_01_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/90systemAd_face_02_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/90systemAd_face_03_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/90systemAd_face_04_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/90systemAd_face_05_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/90systemAd_face_06_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/90systemAd_face_07_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/bill/europaleague/sourceimages/#windx11/90systemAd_face_08_msk_alp_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/staff/common/sourceimages/tga/#windx11/pr_cranecover_bsm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/staff/common/sourceimages/tga/#windx11/pr_cranecover_nrm.ftex
+  dt30_g4.cpk :: Asset/model/bg/common/staff/common/sourceimages/tga/#windx11/pr_cranecover_srm.ftex
+  dt30_g4.cpk :: common/bg/model/bg/bill/championsleague/st020.cpk
+  dt30_g4.cpk :: common/bg/model/bg/bill/championsleague/st022.cpk
+  dt30_g4.cpk :: common/bg/model/bg/bill/championsleague/st023.cpk
+  dt30_g4.cpk :: common/bg/model/bg/bill/championsleague/championsleague_df.xml
+  dt30_g4.cpk :: common/bg/model/bg/bill/championsleague/movie/championsleague_dr.xml
+  dt30_g4.cpk :: common/bg/model/bg/bill/config/championsleague_nf.xml
+  dt30_g4.cpk :: common/bg/model/bg/bill/europaleague/championsleague_nr.xml
+  dt30_g4.cpk :: common/bg/model/bg/bill/europaleague/championsleague.usm
+  dt30_g4.cpk :: common/bg/model/bg/bill/europaleague/config.xml
+  dt30_g4.cpk :: common/bg/model/bg/bill/europaleague/europaleague_df.xml
+  dt30_g4.cpk :: common/bg/model/bg/bill/europaleague/movie/europaleague_dr.xml
+  dt30_g4.cpk :: common/bg/model/bg/bill/global/europaleague_nf.xml
+  dt30_g4.cpk :: common/bg/model/bg/bill/global/europaleague_nr.xml
+  dt30_g4.cpk :: common/bg/model/bg/bill/global/europaleague.usm
+  dt34_g4.cpk :: common/character0/model/character/uniform/team/RefereeColor.bin

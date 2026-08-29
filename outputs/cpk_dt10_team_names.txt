@@ -1,0 +1,312 @@
+# Team.bin 提取队名候选（去噪，出现>=2次），共 311 条
+14	4@d@
+14	Cabo Verde
+13	Togo
+12	Benin
+12	El Salvador
+12	Honduras
+12	Mali
+12	Myanmar
+12	Venezuela
+11	Bangladesh
+11	Burkina Faso
+11	Congo Dr
+11	Costa Rica
+11	Kosovo
+11	Liechtenstein
+11	Malta
+11	Nepal
+11	Senegal
+11	Uganda
+10	Andorra
+10	Canada
+10	Gibraltar
+10	Montenegro
+10	Paraguay
+10	Portugal
+10	Uruguay
+10	Vietnam
+9	Congo
+9	Curacao
+9	Gabon
+9	Ghana
+9	India
+9	Kuwait
+9	Madagascar
+9	Nigeria
+9	Qatar
+9	San Marino
+8	Argentina
+8	Chile
+8	China
+8	Ecuador
+8	Guinea
+8	Indonesia
+8	Israel
+8	Jamaica
+8	Pakistan
+8	Panama
+8	Zimbabwe
+8	ndia
+7	Afghanistan
+7	Bolivia
+7	Colombia
+7	Iran
+7	Oman
+7	Palestina
+7	Peru
+7	Tanzania
+7	Zambia
+6	Bahrein
+6	Irak
+6	Kenya
+5	Albania
+5	Armenia
+5	Australia
+5	Austria
+5	Bahrain
+5	Bulgaria
+5	Estonia
+5	Georgia
+5	Irlanda
+5	Japan
+5	Malaysia
+5	Philippines
+5	Serbia
+5	Singapore
+5	Thailand
+5	Wales
+4	,ABz
+4	Brasil
+4	Chipre
+4	Dinamarca
+4	England
+4	Eslov
+4	Estados Unidos
+4	Filipinas
+4	Finland
+4	Inglaterra
+4	Iraq
+4	Kenia
+4	Luxemburgo
+4	Noruega
+4	Panam
+4	Singapur
+4	Ukraine
+4	Uzbekistan
+4	bano
+4	lgica
+4	mbia
+4	rabes Unidos
+4	ssia
+4	xico
+3	(IBZ
+3	@KLH
+3	@KLh
+3	Algeria
+3	Cambodia
+3	Cyprus
+3	Egipto
+3	Estland
+3	Finlandia
+3	France
+3	Francia
+3	Gana
+3	Grecia
+3	Guin
+3	Holanda
+3	Italia
+3	Kamerun
+3	Kazakhstan
+3	Kongo
+3	Libanon
+3	Lituania
+3	Luxembourg
+3	Luxemburg
+3	Madagaskar
+3	Mexico
+3	Moldavia
+3	Moldova
+3	Palestine
+3	Polen
+3	Polonia
+3	Romania
+3	Russia
+3	Siria
+3	Slovenia
+3	Trinidad E Tobago
+3	Tunisia
+3	blica Checa
+3	te D'Ivoire
+2	 IBZ
+2	 ]CE
+2	(ABz
+2	0I:Z
+2	Afeganist
+2	Afganist
+2	Albanien
+2	Alemanha
+2	Alemania
+2	Angola
+2	Arabia Saudita
+2	Argelia
+2	Armenien
+2	Austr
+2	Australien
+2	Azerbaij
+2	Azerbaijan
+2	Azerbaiy
+2	Belarus
+2	Belgien
+2	Belgium
+2	Bielorr
+2	Bielorrusia
+2	Bosnia and Herzegovina
+2	Bosnia-herzegovina
+2	Bow 
+2	Brasilien
+2	Brazil
+2	Bulg
+2	Bulgarien
+2	Camar
+2	Camboja
+2	Camboya
+2	Camer
+2	Cameroon
+2	Cazaquist
+2	Chili
+2	Cingapura
+2	Club Atl
+2	Corea Del Norte
+2	Corea Del Sur
+2	Coreia Do Norte
+2	Coreia Do Sul
+2	Costa De Marfil
+2	Costa Do Marfim
+2	Croacia
+2	Croatia
+2	Cura
+2	Curazao
+2	Czech Republic
+2	Denmark
+2	Egypt
+2	Emirados 
+2	Emiratos 
+2	Equador
+2	Escocia
+2	Eslovaquia
+2	Eslovenia
+2	Espa
+2	Espanha
+2	FC K
+2	Faroe Islands
+2	Finl
+2	Fran
+2	Gales
+2	Georgien
+2	Germany
+2	Greece
+2	Hungary
+2	Hungr
+2	Hungria
+2	Iceland
+2	Iraque
+2	Ireland
+2	Irland
+2	Irlanda Del Norte
+2	Irlanda Do Norte
+2	Island
+2	Islandia
+2	Islas Feroe
+2	Isra
+2	Italien
+2	Italy
+2	Jamaika
+2	Jord
+2	Jordan
+2	Jordania
+2	Jordanien
+2	Kanada
+2	Katar
+2	Kazajist
+2	Kazakistan
+2	Kongo Dr
+2	Kroatien
+2	Latvia
+2	Lebanon
+2	Letonia
+2	Lettland
+2	Litauen
+2	Lithuania
+2	Litu
+2	Maced
+2	Macedonia Del Norte
+2	Malasia
+2	Marokko
+2	Marrocos
+2	Marruecos
+2	Mexiko
+2	Mold
+2	Morocco
+2	Netherlands
+2	New Zealand
+2	Nordirland
+2	Nordkorea
+2	North Korea
+2	North Macedonia
+2	Northern Ireland
+2	Norway
+2	Nova Zel
+2	Nueva Zelanda
+2	Pakist
+2	Paquist
+2	Paraguai
+2	Poland
+2	Ruman
+2	Rusia
+2	Saudi Arabia
+2	Schweiz
+2	Scotland
+2	Serbien
+2	Slovakia
+2	South Africa
+2	South Korea
+2	Spain
+2	Spanien
+2	Suecia
+2	Suiza
+2	Sweden
+2	Switzerland
+2	Syria
+2	Syrien
+2	Tail
+2	Tailandia
+2	Tanz
+2	Trinidad And Tobago
+2	Trinidad Y Tobago
+2	Trinidad and Tobago
+2	Turkey
+2	Turqu
+2	Turquia
+2	Ucrania
+2	United Arab Emirates
+2	United States
+2	Uruguai
+2	Uzbekist
+2	Uzbequist
+2	Vietn
+2	Zimb
+2	Zimbabue
+2	bia Saudita
+2	frica
+2	frica Do Sul
+2	lande
+2	nia Do Norte
+2	nien
+2	o Marinho
+2	quia
+2	rgia
+2	rlanda
+2	rvia
+2	s De Gales
+2	ustria
