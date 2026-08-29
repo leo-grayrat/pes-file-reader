@@ -1,0 +1,47 @@
+image_base = 0x140000000, size = 437 MB
+=== sections ===
+  .trace   vaddr=0x00001000 vsize=0x0252D800 raddr=0x00000600 rsize=0x0252D800  <- code
+  .rdata   vaddr=0x0252F000 vsize=0x00E6C000 raddr=0x0252DE00 rsize=0x00E6BC00
+  .data    vaddr=0x0339B000 vsize=0x0072A000 raddr=0x03399A00 rsize=0x00334800
+  .pdata   vaddr=0x03AC5000 vsize=0x001D1000 raddr=0x036CE200 rsize=0x001D0E00
+  .xtext   vaddr=0x03C96000 vsize=0x00001000 raddr=0x0389F000 rsize=0x00000200  <- code
+  .tls     vaddr=0x03C97000 vsize=0x00001000 raddr=0x0389F200 rsize=0x00000200
+  .bss     vaddr=0x03C98000 vsize=0x00009000 raddr=0x0389F400 rsize=0x00008E00
+  .data1   vaddr=0x03CA1000 vsize=0x00073000 raddr=0x038A8200 rsize=0x00072A00
+  .impdata vaddr=0x03D14000 vsize=0x17C3D94F raddr=0x0391AC00 rsize=0x17C3DA00
+  .reloc   vaddr=0x1B952000 vsize=0x00003BCC raddr=0x1B558600 rsize=0x00003C00
+  .xcode   vaddr=0x1B956000 vsize=0x000001F5 raddr=0x1B55C200 rsize=0x00000200
+  .rsrc    vaddr=0x1B957000 vsize=0x00000014 raddr=0x1B55C400 rsize=0x00000200
+  .text1   vaddr=0x1B958000 vsize=0x00001600 raddr=0x1B55C600 rsize=0x00001600  <- code
+  .xtls    vaddr=0x1B95A000 vsize=0x00002910 raddr=0x1B55DC00 rsize=0x00002A00
+  .idata   vaddr=0x1B95D000 vsize=0x000005A0 raddr=0x1B560600 rsize=0x00000600
+  .sxdata  vaddr=0x1B95E000 vsize=0x00000005 raddr=0x1B560C00 rsize=0x00000200
+  .sbss    vaddr=0x1B95F000 vsize=0x00000061 raddr=0x1B560E00 rsize=0x00000200
+  .tls$    vaddr=0x1B960000 vsize=0x00008DA0 raddr=0x1B561000 rsize=0x00008E00
+  .edata   vaddr=0x1B969000 vsize=0x0003CC78 raddr=0x1B569E00 rsize=0x0003CE00
+
+=== 目标字符串定位 ===
+  ML/MLBudgetSetting                         off=0x0265AC80 rva=0x0265BE80
+  ML/MLBudgetReport                          off=0x0265ACB8 rva=0x0265BEB8
+  ML/MLSeasonSalary                          off=0x0265AC40 rva=0x0265BE40
+  ML/Accounting/MLAccountingTransferFeeDetail off=0x0265AB90 rva=0x0265BD90
+  ML/Accounting/MLAccountingSalaryDetail     off=0x0265ABE8 rva=0x0265BDE8
+  Common/CmnFinanceReport                    off=0x0265AD68 rva=0x0265BF68
+  Common/CmnTransferMarket                   off=0x02658040 rva=0x02659240
+
+=== xref 扫描（.text 段 rip-relative 引用）===
+
+  [ML/MLBudgetSetting] rva=0x0265BE80 -> 0 处引用
+
+  [ML/MLBudgetReport] rva=0x0265BEB8 -> 0 处引用
+
+  [ML/MLSeasonSalary] rva=0x0265BE40 -> 0 处引用
+
+  [ML/Accounting/MLAccountingTransferFeeDetail] rva=0x0265BD90 -> 0 处引用
+
+  [ML/Accounting/MLAccountingSalaryDetail] rva=0x0265BDE8 -> 0 处引用
+
+  [Common/CmnFinanceReport] rva=0x0265BF68 -> 0 处引用
+
+  [Common/CmnTransferMarket] rva=0x02659240 -> 1 处引用
+      xref off=0x018D00B3 rva=0x018D0AB3

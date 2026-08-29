@@ -1,0 +1,700 @@
+  0  �������������� [AST ]  c0=GUNNERS | c1=LONDON OUR CITY | c2=ARSENAL FOREVER | c3=GOONERS ON TOUR
+  1  ���������      [BRI ]  c0=SOB ON THE TYNE | c1=AVFC  VILLIANS | c2=PRIDE  OF  BRUM | c3=TWELFTH  MAN
+  2  ���������      [BUR ]  c0=THE  SEAGULLS | c1=WE ARE THE SWC | c2=PRIDE OF SUSSEX | c3=STAND OR FALL
+  3  ���������      [CHE ]  c0=CLARETS MAD | c1=NO NAY NEVER | c2=BURNLEY ON TOUR | c3=MADE IN BRITAIN
+  4  ���������      [CRY ]  c0=PRIDE OF LONDON | c1=CHELSEA | c2=BARROW BLUES | c3=TERRY LEGEND
+  5  ���������      [EVE ]  c0=ULTRAS  CPFC | c1=THE GLAZIERS | c2=RAINHAM EAGLES | c3=CRYSTAL PALACE
+  6  ���������      [FUL ]  c0=TOFFEE ARMY | c1=EVERTON FC | c2=COSA NOSTRA | c3=EASTHAM ON TOUR
+  7  ���������      [LEE ]  c0=FULHAM  FC | c1=WE ARE FULHAM | c2=CRAVEN COTTAGE | c3=COTTAGERS
+  8  ������������   [LEI ]  c0=LEEDS UNITED | c1=WE ARE LEEDS | c2=LUFC FANS | c3=REVIES ARMY
+  9  ���������      [LIV ]  c0=THE GODFATHER | c1=LCFC  FOXES | c2=BLUE  ARMY | c3=GLORY  VARDY
+ 10  ������         [MCI ]  c0=FAMOUS  KOPITES | c1=YNWA | c2=KINGS OF EUROPE | c3=WE BELIEVE
+ 11  ������         [MUN ]  c0=MADCHESTER CITY | c1=SOUTH  STAND | c2=HATE  UNITED | c3=MCFC  CITIZENS
+ 12  �������������� [NEW ]  c0= | c1= | c2= | c3=
+ 13  �������������� [SHU ]  c0=GEORDIE  PRIDE | c1=TOON ARMY NUFC | c2=GALLOWGATE  END | c3=WE ARE UNITED
+ 14  ������������   [SOU ]  c0=SHEFFIELD UTD | c1=ONLY ONE UNITED | c2=THE BLADES | c3=WILDER FELLAS
+ 15  �������������� [TOT ]  c0=UP THE SAINTS | c1=SCUM ARMY | c2=FOREVER A SAINT | c3=DELL BOYS
+ 16  �������������� [WBA ]  c0=THE LANE | c1=COME ON SPURS | c2=TOTTENHAM FC | c3=SHELF  SIDE
+ 17  ������������   [WHU ]  c0=BAGGIES ON TOUR | c1=BOING BOING | c2=WBA TILL I DIE | c3=WE ARE ALBION
+ 18  ������         [WOL ]  c0=COME ON IRONS | c1=UNITED WE STAND | c2=THE HAMMERS | c3=EAST LONDON
+ 19  ������������   [ATA ]  c0=BARMY ARMY | c1=WE ARE WOLVES | c2=OS WOLVINHOS | c3=THE SUPPORTERS
+ 20  ������������   [BEN ]  c0=ATALANTA | c1=WILD KAOS | c2=BRIGATE BERGAMO | c3=
+ 21  ������������   [BOL ]  c0=CURVA SUD | c1=BENEVENTO | c2= | c3=
+ 22  ������������   [CAG ]  c0=FOREVER ULTRAS | c1=NOI ROSSOBLU | c2=FEDE ROSSOBLU | c3=
+ 23  ������������   [CRO ]  c0=SCONVOLTS | c1=ULTRAS CAGLIARI | c2= | c3=
+ 24  ������������   [FIO ]  c0=CURVA SUD | c1=CROTONE | c2=ULTRAS CROTONE | c3=
+ 25  ���������      [GEN ]  c0=ALTERATI | c1=SETTEBELLO | c2=FORZA VIOLA | c3=SEMPRE ASTORI
+ 26  ���������      [VER ]  c0=GRIFONE INSIDE | c1=OTTAVO BARBIERI | c2=GENOA | c3=
+ 27  ������������   [JUV ]  c0=HELLAS WALL | c1=LO SCALIGERO | c2= | c3=
+ 28  ���������      [LAZ ]  c0=NUCLEO | c1=VIKING | c2=DRUGHI | c3=GRUPPO MARCHE
+ 29  ������������   [INT ]  c0=SODALIZIO | c1=AVANTI LAZIO | c2=ULTRAS LAZIO | c3=SOLO LAZIO
+ 30  AC������       [MIL ]  c0=BOYS SAN | c1=VIKING | c2=GRUPPO BRUSCO | c3=IRRIDUCIBILI
+ 31  ������������   [NAP ]  c0=ROSSONERI | c1=TIFO MILAN | c2=CURVA SUD | c3=MILANO AC
+ 32  ���������      [PAR ]  c0=ULTRAS NAPOLI | c1=CURVA B | c2=BLUE TIGER | c3=MARADONA
+ 33  ������         [ROM ]  c0=BOYS | c1=DIFFIDATI | c2=ULTRAS LIBERI | c3=CURVA NORD
+ 34  �������������� [SAM ]  c0=CURVA SUD | c1=ULTRAS ROMANI | c2=AVANZATA ROMA | c3=TOTTI
+ 35  ���������      [SAS ]  c0=ULTRAS TITO | c1=FEDELISSIMI | c2=IRISH CLAN | c3=
+ 36  ������������   [SPE ]  c0=CURVA NORD | c1=SASSUOLO | c2=GRADINATA SUD | c3=HAI IN CASA
+ 37  ������         [TOR ]  c0=CURVA FERROVIA | c1=ULTRAS SPEZIA | c2=LO SPEZIA | c3=ROBUR
+ 38  ������������   [UDI ]  c0=GRANATA KOPS | c1=FEDELISSIMI | c2=PELLE GRANATA | c3=TORCIDA GRANATA
+ 39  ������������   [ALA ]  c0=FRIULANI | c1=HANGOVER KLAN | c2=UDINE | c3=DI NATALE
+ 40  �������������� [ATH ]  c0=ALAVES | c1=IRAULTZA | c2=HIL ARTE | c3=BABAZORROS
+ 41  ���������      [CAD ]  c0=HERRI NORTE | c1=GORA EUSKADI | c2=ZURI GORRIAK | c3=ABERTZALE SUR
+ 42  ���������      [EIB ]  c0=BRIGADAS | c1=ER GAFA | c2=LLNSN | c3=CADIZ CF
+ 43  ���������      [ELC ]  c0=ESKOZIA LABRAVA | c1=IPURUA | c2=ARMAGINAK | c3=SD EIBAR
+ 44  ������������   [BAR ]  c0=E C F | c1=FE EN VICTORIA | c2=ELX FIRM | c3=ULTRAS ELX
+ 45  ���������      [GET ]  c0=MES QUE UN CLUB | c1=LEO MESSI | c2=BARTO DIMISIO | c3=GRACIES JOHAN
+ 46  ������������   [GRA ]  c0=COMANDOS AZULES | c1=AUPA  GETA | c2=ORGULLO AZULON  | c3=BORDALAS
+ 47  ���������      [HUE ]  c0=SECCION KOLOKON | c1=ULTRA GRANADA | c2=ORGULLO NAZARI | c3=SUR GRANAINO
+ 48  ���������      [LEV ]  c0=ALCORAZADOS | c1=HUESCA FANS | c2=ORGULLO FATO | c3=YO NO REBLO
+ 49  �������������� [RMA ]  c0=GRANOTAS | c1=MACHO LLEVANT | c2=BLAUGRANETA | c3=DONES AGUSTINET
+ 50  �������������� [ATM ]  c0=GRADA  FANS | c1=ORGULLO VIKINGO | c2=LA CLASICA RMCF | c3=REYES DE EUROPA
+ 51  ������������   [OSA ]  c0=FRENTE ATLETICO | c1=AUPA ATLETI | c2=LUIS ARAGONES | c3=ANTIMADRIDISTAS
+ 52  ������������   [SEV ]  c0=INDAR GORRI | c1=EUSKAL HERRIA | c2=LIZARRA | c3=GORRITXOAK
+ 53  ���������      [BET ]  c0=BIRIS NORTE | c1=PUERTA ETERNO | c2=S F C | c3=SEVILLANIA
+ 54  ������������   [VAL ]  c0=SUPPORTERS SUR | c1=VIVA ER BETI | c2=JOAQUIN | c3=LA PALMERA
+ 55  �������������� [VLL ]  c0=ULTRAS YOMUS | c1=AMUNT VALENCIA | c2=CURVA NORD | c3=V C F
+ 56  ������������   [RSO ]  c0=KOMANDO VIOLETA | c1=INCONDICIONALES | c2=VAMOS PUCELA | c3=RVCF FANS
+ 57  �������������� [CEL ]  c0=MUJIKA TALDEA | c1=TXURIURDIN | c2=ERREALA | c3=AITOR ZABALETA
+ 58  �������������� [VIL ]  c0=AFOUTEZA | c1=CELTARRAS | c2=FORZA GALIZA | c3=BREOGAN
+ 59  ������         [SCO ]  c0=COLECTIVO | c1=FURIA AMARILLA | c2=BORRATXOTS | c3=CELTIC SUBMARI
+ 60  ���������      [GDB ]  c0=MAGIC SCOP | c1=ALLEZ SCO | c2=ANGERS SCO | c3=
+ 61  ������������   [SB  ]  c0=ULTRAMARINES | c1=IRREDUCTIBLES | c2=MARINE ET BLANC | c3=BLUE DEVILS
+ 62  ������         [DIJ ]  c0=HERMINE | c1=CELTIC ULTRAS | c2=ULTRAS BRESTOIS | c3=
+ 63  ������         [LIL ]  c0=LINGONS BOYS | c1=LES TEMERAIRES | c2=DOGS DIJON | c3=
+ 64  ���������      [FCL ]  c0=RIJSEL SPIRIT | c1=DOGUES DEVILS | c2=DVE LILLE | c3=
+ 65  ������         [FCM ]  c0=MERLUS ULTRAS | c1=BREIZH TANGOS | c2= | c3=
+ 66  ���������      [ASM ]  c0=HORDA FRENETIK | c1=GRUPPA METZ | c2= | c3=
+ 67  ������������   [MON ]  c0=ULTRAS MONACO | c1=DEO JUVANTE | c2= | c3=
+ 68  ������         [FCN ]  c0=BUTTE PAILLADE | c1=ARMATA ULTRAS | c2=CAMARGA UNITAT | c3=
+ 69  ������         [OGC ]  c0=BRIGADE LOIRE | c1=CORSAIRES | c2=CANARIS SUD | c3=
+ 70  ������         [NIM ]  c0=POPULAIRE SUD | c1=ULTRAS | c2=ISSA NISSA | c3=
+ 71  ������         [OL  ]  c0=GLADIATORS | c1=NEMAUSUS | c2=LES CROCOS | c3=
+ 72  ������         [OM  ]  c0=BAD GONES | c1=HEXAGONES | c2=KOP VIRAGE NORD | c3=
+ 73  �������������� [PSG ]  c0=COMMANDO ULTRAS | c1=SOUTH WINNERS | c2=YANKEES NORD | c3=FANATICS
+ 74  ������         [RCL ]  c0=ICI CEST PARIS | c1=COLLECTIF ULTRA | c2=ULTRAS PARIS | c3=PARIS COHORTIS
+ 75  ������         [REN ]  c0=TIGERS | c1=NORTH DEVILS | c2=KOP SANG ET OR | c3=BOLLAERT BOYS
+ 76  ������������   [STE ]  c0=ROAZHON CELTIC | c1=RCK | c2=STADE RENNAIS | c3=
+ 77  ������         [SDR ]  c0=MAGIC FANS | c1=GREEN ANGELS | c2= | c3=
+ 78  �������������� [RCS ]  c0=ULTREM | c1=ULTRAS REMOIS | c2= | c3=
+ 79  ������         [ADO ]  c0=ULTRA BOYS | c1=KOP CIEL BLANC | c2=DRAGONS BLEUS | c3=
+ 80  ������������   [AJA ]  c0= | c1= | c2= | c3=
+ 81  �������������� [AZ  ]  c0= | c1= | c2= | c3=
+ 82  ������         [EMM ]  c0= | c1= | c2= | c3=
+ 83  ������������   [FEY ]  c0= | c1= | c2= | c3=
+ 84  ���������      [FOR ]  c0= | c1= | c2= | c3=
+ 85  ������������   [GRO ]  c0= | c1= | c2= | c3=
+ 86  ���������      [HEE ]  c0= | c1= | c2= | c3=
+ 87  �������������� [HER ]  c0= | c1= | c2= | c3=
+ 88  ���������      [ZWO ]  c0= | c1= | c2= | c3=
+ 89  ������������   [PSV ]  c0= | c1= | c2= | c3=
+ 90  ������������   [RKC ]  c0= | c1= | c2= | c3=
+ 91  �������������� [SPA ]  c0= | c1= | c2= | c3=
+ 92  ���������      [TWE ]  c0= | c1= | c2= | c3=
+ 93  ������������   [UTR ]  c0= | c1= | c2= | c3=
+ 94  ���������      [VIT ]  c0= | c1= | c2= | c3=
+ 95  ������         [VVV ]  c0= | c1= | c2= | c3=
+ 96  ������������   [WIL ]  c0= | c1= | c2= | c3=
+ 97  ���������      [BEL ]  c0= | c1= | c2= | c3=
+ 98  ���������      [SLB ]  c0= | c1= | c2= | c3=
+ 99  �������������� [BOA ]  c0= | c1= | c2= | c3=
+100  ������������   [FAM ]  c0= | c1= | c2= | c3=
+101  ���������      [FAR ]  c0= | c1= | c2= | c3=
+102  ������������   [GIL ]  c0= | c1= | c2= | c3=
+103  �������������� [NAC ]  c0= | c1= | c2= | c3=
+104  ������������   [MAR ]  c0= | c1= | c2= | c3=
+105  ������������   [MOR ]  c0= | c1= | c2= | c3=
+106  ���������      [PFE ]  c0= | c1= | c2= | c3=
+107  �������������� [PTM ]  c0= | c1= | c2= | c3=
+108  ���������      [POR ]  c0= | c1= | c2= | c3=
+109  ������������   [RAV ]  c0= | c1= | c2= | c3=
+110  ������������   [STA ]  c0= | c1= | c2= | c3=
+111  ���������      [BRA ]  c0= | c1= | c2= | c3=
+112  �������������� [SCP ]  c0= | c1= | c2= | c3=
+113  ���������      [TON ]  c0= | c1= | c2= | c3=
+114  ������������   [GUI ]  c0= | c1= | c2= | c3=
+115  �������������� [AME ]  c0= | c1= | c2= | c3=
+116  �������������� [CAP ]  c0= | c1= | c2= | c3=
+117  �������������� [ACG ]  c0= | c1= | c2= | c3=
+118  �������������� [CAM ]  c0= | c1= | c2= | c3=
+119  ���������      [BAH ]  c0= | c1= | c2= | c3=
+120  �������������� [CEA ]  c0= | c1= | c2= | c3=
+121  ������������   [CHA ]  c0= | c1= | c2= | c3=
+122  ������������   [COR ]  c0= | c1= | c2= | c3=
+123  ���������      [CUI ]  c0= | c1= | c2= | c3=
+124  ������������   [FLA ]  c0= | c1= | c2= | c3=
+125  �������������� [FLU ]  c0= | c1= | c2= | c3=
+126  ������������   [FOR ]  c0= | c1= | c2= | c3=
+127  ������������   [GRE ]  c0= | c1= | c2= | c3=
+128  ������         [INT ]  c0=CASADOIMORTAL | c1=GREMIO | c2=TORCIDA JOVEM | c3=GERAL
+129  ������������   [JUV ]  c0= | c1= | c2= | c3=
+130  �������������� [PAL ]  c0= | c1= | c2= | c3=
+131  �������������� [RBB ]  c0=MANCHA VERDE | c1=FORZA PALESTRA | c2=PALMEIRAS | c3=
+132  ���������      [SAN ]  c0= | c1= | c2= | c3=
+133  ���������      [SAO ]  c0= | c1= | c2= | c3=
+134  �������������� [SPO ]  c0= | c1= | c2= | c3=
+135  �������������� [ALD ]  c0= | c1= | c2= | c3=
+136  �������������� [ARG ]  c0= | c1= | c2= | c3=
+137  ���������      [ARS ]  c0= | c1= | c2= | c3=
+138  �������������� [ATU ]  c0= | c1= | c2= | c3=
+139  ������������   [BAN ]  c0= | c1= | c2= | c3=
+140  ������������   [BOC ]  c0= | c1= | c2= | c3=
+141  �������������� [COR ]  c0= | c1= | c2= | c3=
+142  ������������   [COL ]  c0= | c1= | c2= | c3=
+143  �������������� [DYJ ]  c0= | c1= | c2= | c3=
+144  �������������� [EST ]  c0= | c1= | c2= | c3=
+145  �������������� [GIM ]  c0= | c1= | c2= | c3=
+146  �������������� [GOD ]  c0= | c1= | c2= | c3=
+147  ������������   [HUR ]  c0= | c1= | c2= | c3=
+148  ������         [IND ]  c0= | c1= | c2= | c3=
+149  ���������      [LAN ]  c0= | c1= | c2= | c3=
+150  �������������� [NOB ]  c0= | c1= | c2= | c3=
+151  �������������� [PAT ]  c0= | c1= | c2= | c3=
+152  ������������   [CAP ]  c0= | c1= | c2= | c3=
+153  ������         [RAC ]  c0= | c1= | c2= | c3=
+154  ������         [RIV ]  c0= | c1= | c2= | c3=
+155  �������������� [RC  ]  c0= | c1= | c2= | c3=
+156  ������������   [SLO ]  c0= | c1= | c2= | c3=
+157  �������������� [SAR ]  c0= | c1= | c2= | c3=
+158  �������������� [TAL ]  c0= | c1= | c2= | c3=
+159  ������������   [CAU ]  c0= | c1= | c2= | c3=
+160  �������������� [VEL ]  c0= | c1= | c2= | c3=
+161  �������������� [FCB ]  c0= | c1= | c2= | c3=
+162  �������������� [DSC ]  c0=SCHICKERIA | c1=VERINGENDORF | c2=MIA SAN MIA | c3=RED MUNICHS
+163  ������������   [FCU ]  c0=UNSER DSC | c1=KRITISCHE | c2=BLUE ARMY | c3=ALM ADLER
+164  �������������� [BMG ]  c0=EISEERN UNION | c1=FCU | c2=FC UNION | c3=BERLIN
+165  ������������   [SGE ]  c0=HAMMERSZENE | c1=NEUNZHEHNHUNDER | c2=BOKELBERG | c3=RAUTEN POWER
+166  ���������04    [S04 ]  c0=EINTRACHT | c1=EFC EAGLES | c2=SGE | c3=EFC ADLER
+167  ������������   [FCA ]  c0=BLAU UND WEIST | c1=THOMASBERG | c2=GELSENKIRCHEN | c3=DER MYTHOS LEB
+168  ������         [KOE ]  c0=LEGIO AUGUSTA | c1=EIN GILES TEAM | c2=BLACK SHEEPZ | c3=FUGGERSTADTER
+169  ������������   [BSC ]  c0=BOYZ KOLN | c1=WILDE HORDE | c2=COLONIACS | c3=EAST BELGIUM
+170  ������������   [TSG ]  c0=HERTHA FANS | c1=KURVENDAMPVER | c2=OSTKURVE HERTHA | c3=H B S C
+171  ���������      [FSV ]  c0=IMMER WEITER | c1=SUPER HOPP | c2=ERSTKLASSIG | c3=TSG
+172  RB���������    [RBL ]  c0=DIE NULLFUNFER | c1=KARNAVALSVEREIN | c2=GEMEINSAM | c3=MAGIUNCA
+173  ���������      [FRE ]  c0=DIE BULLEN | c1=RASENBALLSPORT | c2=RED PIRATES | c3=L E BULLS
+174  ������������   [VFB ]  c0=STREICH ULTRAS | c1=SUD BADE | c2=BREISGAU | c3=CORRILLO
+175  ������������   [LEV ]  c0=CANNSTATT | c1=ULTRAS | c2=VORWARTS VFB | c3=SCHWABEN POWER
+176  ������������   [BVB ]  c0=NORDKAOS | c1=INSANE | c2=LEVERKUSEN | c3=LEV ELITE
+177  �������������� [SVW ]  c0=BORSTI | c1=ECHTE LIEBE | c2=DETMOLD | c3=BORUSSIA
+178  �������������� [WOB ]  c0=S V WERDER | c1=WANDERERS | c2=WERDER BREMEN | c3=INFAMOUS
+179  �������������� [ATL ]  c0=ANGELS | c1=BRIGADE ULTRAS | c2=NORD KURVE | c3=DIE WOLFE
+180  �������������� [CHI ]  c0=UNIT | c1= | c2= | c3=
+181  �������������� [COL ]  c0=SUPPORT THEFIRE | c1=SECTION CHICAGO | c2=SECTOR LATINO | c3=
+182  �������������� [CLB ]  c0=CRSC | c1=RAPIDS TILLIDIE | c2=AURORA | c3=COLORADO SPRING
+183  �������������� [DCU ]  c0=OHIO ORGANIC | c1=NORDECKE | c2=MASSIVE | c3=
+184  �������������� [MIN ]  c0=RISE UP UNITED | c1=DC UNITED | c2=FIRST BLOOD | c3=OLSEN S ARMY
+185  ���������FC    [DAL ]  c0=MNUFCSUPPORTERS | c1=MINNESOTA | c2= | c3=
+186  �������������� [HOU ]  c0=FCD | c1=DALLAS GUARDIAN | c2=INFERNO | c3=FCD BELIEVERS
+187  ���������FC    [LFC ]  c0=TEXIAN ARMY | c1=EL BATALLON | c2=FOREVER ORANGE | c3=BRICKWALL
+188  �������������� [LAG ]  c0=WE ARE LAFC | c1= | c2= | c3=
+189  �������������� [SEA ]  c0=LA RIOT SQUAD | c1=THIS IS LA | c2=ANGEL CITY | c3=BRIGADE
+190  �������������� [MON ]  c0=GORILLA FC | c1=FIGT ZIND WIN | c2=EMERALD CITY | c3=
+191  �������������� [NER ]  c0=ULTRAS MONTREAL | c1=MTL | c2=ULTRAS | c3=
+192  ���������      [NYC ]  c0=REVOLUTION | c1=N.E.R. FAN ZONE | c2= | c3=
+193  ������������   [NYR ]  c0=WE ARE NYC | c1=THE THIRD RAILD | c2=LOS TEMPLADOS | c3=
+194  ���������FC    [TOR ]  c0=WE ARE RED | c1=TOGETHER | c2=VIKING ARMY | c3=RED BULLS
+195  ������������   [PHI ]  c0=KING INTHENORTH | c1=OLD FANS | c2=TFC TILL WE DIE | c3=
+196  �������������� [POR ]  c0=PHILLY UNION | c1= | c2= | c3=
+197  �������������� [RSL ]  c0=TIMBERS ARMY | c1=LONESTARBRIGADE | c2=CASCADIA | c3=STAND TOGETHER
+198  �������������� [SJE ]  c0=SECTION XVVI | c1=LA BARRA REAL | c2=SALTLAKETILLDIE | c3=RSLC
+199  ������������   [COS ]  c0=SAN JOSE ULTRAS | c1=FORWARD AS ONE | c2=QUAKES | c3=
+200  �������������� [SPP ]  c0=WE ARE OSAKA | c1=PRIDE OF OSAKA | c2=OSAKA CITY FC | c3=OUR CITY
+201  ������������   [GAO ]  c0=WE ARE SAPPORO | c1=NO SURRENDER | c2=ULTRA SAPPORO | c3=SAPPORO
+202  ������������   [KAA ]  c0=GAMBINO | c1=CURVA NORD | c2=SLEDGEHAMOR BRS | c3=CURVA NORD
+203  ������������   [KAS ]  c0=SPIRIT OF ZICO | c1=FOOTBALL DREAM | c2=KASHIMA ANTLERS | c3=ANTLERS
+204  ������������   [KAF ]  c0=LETS GO KASHIWA | c1=ALWAYS REYSOL | c2=HIACHI | c3=KASHIWA REYSOL
+205  ������������   [NGY ]  c0=FRONTALE | c1=FORZA KAWASAKI | c2=NO PAIN NO GAIN | c3=PAINT IT BLUE
+206  ������������   [OIT ]  c0=ULTRAS NAGOYA | c1=LA FAMIGLIA | c2=ROSSO BRILLANTE | c3=NOSTRA NAGOYA
+207  ������������   [TSU ]  c0=REI DO KYUSU | c1=BOBOMAXIMO | c2=OITA | c3=ALLPOWER TO WIN
+208  ������������   [SAH ]  c0=SAGANTINO | c1=NORD | c2=ONESTAMENT | c3=PRISCO
+209  ������������   [SMZ ]  c0=BAD BOYS | c1=URSUS | c2=GREAT VIOLET | c3=EL MORADO
+210  ������������   [SHN ]  c0=S PULSE | c1=SMZ ULTRAS | c2=UK ULTRAS | c3=SHIMIZU
+211  ������������   [URD ]  c0=SHONAN MI VIDA | c1=FRENTE MI VIDA | c2=SUPER WAVES | c3=PASION
+212  ������������   [SEN ]  c0=PRIDE URAWA | c1=WE ARE REDS | c2=URAWA BOYS | c3=TRUE REDS
+213  ������FC       [YFC ]  c0= | c1= | c2= | c3=
+214  ������������   [YFM ]  c0=BLU  TIGRE | c1=TIFOSI YOKOHAMA | c2=ETERNA BOYS | c3=MAD VOICE
+215  FC������       [TOK ]  c0=YOKOHAMA | c1=PRIDE TRICOLOR | c2=BRIGADA | c3=ULTRA YOKOHAMA
+216  �������������� [KBE ]  c0=FC TOKYO | c1=KING AMARAL | c2=GAS FOREVER | c3=WE ARE TOKYO
+217  �������������� [AUD ]  c0=VISSEL KOBE | c1=WE ARE KOBE | c2=SHALL OVERCOME | c3=NEVER FORGET
+218  �������������� [CSL ]  c0= | c1= | c2= | c3=
+219  ������������   [CC  ]  c0= | c1= | c2= | c3=
+220  ���������      [CUR ]  c0= | c1= | c2= | c3=
+221  �������������� [ANT ]  c0= | c1= | c2= | c3=
+222  ������������   [LAS ]  c0= | c1= | c2= | c3=
+223  �������������� [MEP ]  c0= | c1= | c2= | c3=
+224  �������������� [EVE ]  c0= | c1= | c2= | c3=
+225  ������������   [HUA ]  c0= | c1= | c2= | c3=
+226  ������������   [NUB ]  c0= | c1= | c2= | c3=
+227  ������������   [OHI ]  c0= | c1= | c2= | c3=
+228  �������������� [PAL ]  c0= | c1= | c2= | c3=
+229  �������������� [SW  ]  c0= | c1= | c2= | c3=
+230  �������������� [UE  ]  c0= | c1= | c2= | c3=
+231  �������������� [ULC ]  c0= | c1= | c2= | c3=
+232  �������������� [UC  ]  c0= | c1= | c2= | c3=
+233  ������������   [UCH ]  c0= | c1= | c2= | c3=
+234  ������������   [BAR ]  c0= | c1= | c2= | c3=
+235  ������������   [BIR ]  c0=B F C | c1=THE TYKES | c2=RED ARMY | c3=BARNSLEY
+236  ������������   [BLA ]  c0=KEEP ON RIGHT | c1=PEAKY BLINDERS | c2=COME ON BLUES | c3=B C F C
+237  ������������   [BOU ]  c0=ROVERS | c1= B R F C | c2=SUPER  ROVERS | c3=
+238  �������������� [BRE ]  c0=THE CHERRIES | c1=THE SOUTH END | c2=A F C B | c3=CHERRY ARMY
+239  �������������� [BRI ]  c0=B  F  C | c1=BRENTFORD | c2=WE ARE BEES | c3=
+240  ������������   [CAR ]  c0=BRISTOL PRIDE | c1=B C F C | c2=CITY KIDS | c3=EAST END ULTRAS
+241  ���������      [COV ]  c0=CARDIFF CITY | c1=PRIDE OF WALES | c2=BLUEBIRDS | c3=STAY  BLUE
+242  ���������      [DER ]  c0=SISU  OUT | c1=CITY CITY CITY | c2=SKYBLUES | c3=C C F C
+243  �������������� [HUD ]  c0=DERBY COUNTY | c1=WE ARE DERBY | c2=SUPER RAMS | c3= D C F C
+244  ������         [LUT ]  c0=BLUE WHITE ARMY | c1=YORKSHIRE PRIDE | c2=H T F C  | c3=TERRIERS SPIRIT
+245  �������������� [MID ]  c0=HATTERS | c1=L T F C | c2=TRUST IN LUTON | c3=LOYAL LUTON
+246  ������������   [MIL ]  c0=MIDDLESBROUGH | c1=BORO BOYS | c2=RED FACTION | c3=ULTRA BORO
+247  ���������      [NOR ]  c0=MILLWALL | c1=NO ONE LIKE US | c2=COLD BLOW BOYS | c3=MFC LIONS
+248  �������������� [NOT ]  c0=ONE CITY STRONG | c1=N C F C | c2=NCFC HAMPHSIRE | c3=THE CANARIES
+249  ������������   [PRE ]  c0=THE FOREST | c1=HOME OF LEGENDS | c2=TOGETHER FOREST | c3=FAWAZ OUT
+250  �������������� [QPR ]  c0=PROUD PRESTON | c1=P N E F C | c2=NORTHEND GENTRY | c3=PRESTONIANS
+251  ������         [REA ]  c0=WE ARE QPR | c1=PRIDE OF LONDON | c2=LOUD PROUD QPR | c3=WEST LONDON
+252  ������������   [ROT ]  c0=READING FC | c1=THE ROYALS | c2=WE ARE READING | c3=
+253  ���������      [SHW ]  c0=MILLERS | c1=R U F C | c2=ROTHERHAM | c3=
+254  ������������   [STO ]  c0=SHEFFIELD LOYAL | c1=NORTH PRIDE | c2=WEDNESDAY | c3=S W F C
+255  ������������   [SWA ]  c0=THE POTTERS | c1=WE ARE STOKE | c2=STOKE LOYALIST | c3=LOUD AND PROUD
+256  ������������   [WAT ]  c0=JACK ARMY | c1=S C F C | c2=SCAFC ABERTAWE | c3=SWANS JACKS
+257  �������������� [WYC ]  c0=THE HORNETS | c1=YELLOW ARMY | c2=W F C | c3=SOUTH COAST
+258  �������������� [ALB ]  c0=CHAIRBOYS | c1=FOREVER BLUES | c2=WYCOMBE | c3=AKINFENWA
+259  ������������   [ALC ]  c0=BRIGADAS | c1=SQUADRA ALBA | c2=QUESO MECANICO | c3=CURVA ROMMEL
+260  �������������� [ALM ]  c0=ALKOR HOOLIGANS | c1=VALDERAS ALKOR | c2=SECCION PETAKA | c3=A D A
+261  ������������   [CAR ]  c0=GRADA JOVEN | c1=ROJIBLANCOS | c2=INDALO | c3=U D A
+262  �������������� [CAS ]  c0= | c1= | c2= | c3=
+263  �������������� [FUE ]  c0=PAM PAM  | c1=ORELLUT | c2=CASTALIA | c3=VAMOS CASTELLON
+264  ������������   [SPO ]  c0=KIRIKOS | c1=LA DOCE SUR | c2=FUENLABRADA | c3=FIEBRE AZUL
+265  ���������      [GIR ]  c0=ULTRA BOYS | c1=FONDO SUR | c2=QUINI | c3=ANTIOVIEDISTAS
+266  �������������� [LPA ]  c0=FOLLS DEL NORD | c1=IMMORTAL GIRONA | c2=ORGULL GIRONI | c3=ELOI AMAGAT
+267  ������������   [LEG ]  c0=PIO PIO | c1=ULTRAS NACIENTE | c2=ORGULLO CANARIO | c3=U D L P
+268  ������������   [ESP ]  c0=GHETTO SUR | c1=CURVA SUR | c2=PENA PEPINERA | c3=VAMOS  LEGA
+269  �������������� [LOG ]  c0=BRIGADES | c1=R C D E | c2=PERIQUITOS | c3=BLANQUIAZULES
+270  ������������   [LUG ]  c0=LAS GAUNAS | c1=VAMOS LOGRONES | c2=U D L | c3=
+271  ���������      [MAL ]  c0=BRIGADAS | c1=LUCENTES | c2=HINCHADA ROSA | c3=SIAREIROS
+272  ���������      [MLL ]  c0=FRENTE BOKERON | c1=MALAKA  TIFO | c2=ALBICELESTE | c3=AL THANI OUT
+273  �������������� [MIR ]  c0=BARRALETS | c1=BERMELLONES | c2=MALLORCA | c3=ROJINEGROS
+274  �������������� [OVI ]  c0=JABATOS | c1=KOMANDO KEMANDO | c2=ROJILLOS | c3=C D M
+275  �������������� [PON ]  c0=PENA  AZUL | c1=REAL OVIEDO | c2=SYMMACHIARII | c3=CARBAYONES
+276  ������������   [SAB ]  c0=PONFE | c1=S D P | c2=VAMOS DEPORTIVA | c3=FRENTE NORTE
+277  ������������   [TEN ]  c0=C E S F C | c1=SABADELL | c2= | c3=
+278  ������������   [RAY ]  c0=GUAYOTA GUANCHE | c1=CHICHARREROS | c2=JUVENTUD ALZADA | c3=BLANQUIAZULES
+279  ������������   [ZAR ]  c0=BUKANEROS | c1=ULTIMO ASALTO | c2=RAYO VALLEKANO | c3=VAMOS RAYITO
+280  ������������   [ACA ]  c0=LIGALLO NORTE | c1=COLECTIVO | c2=BLANQUIAZULES | c3=R  Z
+281  ������         [ASC ]  c0= | c1= | c2= | c3=
+282  ���������      [AJA ]  c0= | c1= | c2= | c3=
+283  ������         [SMC ]  c0= | c1= | c2= | c3=
+284  ���������      [CHB ]  c0= | c1= | c2= | c3=
+285  ���������      [LBC ]  c0= | c1= | c2= | c3=
+286  ���������      [CLE ]  c0= | c1= | c2= | c3=
+287  ������������   [DKQ ]  c0= | c1= | c2= | c3=
+288  �������������� [GRB ]  c0= | c1= | c2= | c3=
+289  ������         [EAG ]  c0= | c1= | c2= | c3=
+290  ������������   [HAC ]  c0= | c1= | c2= | c3=
+291  ������         [ASN ]  c0= | c1= | c2= | c3=
+292  �������������� [NIO ]  c0= | c1= | c2= | c3=
+293  ������FC       [PFC ]  c0= | c1= | c2= | c3=
+294  ������         [PAU ]  c0= | c1= | c2= | c3=
+295  ���������      [ROD ]  c0= | c1= | c2= | c3=
+296  ������         [SOC ]  c0= | c1= | c2= | c3=
+297  ���������      [TFC ]  c0= | c1= | c2= | c3=
+298  ���������      [TRO ]  c0= | c1= | c2= | c3=
+299  ������������   [VA  ]  c0= | c1= | c2= | c3=
+300  ������������   [ASC ]  c0= | c1= | c2= | c3=
+301  ������������   [BRE ]  c0= | c1= | c2= | c3=
+302  ������         [CHI ]  c0= | c1= | c2= | c3=
+303  ������������   [CIT ]  c0= | c1= | c2= | c3=
+304  ���������      [COS ]  c0= | c1= | c2= | c3=
+305  ������������   [CRE ]  c0= | c1= | c2= | c3=
+306  ���������      [EMP ]  c0= | c1= | c2= | c3=
+307  �������������� [FRO ]  c0= | c1= | c2= | c3=
+308  ������         [LEC ]  c0= | c1= | c2= | c3=
+309  ���������      [VIC ]  c0= | c1= | c2= | c3=
+310  ������         [MOB ]  c0= | c1= | c2= | c3=
+311  ������������   [PES ]  c0= | c1= | c2= | c3=
+312  ������         [PIS ]  c0= | c1= | c2= | c3=
+313  ������������   [POR ]  c0= | c1= | c2= | c3=
+314  ������������   [RGA ]  c0= | c1= | c2= | c3=
+315  ���������      [REG ]  c0= | c1= | c2= | c3=
+316  �������������� [SAL ]  c0= | c1= | c2= | c3=
+317  ���������      [SPA ]  c0= | c1= | c2= | c3=
+318  ���������      [VNZ ]  c0= | c1= | c2= | c3=
+319  ���������      [ENT ]  c0= | c1= | c2= | c3=
+320  �������������� [AND ]  c0= | c1= | c2= | c3=
+321  ������������   [ANT ]  c0= | c1= | c2= | c3=
+322  ������������   [BEE ]  c0= | c1= | c2= | c3=
+323  �������������� [CER ]  c0= | c1= | c2= | c3=
+324  ���������      [BRU ]  c0= | c1= | c2= | c3=
+325  ������         [GNK ]  c0= | c1= | c2= | c3=
+326  ������         [GNT ]  c0= | c1= | c2= | c3=
+327  ���������      [EUP ]  c0= | c1= | c2= | c3=
+328  ������������   [KVK ]  c0= | c1= | c2= | c3=
+329  ������������   [KVO ]  c0= | c1= | c2= | c3=
+330  ���������      [KVM ]  c0= | c1= | c2= | c3=
+331  ������������   [OHL ]  c0= | c1= | c2= | c3=
+332  �������������� [REM ]  c0= | c1= | c2= | c3=
+333  ������������   [STV ]  c0= | c1= | c2= | c3=
+334  ������������   [CHA ]  c0= | c1= | c2= | c3=
+335  ������������   [STA ]  c0= | c1= | c2= | c3=
+336  �������������� [WBE ]  c0= | c1= | c2= | c3=
+337  ������������   [ZUL ]  c0= | c1= | c2= | c3=
+338  �������������� [AKH ]  c0= | c1= | c2= | c3=
+339  �������������� [ARS ]  c0= | c1= | c2= | c3=
+340  �������������� [CSK ]  c0= | c1= | c2= | c3=
+341  �������������� [DMO ]  c0= | c1= | c2= | c3=
+342  ���������      [KHI ]  c0= | c1= | c2= | c3=
+343  �������������� [KRA ]  c0= | c1= | c2= | c3=
+344  �������������� [LMO ]  c0= | c1= | c2= | c3=
+345  ������������   [FCR ]  c0= | c1= | c2= | c3=
+346  �������������� [RVG ]  c0= | c1= | c2= | c3=
+347  �������������� [RKA ]  c0= | c1= | c2= | c3=
+348  ������         [SOC ]  c0= | c1= | c2= | c3=
+349  �������������� [SPM ]  c0= | c1= | c2= | c3=
+350  ���������      [TAM ]  c0= | c1= | c2= | c3=
+351  ������         [UFA ]  c0= | c1= | c2= | c3=
+352  ���������      [FCU ]  c0= | c1= | c2= | c3=
+353  �������������� [ZSP ]  c0= | c1= | c2= | c3=
+354  ���������      [BAS ]  c0= | c1= | c2= | c3=
+355  ������������   [LAU ]  c0= | c1= | c2= | c3=
+356  ���������      [LUG ]  c0= | c1= | c2= | c3=
+357  ���������      [LUZ ]  c0= | c1= | c2= | c3=
+358  ������������   [SER ]  c0= | c1= | c2= | c3=
+359  ������         [SIO ]  c0= | c1= | c2= | c3=
+360  ���������      [SG  ]  c0= | c1= | c2= | c3=
+361  ���������      [VAD ]  c0= | c1= | c2= | c3=
+362  �������������� [YB  ]  c0= | c1= | c2= | c3=
+363  ���������      [FCZ ]  c0= | c1= | c2= | c3=
+364  �������������� [ALA ]  c0= | c1= | c2= | c3=
+365  �������������� [ANK ]  c0= | c1= | c2= | c3=
+366  �������������� [ANT ]  c0= | c1= | c2= | c3=
+367  �������������� [ERZ ]  c0= | c1= | c2= | c3=
+368  �������������� [BJK ]  c0= | c1= | c2= | c3=
+369  �������������� [DNZ ]  c0= | c1= | c2= | c3=
+370  �������������� [FKS ]  c0= | c1= | c2= | c3=
+371  ������������   [FB  ]  c0= | c1= | c2= | c3=
+372  �������������� [GS  ]  c0= | c1= | c2= | c3=
+373  �������������� [GZT ]  c0= | c1= | c2= | c3=
+374  ������������   [GEN ]  c0= | c1= | c2= | c3=
+375  ������������   [GOZ ]  c0= | c1= | c2= | c3=
+376  �������������� [HTY ]  c0= | c1= | c2= | c3=
+377  �������������� [BFK ]  c0= | c1= | c2= | c3=
+378  ������������   [KAS ]  c0= | c1= | c2= | c3=
+379  �������������� [KAY ]  c0= | c1= | c2= | c3=
+380  �������������� [KON ]  c0= | c1= | c2= | c3=
+381  ������������   [RIZ ]  c0= | c1= | c2= | c3=
+382  �������������� [SIV ]  c0= | c1= | c2= | c3=
+383  �������������� [TS  ]  c0= | c1= | c2= | c3=
+384  �������������� [YMA ]  c0= | c1= | c2= | c3=
+385  ������������   [ALI ]  c0= | c1= | c2= | c3=
+386  ������������   [AME ]  c0= | c1= | c2= | c3=
+387  �������������� [BUC ]  c0= | c1= | c2= | c3=
+388  ������������   [NAC ]  c0= | c1= | c2= | c3=
+389  �������������� [CHI ]  c0= | c1= | c2= | c3=
+390  �������������� [CUC ]  c0= | c1= | c2= | c3=
+391  ���������      [TOL ]  c0= | c1= | c2= | c3=
+392  ������������   [CAL ]  c0= | c1= | c2= | c3=
+393  �������������� [PAS ]  c0= | c1= | c2= | c3=
+394  �������������� [DPR ]  c0= | c1= | c2= | c3=
+395  ������������   [ENV ]  c0= | c1= | c2= | c3=
+396  �������������� [MED ]  c0= | c1= | c2= | c3=
+397  �������������� [JAG ]  c0= | c1= | c2= | c3=
+398  �������������� [JUN ]  c0= | c1= | c2= | c3=
+399  �������������� [EQU ]  c0= | c1= | c2= | c3=
+400  ������������   [MIL ]  c0= | c1= | c2= | c3=
+401  ������������   [ONC ]  c0= | c1= | c2= | c3=
+402  �������������� [PAT ]  c0= | c1= | c2= | c3=
+403  �������������� [RIO ]  c0= | c1= | c2= | c3=
+404  ���������      [SFE ]  c0= | c1= | c2= | c3=
+405  �������������� [BJG ]  c0= | c1= | c2= | c3=
+406  ������������   [CQD ]  c0= | c1= | c2= | c3=
+407  ���������      [DLP ]  c0= | c1= | c2= | c3=
+408  �������������� [GZE ]  c0= | c1= | c2= | c3=
+409  ������������   [GRF ]  c0= | c1= | c2= | c3=
+410  �������������� [HBC ]  c0= | c1= | c2= | c3=
+411  ������������   [HNJ ]  c0= | c1= | c2= | c3=
+412  �������������� [JSS ]  c0= | c1= | c2= | c3=
+413  �������������� [QDH ]  c0= | c1= | c2= | c3=
+414  �������������� [SDL ]  c0= | c1= | c2= | c3=
+415  �������������� [SHS ]  c0= | c1= | c2= | c3=
+416  ������������   [SHP ]  c0= | c1= | c2= | c3=
+417  �������������� [SZK ]  c0= | c1= | c2= | c3=
+418  �������������� [SJZ ]  c0= | c1= | c2= | c3=
+419  ������������   [TJT ]  c0= | c1= | c2= | c3=
+420  ������������   [WHZ ]  c0= | c1= | c2= | c3=
+421  ���������      [ABE ]  c0= | c1= | c2= | c3=
+422  ������������   [CEL ]  c0= | c1= | c2= | c3=
+423  ���������      [DUD ]  c0= | c1= | c2= | c3=
+424  ������������   [HAM ]  c0= | c1= | c2= | c3=
+425  ������������   [HIB ]  c0= | c1= | c2= | c3=
+426  �������������� [KIL ]  c0= | c1= | c2= | c3=
+427  ������������   [LIV ]  c0= | c1= | c2= | c3=
+428  ������������   [MOT ]  c0= | c1= | c2= | c3=
+429  �������������� [RAN ]  c0= | c1= | c2= | c3=
+430  ���������      [ROS ]  c0= | c1= | c2= | c3=
+431  �������������� [STJ ]  c0= | c1= | c2= | c3=
+432  ���������      [STM ]  c0= | c1= | c2= | c3=
+433  ���������      [AAB ]  c0= | c1= | c2= | c3=
+434  �������������� [AGF ]  c0= | c1= | c2= | c3=
+435  ������������   [BIF ]  c0= | c1= | c2= | c3=
+436  ������������   [ACH ]  c0= | c1= | c2= | c3=
+437  ������������   [FCK ]  c0= | c1= | c2= | c3=
+438  ������         [LYN ]  c0= | c1= | c2= | c3=
+439  ������������   [FCM ]  c0= | c1= | c2= | c3=
+440  ���������      [FCN ]  c0= | c1= | c2= | c3=
+441  ���������      [OB  ]  c0= | c1= | c2= | c3=
+442  ���������      [RFC ]  c0= | c1= | c2= | c3=
+443  �������������� [SJE ]  c0= | c1= | c2= | c3=
+444  ���������      [VBK ]  c0= | c1= | c2= | c3=
+445  BG���������    [BGP ]  c0= | c1= | c2= | c3=
+446  ������������   [BRU ]  c0= | c1= | c2= | c3=
+447  ���������      [SCU ]  c0= | c1= | c2= | c3=
+448  ���������      [CHO ]  c0= | c1= | c2= | c3=
+449  ������         [NRM ]  c0= | c1= | c2= | c3=
+450  ������������   [PCT ]  c0= | c1= | c2= | c3=
+451  ������������   [POR ]  c0= | c1= | c2= | c3=
+452  ������������   [PTP ]  c0= | c1= | c2= | c3=
+453  ������������   [RMP ]  c0= | c1= | c2= | c3=
+454  ������FC       [RYN ]  c0= | c1= | c2= | c3=
+455  ���������      [SPC ]  c0= | c1= | c2= | c3=
+456  ���������      [MTU ]  c0= | c1= | c2= | c3=
+457  ���������      [SUK ]  c0= | c1= | c2= | c3=
+458  ������������   [SUP ]  c0= | c1= | c2= | c3=
+459  ������         [TRA ]  c0= | c1= | c2= | c3=
+460  ���������      [TBU ]  c0= | c1= | c2= | c3=
+461  ���������      [AVA ]  c0= | c1= | c2= | c3=
+462  ������������   [BOT ]  c0= | c1= | c2= | c3=
+463  �������������� [BRA ]  c0= | c1= | c2= | c3=
+464  ������������   [BRQ ]  c0= | c1= | c2= | c3=
+465  ������������   [CON ]  c0= | c1= | c2= | c3=
+466  ������������   [CFC ]  c0= | c1= | c2= | c3=
+467  ������������   [CRB ]  c0= | c1= | c2= | c3=
+468  ������������   [CRU ]  c0= | c1= | c2= | c3=
+469  �������������� [CSA ]  c0= | c1= | c2= | c3=
+470  ���������      [GOI ]  c0= | c1= | c2= | c3=
+471  ���������      [GUA ]  c0= | c1= | c2= | c3=
+472  ������������   [LON ]  c0= | c1= | c2= | c3=
+473  �������������� [NAU ]  c0= | c1= | c2= | c3=
+474  �������������� [OPE ]  c0= | c1= | c2= | c3=
+475  �������������� [PON ]  c0= | c1= | c2= | c3=
+476  ������         [CLR ]  c0= | c1= | c2= | c3=
+477  �������������� [SAM ]  c0= | c1= | c2= | c3=
+478  �������������� [VAS ]  c0= | c1= | c2= | c3=
+479  ������������   [VIL ]  c0= | c1= | c2= | c3=
+480  ������������   [VIT ]  c0= | c1= | c2= | c3=
+481  ������AEK      [AEK ]  c0= | c1= | c2= | c3=
+482  �������������� [CSK ]  c0= | c1= | c2= | c3=
+483  �������������� [FER ]  c0=CSKA SOFIA | c1=OFFENDERS | c2=C S K A | c3=ANIMALS
+484  ���������      [CLU ]  c0=HAJRA FRADI | c1=ZOLD SASOK | c2=FRADI | c3=FERENCVAROSI
+485  �������������� [DZG ]  c0=C F R | c1=CLUJ | c2=CFR CLUJ | c3=
+486  �������������� [DYN ]  c0= | c1= | c2= | c3=
+487  �������������� [BFC ]  c0= | c1= | c2= | c3=
+488  ������������   [SAR ]  c0=BOHS | c1=BFC | c2=GYPSIES | c3=
+489  ������������   [RBS ]  c0=HORDE ZLA | c1=HZ DOBRINJA | c2=SARAJEVO | c3=ARMIJA BIH
+490  �������������� [SCR ]  c0= | c1= | c2= | c3=
+491  ���������      [ZOR ]  c0=RAPID WIEN | c1=ULTRAS RAPID | c2=BLOCK WEST | c3=S     C     R
+492  ������������   [HAJ ]  c0=MUZHYKY | c1=BW ULTRAS | c2=ZORYA LUHANSK | c3=
+493  �������������� [LUD ]  c0=TORCIDA SPLIT | c1=HAJDUK | c2=NAPRID NASI | c3=NAPRID BILI
+494  �������������� [CZD ]  c0=AYATOPEU | c1=LUDOGORETS | c2=RAZGRAD | c3=GREEN FRONT
+495  ���������      [STU ]  c0=CRVENO BELI | c1=DELIJE SEVER | c2=CRAZY NORTH | c3=H E R O E SCRV
+496  �������������� [OLY ]  c0=STURM GRAZ | c1=STURMFLUT | c2=GRAZ | c3=BLACKIS
+497  �������������� [LCH ]  c0= | c1= | c2= | c3=
+498  �������������� [PAN ]  c0=LECH POZNAN | c1=POZNAN | c2=FANATYCY | c3=ULTRAS
+499  �������������� [PAO ]  c0= | c1= | c2= | c3=
+500  �������������� [WAC ]  c0= | c1= | c2= | c3=
+501  �������������� [FCS ]  c0= | c1= | c2= | c3=
+502  ������������   [MAR ]  c0=STEAU | c1=ULTRAS | c2=ARMATA ULTRA | c3=F C S B
+503  ���������      [MFK ]  c0=VIOLE MARIBOR | c1=ULTRAS VIOLE | c2=STAJERSKI PONOS | c3=V I O L E
+504  �������������� [PAR ]  c0=TORNKRATTET | c1=MOLDE FK | c2=BLA HVIT | c3=
+505  �������������� [SHK ]  c0=JUZNI FRONT | c1=GROBARI | c2=ALKATRAZ | c3=CRNO BELI
+506  ������������   [QAR ]  c0= | c1= | c2= | c3=
+507  �������������� [SLA ]  c0= | c1= | c2= | c3=
+508  �������������� [SPA ]  c0= | c1= | c2= | c3=
+509  ���������      [RIJ ]  c0= | c1= | c2= | c3=
+510  ������         [LSK ]  c0=A R  | c1= | c2= | c3=
+511  ������������   [DUN ]  c0= | c1= | c2= | c3=
+512  �������������� [HBS ]  c0= | c1= | c2= | c3=
+513  ������������   [OMN ]  c0=HAPOEL | c1=BEER SHEVA | c2=H B S | c3=
+514  �������������� [MTA ]  c0= | c1= | c2= | c3=
+515  ������������   [ALI ]  c0= | c1= | c2= | c3=
+516  ������������SC [BSC ]  c0= | c1= | c2= | c3=
+517  ������������   [BOL ]  c0=SUR OSCURA | c1=TOREROS | c2=IDOLOS | c3=MANOS NEGRAS
+518  ������������SP [BSP ]  c0=BOLIVARISTA | c1=FURIA CELESTE | c2=AGUANTE CELESTE | c3=ACCION RADICAL
+519  ������������   [CAR ]  c0= | c1= | c2= | c3=
+520  �������������� [CCA ]  c0=DEMO | c1= | c2= | c3=
+521  ���������      [DEL ]  c0= | c1= | c2= | c3=
+522  ���������      [COQ ]  c0=CETA | c1= | c2= | c3=
+523  �������������� [BIN ]  c0= | c1= | c2= | c3=
+524  �������������� [DZC ]  c0=BIPO | c1= | c2= | c3=
+525  �������������� [DZG ]  c0= | c1= | c2= | c3=
+526  ������������   [IND ]  c0= | c1= | c2= | c3=
+527  ������������   [LDU ]  c0=SELV | c1= | c2= | c3=
+528  �������������� [FIG ]  c0=MUERTE BLANCA | c1=LOS DINOSAURIOS | c2=LA U | c3=UNIVERSITARIOS
+529  ������         [LIB ]  c0= | c1= | c2= | c3=
+530  �������������� [NAC ]  c0=CLUB LIBERTAD | c1=LA ESCOLTA | c2=LAMBARE | c3=VILLA ELISA
+531  ������������   [OLI ]  c0=BAND | c1= | c2= | c3=
+532  ������������   [PEN ]  c0=BARR | c1= | c2= | c3=
+533  �������������� [WIL ]  c0=NO B | c1= | c2= | c3=
+534  ���������      [IQU ]  c0=WILS | c1= | c2= | c3=
+535  ���������      [TIG ]  c0= | c1= | c2= | c3=
+536  ������FC       [OES ]  c0= | c1= | c2= | c3=
+537  ���������      [PAR ]  c0= | c1= | c2= | c3=
+538  �������������� [MIA ]  c0= | c1= | c2= | c3=
+539  ������������   [NSH ]  c0=INTER MIAMI | c1=HERONS | c2=VICE CITY BOYS | c3=HERE TO CREATE
+540  ������������   [SBA ]  c0=NASHVILLE SC | c1=MUSIC CITY | c2=FOREVER GOLD | c3=THE ROADIES
+541  ������������   [SC  ]  c0= | c1= | c2= | c3=
+542  ������������   [CIN ]  c0= | c1= | c2= | c3=
+543  ������������   [UNI ]  c0=BOHEMIO | c1=PRADO | c2=MWFC | c3=WANDERERS
+544  ������������   [ORL ]  c0= | c1= | c2= | c3=
+545  �������������� [SKC ]  c0=IRON LION FIRM | c1=THIS IS ORLANDO | c2=ORLANDO CITY | c3=
+546  �������������� [VAN ]  c0=SPORTING | c1=KANSAS CITY | c2=CAULDRON | c3=BLUE HELL
+547  �������������� [MEL ]  c0=VANCOUVER | c1=SOUTHSIDERS | c2=CURVACOLLECTIVE | c3=RAINCITYBRIGADE
+548  ������������   [PEG ]  c0= | c1= | c2= | c3=
+549  ������FC       [SYD ]  c0= | c1= | c2= | c3=
+550  �������������� [EST ]  c0= | c1= | c2= | c3=
+551  �������������� [PER ]  c0= | c1= | c2= | c3=
+552  ���������      [SEP ]  c0= | c1= | c2= | c3=
+553  ���������      [SHK ]  c0= | c1= | c2= | c3=
+554  �������������� [SHR ]  c0= | c1= | c2= | c3=
+555  ������������   [JDT ]  c0= | c1= | c2= | c3=
+556  ���������      [DUH ]  c0= | c1= | c2= | c3=
+557  ������         [SDD ]  c0= | c1= | c2= | c3=
+558  ������������   [JEO ]  c0= | c1= | c2= | c3=
+559  ������         [SEO ]  c0= | c1= | c2= | c3=
+560  ������������   [SSB ]  c0= | c1= | c2= | c3=
+561  ������������   [ULS ]  c0= | c1= | c2= | c3=
+562  ������������   [AHL ]  c0= | c1= | c2= | c3=
+563  �������������� [HIL ]  c0= | c1= | c2= | c3=
+564  �������������� [NSR ]  c0= | c1= | c2= | c3=
+565  �������������� [TAA ]  c0= | c1= | c2= | c3=
+566  ������         [AIN ]  c0= | c1= | c2= | c3=
+567  �������������� [WAH ]  c0= | c1= | c2= | c3=
+568  ������������   [AHD ]  c0= | c1= | c2= | c3=
+569  ������         [SHJ ]  c0= | c1= | c2= | c3=
+570  �������������� [PAK ]  c0= | c1= | c2= | c3=
+571  ������������   [BJO ]  c0= | c1= | c2= | c3=
+572  ������������   [TJY ]  c0= | c1= | c2= | c3=
+573  �������������� [QXQ ]  c0= | c1= | c2= | c3=
+574  ������������   [HPA ]  c0= | c1= | c2= | c3=
+575  ������������   [PSH ]  c0= | c1= | c2= | c3=
+576  ������         [DEN ]  c0= | c1= | c2= | c3=
+577  ���������      [UKR ]  c0=DANISH DYNAMITE | c1=DANMARK | c2=DANSK UNION | c3=
+578  ������������   [ARM ]  c0=UKRAINE | c1=LVIV KYIV | c2=YKPAIHA | c3=ULTRAS
+579  ���������      [ISR ]  c0=HAVAQAKAN | c1=ARMENIA | c2=HAYASTAN | c3=
+580  ���������      [RUS ]  c0=ISRAEL | c1=YID ARMY | c2=BLUE STARS | c3=
+581  ������������   [BUL ]  c0=MOSCOW POWER | c1=RUSSIAN ULTRAS | c2=OUR CUP | c3=THIS IS RUSSIA
+582  ������������   [CRO ]  c0=BULGARIAN ARMY | c1=ULTRAS BULGARIA | c2=BULGARIA | c3=
+583  ������         [ISL ]  c0=HRVATSKA | c1=UVIJEK VJERNI | c2=PUJANKE | c3=
+584  �������������� [LIE ]  c0=ISLAND | c1=STRAKARNIR OKKA | c2=NORDIC POWER | c3=SCANDINAVIAN
+585  ���������      [HUN ]  c0=BLUESREDS | c1=LIECHTENSTEIN | c2= | c3=
+586  ������������   [NIR ]  c0=MAGYAROSZAG | c1=KISPEST HUNGARY | c2=PUSCAS ARMY | c3=
+587  ������������   [MKD ]  c0=NORN IRON | c1=NORTH IRELAND | c2=MONACHAN BOYS | c3=GREENWHITE ARMY
+588  ���������      [LUX ]  c0=MAKEDONIJA | c1=CRVENI RISOVI | c2=CRVENI LAVOVI | c3=
+589  �������������� [KAZ ]  c0=LETZEBUERG | c1=D ROUD LEIWEN | c2= | c3=
+590  ���������      [TUR ]  c0=HAWKS | c1=QAZAQSTAN | c2=KAZAKHSTAN | c3=
+591  ������������   [SMR ]  c0=TURKIYE | c1=AY YILDIZLILAR | c2=TURKEY | c3=
+592  ������������   [SRB ]  c0=SERENISSIMA | c1=SAN MARINO | c2= | c3=
+593  ������������   [CYP ]  c0=BELI ORLOVI | c1=SRBIJA | c2=VANDALS BOYS | c3=BELGRAD BOYS
+594  ���������      [AUT ]  c0=CYPRUS | c1=KYNPOE | c2= | c3=
+595  ���������      [WAL ]  c0=OSTERREICH | c1=WUNDER TEAM | c2=PATRIOTS ONTOUR | c3=DAS TEAM
+596  ���������      [AND ]  c0=BAGILTT | c1=COME ON WALLES | c2=FOOTBALL NATION | c3=
+597  ������         [GRE ]  c0=TRICOLORS | c1=ANDORRA | c2= | c3=
+598  ������         [GER ]  c0=HELLAS FAN CLUB | c1=ULTRAS HELLAS | c2=BLUE WHITE ARMY | c3=GREEK ELITE
+599  ���������      [ITA ]  c0=DEUTSCHLAND | c1=GERMANY | c2=DANKE JUNGS | c3=DIE MANNSCHAFT
+600  ������������   [LVA ]  c0=FORZA AZZURRI | c1=CAMPIONI | c2=FORZA ITALIA | c3=CUORE NAZIONALE
+601  ������         [NOR ]  c0=LATVIJA | c1=VILKI | c2=WOLVES | c3=
+602  ������         [CZE ]  c0=RBK ON TOUR | c1=VINN FOR OSS | c2=RED NORGE | c3=NORWAY
+603  ������������   [MDA ]  c0=PATRIOTI | c1=CESKA REPUBLIKA | c2=OFICIALNI FANS | c3=
+604  ������������   [SVK ]  c0=MOLDOVA | c1=TRICOLORII | c2= | c3=
+605  �������������� [SVN ]  c0=SLOVENSKO | c1=FIGHTIN JONDSA | c2=SLOVAKIA | c3=BOJOVNI JONDOVC
+606  ������������   [GEO ]  c0=ULTRA SLOVENIJA | c1=SLOVENIJA | c2=ZVEZA SLOVENIJA | c3=
+607  ���������      [BEL ]  c0=JVAROSNABI | c1=CRUSADERS | c2=SAKARTVELO | c3=
+608  ������         [FRA ]  c0=RED DEVILS SKOP | c1=DIABLES ROUGES | c2=BELGIES DUIVELS | c3=BELGIUM
+609  ������������   [FRO ]  c0=ALLEZ LES BLUES | c1=IRRESISTIBLES | c2=SARRAGUEMINES | c3=ALLEZ FRANCE
+610  ������         [POL ]  c0=LANDSLIDID | c1=FOROYER | c2=SKANSIN | c3=
+611  ������         [BIH ]  c0=POLSKA | c1=BIALO CZERWONI | c2=POLISH FANS | c3=
+612  ���������      [IRL ]  c0=BH FANATICOSS | c1=BOSNIA ARMY | c2= | c3=
+613  ������������   [EST ]  c0=BOYS IN GREEN | c1=IRELAND Y BIG | c2=THE GOBLINS | c3=MONAGHAN BOYS
+614  ������         [SWE ]  c0=SINISARGID | c1=BLUESHIRTS | c2=EESTI | c3=JALGPALLIHAIGLA
+615  ������         [SUI ]  c0=SVENSKA FOTBALL | c1=IBRAH KADABRA | c2=SVERIGE | c3=
+616  ������������   [BLR ]  c0=SAN SWISS | c1=SCHWERZER NATI | c2=SEKTION FONS D | c3=
+617  ������������   [GIB ]  c0=BIELYJA KRYLY | c1=WHITE WINGS | c2=BYELORUSSIA | c3=
+618  ���������      [KOS ]  c0=GIBRALTAR | c1=TEAM FIFTYFOUR | c2= | c3=
+619  ���������      [LTU ]  c0=DARDANET | c1=KOSOVA | c2=DARDANIANS | c3=
+620  ������������   [ROU ]  c0=LIETUVA | c1= | c2= | c3=
+621  ������         [FIN ]  c0=HAI ROMANIA | c1=TRICOLORII | c2=GENERATIN D AUR | c3=PASIUNEA TRII
+622  ���������      [SCO ]  c0=HUUHKAJAT | c1=SUOMI | c2=EAGLE OWLS | c3=
+623  ���������      [ENG ]  c0=GLASGOW ARMY | c1=TARTAN ARMY | c2=SCOTLAND POWER | c3=EDINBURGH TEAM
+624  ������         [NED ]  c0=THREE LIONS | c1=NO SURRENDER | c2=TOGETHER SEAND | c3=ENGLAND
+625  ���������      [POR ]  c0=HUP HOLLAND HUP | c1=ORANJE LEGIOEN | c2=MACANIC ORANGE | c3=CUP FIGHTERS
+626  ���������      [ESP ]  c0=PAIXAO LUSITANA | c1=BRIGADA LUSA | c2=A NOSSA PAIXAO | c3=FORCA PORTUGAL
+627  ������������   [AZE ]  c0=LA FURIA ROJA | c1=VAMOS ESPANA | c2=ESTO ES ESPANA | c3=CAMPEONES
+628  �������������� [ALB ]  c0=AZERBAYCAN | c1=MILLI | c2= | c3=
+629  ���������      [MLT ]  c0= | c1= | c2= | c3=
+630  ������         [MNE ]  c0=MALTA | c1=KNIGHTS | c2=FALCONS | c3=
+631  ���������      [GIN ]  c0=CRNA GORA | c1=HRABRI SOKOLI | c2=BRAVE FALCONS | c3=
+632  ������         [GHA ]  c0=GUINEA | c1=ALLEZ GUINEE | c2=GUINEE STARS | c3=FIERTE PEUPLE
+633  ������         [ZAF ]  c0=THE BLACK STARS | c1=YES WE CAN | c2=SUPER GHANA | c3=MISUGHA
+634  ���������      [CMR ]  c0=BAFA | c1= | c2= | c3=
+635  ������         [EGY ]  c0=THE LION KINGS | c1=CAMEROON POWER | c2=IMDOPTABLES | c3=
+636  ������������   [SEN ]  c0=LES PHARAONS | c1=WE ARE EGYPT | c2=GO EGYPT | c3=ULTRAS EGYPT
+637  ������������   [NGA ]  c0=LIONS TERANGA | c1=ALLEZ SENEGAL | c2=ALLEZ LES LIONS | c3=
+638  �������������� [BFA ]  c0=SUPE | c1= | c2= | c3=
+639  ���������      [MAR ]  c0=LES ETALONS | c1=BURKINA FASO | c2=GENERAL BAKO | c3=BURKINABE
+640  ������������   [CIV ]  c0=MAROC | c1=ATLAS LIONS | c2=ULTRAS MOROCCO | c3=MARRAKECH
+641  ���������      [TUN ]  c0=COTE DE IVOIRE | c1=LES ELEPHANTS | c2=DROGBA LEGEND | c3=
+642  ���������      [ZMB ]  c0=AIGLES CARTHAGE | c1=TUNISIA | c2=ALLEZ TUNISIE | c3=LES AIGLES
+643  �������������� [DZA ]  c0=CHIPOLOPOLO | c1=GO ZAMBIA GO | c2=ZAMBIA | c3=RAPIDS ZAMBIA
+644  ������         [MLI ]  c0=PACK OF FOXES | c1=DESERT FOXES | c2=ALGERIAN POWER | c3=
+645  �������������� [CRI ]  c0=MALI | c1= | c2= | c3=
+646  ���������      [MEX ]  c0=PURA VIDA | c1=COSTA RICA | c2=LOS TICOS | c3=
+647  ���������      [PAN ]  c0=VIVA | c1= | c2= | c3=
+648  ������������   [HND ]  c0=CANALEROS | c1=PANAMA | c2=POWER CANALERO | c3=VAMOS PANAMA
+649  ���������      [JAM ]  c0=LA H NO ES MUDA | c1=CATRACHOS | c2=FUERZA CATRACHA | c3=LA H LA H
+650  ������         [USA ]  c0=REGGAE BOYZ | c1=JAMAICA | c2=GO ON BOYZ | c3=
+651  ���������      [URY ]  c0=USA USA USA | c1=ONE NATION | c2=STARS | c3=STRIPES
+652  ������������   [ECU ]  c0=GARR | c1= | c2= | c3=
+653  ������������   [COL ]  c0=SI S | c1= | c2= | c3=
+654  ������������   [VEN ]  c0=VAMOS COLOMBIA | c1=PAZ COLOMBIA | c2=CAFETERO | c3=
+655  ���������      [PRY ]  c0=LA VINOTINTO | c1=VAMOS CARAJO | c2=VENEZUELA LIBRE | c3=VAMOS VINOTINTO
+656  ������         [BRA ]  c0=VAMOS ALBIRROJA | c1=SOMOS GUARANIES | c2=FUERZA PARAGUAY | c3=
+657  ������         [CHL ]  c0=VEREDEAMARELLA | c1=PENTACAMPEON | c2=JOGO BONITO | c3=
+658  ������������   [BOL ]  c0=BICAMPEONES | c1=MAREA ROJA | c2=CHI CHI LE LE | c3=VIVA CHILE
+659  ������         [PER ]  c0=VIVA BOLIVIA | c1=BOLIVIANO DALE | c2=BOLIVIA | c3=
+660  ���������      [ARG ]  c0=ARRIBA PERU | c1=TE AMO PERU | c2=VIVA PERU | c3=
+661  ������         [CHN ]  c0=DIOS | c1=MESSIAS | c2=VAMOS ARGENTINA | c3=SOY ARGENTINA
+662  �������������� [UZB ]  c0= | c1= | c2= | c3=
+663  ���������      [IRQ ]  c0= | c1= | c2= | c3=
+664  ������         [IRN ]  c0=AQ | c1= | c2= | c3=
+665  ���������      [QAT ]  c0= | c1= | c2= | c3=
+666  ���������      [NZL ]  c0= | c1= | c2= | c3=
+667  ������         [JPN ]  c0=ALL WHITES | c1=NEW ZEALAND | c2=WHITE NOISE | c3=WOOD IS BEST
+668  ������         [PRK ]  c0=JAPAN | c1=ULTRA NIPPON | c2=SAMURAI BLUE | c3=NIPPON ARMY
+669  �������������� [SAU ]  c0= | c1= | c2= | c3=
+670  ������         [THA ]  c0= | c1= | c2= | c3=
+671  ������������   [AUS ]  c0= | c1= | c2= | c3=
+672  ���������      [KWT ]  c0=AUSSIE BOYS | c1=GO ROOS | c2=SOCCEROOS | c3=AUSTRALIA
+673  ������         [JOR ]  c0=T | c1= | c2= | c3=
+674  ������         [OMN ]  c0= | c1= | c2= | c3=
+675  ���������      [ARE ]  c0= | c1= | c2= | c3=
+676  ������         [KOR ]  c0= | c1= | c2= | c3=
+677  ���������      [LBN ]  c0= | c1= | c2= | c3=
+678  ������������   [TOB ]  c0= | c1= | c2= | c3=
+679  ������������   [WOS ]  c0= | c1= | c2= | c3=
+680                 [    ]  c0= | c1= | c2= | c3=
+681                 [    ]  c0= | c1= | c2= | c3=
+682                 [    ]  c0= | c1= | c2= | c3=
+683                 [    ]  c0= | c1= | c2= | c3=
+684                 [    ]  c0= | c1= | c2= | c3=
+685                 [    ]  c0= | c1= | c2= | c3=
+686                 [    ]  c0= | c1= | c2= | c3=
+687                 [    ]  c0= | c1= | c2= | c3=
+688                 [    ]  c0= | c1= | c2= | c3=
+689                 [    ]  c0= | c1= | c2= | c3=
+690                 [    ]  c0= | c1= | c2= | c3=
+691                 [    ]  c0= | c1= | c2= | c3=
+692                 [    ]  c0= | c1= | c2= | c3=
+693                 [    ]  c0= | c1= | c2= | c3=
+694                 [    ]  c0= | c1= | c2= | c3=
+695                 [    ]  c0= | c1= | c2= | c3=
+696                 [    ]  c0= | c1= | c2= | c3=
+697                 [    ]  c0= | c1= | c2= | c3=
+698                 [    ]  c0= | c1= | c2= | c3=
+699                 [    ]  c0= | c1= | c2= | c3=
