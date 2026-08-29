@@ -1,0 +1,17 @@
+{
+	"events":{
+		"return":{
+			"to":"ML/Accounting/MLAccountingClubBS",
+			"go":"backward",
+			"clear":"all",
+			"fadeStart":"",
+			"fadeEnd":"do",
+			"bgType":"none"
+		}
+	},
+	"data":{
+		"type":"menu",
+		"bgId":"",
+		"dialog":""
+	}
+}
