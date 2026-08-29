@@ -373,12 +373,14 @@
 - `Team.bin`（48KB → zlib 解压 1.13MB）是 **pesdb 球队数据库**，QWESYS+zlib 封装，记录为**变长结构**（队名间 0x00 填充、多语言名并存）。
   提取出 **311 条队名候选**（`outputs/cpk_dt10_team_names.txt`，国家+俱乐部混合，需进一步分离），证实包含明文实体名（Arsenal/Aston Villa/Ireland 等）。
 - 其余 `Coach.bin`/`Competition.bin`/`Country.bin`/`Stadium.bin`/`Tactics.bin` 等同为 pesdb 数据库。
-- **局限**：这些是静态定义库（球队/国家/赛事），**不含 ML 运行时账本**；Player.bin（核心球员库）在 47 个成功解析的包里 0 命中，疑似位于唯一解析失败的加密包 `dt00_x64.cpk`。
+- **局限**：这些是静态定义库（球队/国家/赛事），**不含 ML 运行时账本**。
+- **Player.bin 定位修正（2026-08-29）**：此前以为核心球员库在「唯一解析失败的加密包 `dt00_x64.cpk`」。实测否定——全局字符串检索表明 `Player.bin`/`Team.bin` 字面量只出现在 **dt10_x64.cpk（可读，37 文件）** 与 **dt11_x64.cpk（可读，菜单 UI bin）**；`dt00_x64.cpk` 的 29 个 `@UTF` 全部是 **CRI 音频（ACB/AWB）配置表**（含 `PES2021`/`Ver.1.20.01`/`VoiceLimitGroup`/`DspSetting`），文件 TOC 字符串池为密文、LibCPK 报错 `read past end`，**并不含 Player.bin/Team.bin**。即球员/球队注册库本就在可读的 dt10（已部分提取至 `outputs/cpk_extract_dt10/common/etc/pesdb/`：`Team.bin`、`PlayerWeekly.bin`、`InstallVersionPlayer.bin`、`SpecialPlayerAssignment.bin` 等）。
 
 ### 2.8.4 结论与下一步
-静态数据库无法直接闭合余额——必须由存档二进制侧（§2.6 的 `0x12A72FD` 事件表）继续：
-要么用 `f1`/`f7` 区分收支方向做 Σ 校验，要么先攻克 `dt00` 加密包拿 `Player.bin`（ID↔实体映射）以标注事件表 `f2` 的球员 ID。
-`cpk_extract.py` 已就绪；`dt00` 加密解析需另行处理（不同 CPK 变体 / 密钥）。
+静态数据库（dt10/pesdb）已可读取，无需碰加密的 dt00。下一步：
+- 直接解析 dt10 的 pesdb（`Team.bin`/`PlayerWeekly.bin`/`SpecialPlayerAssignment.bin` 等，**已提取**）建立 `注册ID ↔ 实体` 映射，用以标注事件表 `f2_hi` 的球员 ID 并解 `v4`/`v5` 俱乐部字段；
+- 配合存档二进制侧（§2.6 的 `0x12A72FD` 事件表）用 `f1`/`f7` 区分收支方向做 Σ 校验。
+`dt00` 解密仅产出音频资产（观众欢呼/解说/音效），与预算闭合无关，不建议投入。
 
 ### 2.9 事件表跨存档验证与玩家队定位（2026-08-29 晚，`bl_ml_probe31/32/33/34`）
 
@@ -399,8 +401,8 @@
 
 **4. 闭合所需的最小前置条件（仍待补）**
 - (a) 玩家队索引（全局区，非球队数组）；或
-- (b) `dt00` 加密包的 `Player.bin`（ID↔实体映射）+ 事件表内俱乐部字段的字段级解码（v4/v5）。
-任一打通即可把事件表按玩家队过滤，再用 `f1`/`f7` 区分收支方向，与 `+0x598` 初始预算做 Σ 校验。
+- (b) 已可读的 dt10/pesdb（`Team.bin`/`PlayerWeekly.bin` 等）→ `注册ID ↔ 实体` 映射 + 事件表内俱乐部字段（v4/v5）的字段级解码。
+任一打通即可把事件表按玩家队过滤，再用 `f1`/`f7` 区分收支 方向与 `+0x598` 初始预算做 Σ 校验。`dt00` 为音频包，不在此链路内。
 
 ## 三、未解问题与下一步建议
 
