@@ -53,12 +53,18 @@
 ### 1.2 球队记录数组（0x100 ~ 0x11F2C0）
 
 - 700 条，每条 **0x690 (1680) 字节**；`0x100 + 700×0x690 = 0x11F2C0`。
-- 记录内 `+0x55`：**助威口号**（明文 ASCII），如 `GUNNERS`、`SOB ON THE TYNE`、
-  `PRIDE OF LONDON`、`TOFFEE ARMY`（英超队口号，8 样本抽查一致）。
-- 记录内还有 3 条口号类字符串（`+0x65`/`+0x75`/`+0x85` 附近，如
-  `LONDON OUR CITY` / `ARSENAL FOREVER` / `GOONERS ON TOUR`）。
-  **注意：口号是共享池**——不同球队记录复用同一批口号串（如阿斯顿维拉记录内
-  的口号实为阿森纳的口号），口号与球队的对应关系不能当真。
+- **口号字段存在系统性 off-by-one 错位（2026-08-29 修正，`bl_ml_probe26`）**：
+  记录内 4 条口号槽 `+0x55/+0x65/+0x75/+0x85`（各 ≤16 字节 ASCII）。经 700 队全量核对，
+  **每个队记录里的口号实际是「前一个队」（含用户队）的口号，而非本队**——
+  即读取偏移差 1（shift-by-one）。证据（英超段连续 12 队全部命中）：
+  AST(0 维拉)=GUNNERS/LONDON OUR CITY/ARSENAL FOREVER/GOONERS ON TOUR（阿森纳=用户队）；
+  BRI(1)=AVFC VILLIANS/PRIDE OF BRUM（维拉）；BUR(2)=THE SEAGULLS（布莱顿）；
+  CHE(3)=CLARETS/BURNLEY ON TOUR（伯恩利）；CRY(4)=CHELSEA（切尔西）；
+  EVE(5)=CRYSTAL PALACE（水晶宫）；FUL(6)=TOFFEE ARMY/EVERTON（埃弗顿）；
+  LEE(7)=FULHAM/COTTAGERS（富勒姆）；LEI(8)=LEEDS/LUFC（利兹）；
+  LIV(9)=LCFC FOXES（莱斯特）；MCI(10)=YNWA/KOPITES（利物浦）；
+  MUN(11)=MANCHESTER CITY/MCFC（曼城）。**只要把索引 +1（读取偏移补一位），口号即与球队正确对应。**
+  成因推测：球队记录数组（700 队，不含用户队）与口号数组的索引基数差 1（0-based 队序 vs 含用户队的另序），导致 `team[i]` 读到 `team[i-1]` 的口号（i=0 时指向用户队阿森纳）。这与 `+0x598` 等字段同属"按偏移索引"布局，修正了此前"共享池、不能当真"的误判——口号与球队存在确定的一一错位对应，并非随机复用。
 - **记录内队名字段（本轮新确认，`decode_dump.py` 700/700 全量验证）**：
   - `+0x5E4`：**中文队名**（UTF-8，NUL 结尾），如「阿斯顿维拉」「切尔西」；
   - `+0x62A`：**三字母缩写**（ASCII），如 `AST`、`CHE`；
@@ -281,7 +287,98 @@
 且在赛季前存档 ML00000002 中**恒为 0**——与"赛季未开始则预算未分配"一致。
 注意：**这是初始分配值，不是当前余额**；当前余额的下落见 3.1 的新假说。
 
+### 2.6 动态事件表 @ 0x12A72FD（2026-08-29 发现，`bl_ml_probe21/22/23/24/25`）
+
+在"非赛程表"日期三元组扫描中，于 `0x12A72FD` 命中一个**定长数组**：
+
+- **记录布局**：步长 **0x24 (36 字节)= 9 个 u32**，首 4 字节为日期三元组（`u16年+u8月+u8日`）。
+- **动态性已确认**：赛季前存档 ML00000002（preseason）同区**完全无日期表（0 条）**，与"赛季未开始则无交易/事件"一致 → 是**赛季中运行时动态生成**。
+- **跨样本对比（in-season）**：ML0/ML1/ML13 均为 **100 条**（含 1 个哨兵槽：f1/f7 为 0xFFFFFFFF/0xAB… 巨型值），真实事件 **99 条**。日期覆盖 **2021-08-16 → 2021-09-02**，单调不减。容量固定≈100 的**环形缓冲 / 最近事件滚动窗口**（ML13 起止日期更晚、f2 高16位相异数降到 33，印证覆盖/复用），而非无限累积流水。
+- **字段语义（`bl_ml_probe24/25` 统计推断）**：
+
+| 字段 | 偏移 | 观测 | 推断 |
+|------|------|------|------|
+| date | +0x00 | u16年+u8月+u8日，覆盖 ~2021-08-16→08-31 | 事件日期（同日可多笔，非严格递增） |
+| `f1` | +0x04 | {0:85, 1:14} + 1 哨兵；真实 99 条为 0/1 | 事件类型/方向标志（0 均值 f4≈2535万，1 均值 f4≈8.5万） |
+| `f2` | +0x08 | **低 16 位恒为 0xFFFF**（99/100）；高 16 位 ML0/ML1 相异 100、ML13 仅 33 | 高16位=实体引用（球员登记 ID）；0xFFFF 为固定标记位 |
+| `f3` | +0x0C | 99 条中 80 条 ×100 后落入 3.4千~4.29e8；含个别巨型值（哨兵 0xFFFFFFFF） | 次要金额 / ID 候选（转会费或球员 ID） |
+| `f4` | +0x10 | 99 条中 96 条 ×100 后 9.8万~4.29e8；无负号、无 0xFFFFFFFF 空值 | **最像金额（转会费），×100=欧元**；方向由 f1 而非符号区分 |
+| `f5` | +0x14 | 99 条中 52 条落在区间；量级可达 1.07e9×100 | 第二金额（工资/累计？） |
+| `f6` | +0x18 | **f7==1 时恒为 0xFFFFFFFF（空）；f7==0 时为具体值** | 条件字段（仅"有效/已完成"记录携带） |
+| `f7` | +0x1C | {0:86, 1:13} + 1 哨兵；f7==1 必 f6=0xFFFFFFFF | 状态位（0=已结算/有效，1=挂牌/待定/未完成） |
+| `f8` | +0x20 | 小整数（0~数万） | 计数器 / 次级类型 |
+
+- **金额闭合（未解）**：`f4` 全为绝对值正数、方向由 f1 区分，与"余额 = 初始预算(+0x598) + 流水汇总"假说兼容。但**本表疑似全局转会活动日志（非单一俱乐部账本）**，缺少"玩家所属俱乐部→记录"的映射，暂无法在纯数据侧做 Σ 闭合；需先建立该映射（或定位存档内"玩家队"索引）才能校验。
+- **结论**：本表极大概率是 `MLAccountingTransferFeeDetail` / `MLAccountingSalaryDetail` 所指的**转会/收支事件明细**（动态、按日期、含金额与状态位）。字段语义仍属统计推断：最终确认需逆向写出例程——但 `FL_2023.exe` 中 `MLAccounting*` 无 C++ RTTI 引用（原生侧已证伪），`Assembly-CSharp.dll` 不在仓库、`CmnTransferMarket` xref 路线亦失败。下一步须从 CPK 提取游戏数据表，或先建立俱乐部映射再做闭合。
+
+### 2.7 运行期资金偏移（来自 exe 反汇编，`exe_aob.py` / `exe_xref.py`）
+
+- `INJECT_ClubBudget`（CT 表 AOB `8B 87 F4 CB 6E 01 89 45 C4`）精确定位在
+  **VA 0x140EA4C58**（RVA 0xEA4C58）。该函数是 Edit Club Budget 对话框的事件处理：
+  反复 `mov 0x16ECBF4(%rdi),%eax` 把 transfer budget 读入控件变量。
+- 由此确认内存中 ML 全局数据对象内的字段偏移：
+  **transfer budget = +0x16ECBF4**，**salary budget = +0x16ECC08**（二者相差 0x14，成对）。
+  这是**运行期余额/预算快照位**（非团队记录内的 +0x598，后者是存档的初始分配值）。
+- 反汇编未在该函数附近发现"流水数组"循环；预算与薪资以**相邻成对**字段形式存在，
+  进一步支持"当前余额 = 初始预算(+0x598) + 收支流水汇总"的运行时计算模型。
+
 ---
+
+## 2.7 ML 会计分类（来自 dt16 UI flow，2026-08-29 新发现）
+
+通过 `tools/CirPakGUI/LibCPK.dll` 对游戏 `dt16_all.cpk` 做只读 TOC 提取（仅展开目标文件、不改动源），
+在 `common/script/flow/ML/` 下找到一组 ML 会计 UI 流程 JSON（`.json` 状态机，描述界面跳转而非字段结构）。
+这些文件确认了 **ML 会计系统由 8 类收支明细 + 1 张余额总账（ClubBS）构成**：
+
+- `MLAccountingClubBS.json` —— 会计总账/资产负债表主菜单（`Club Balance Sheet`），其余 8 项均以其为 `return` 目标。
+- 8 个子明细（依次从 ClubBS 进入）：
+  1. `MLAccountingSponsorDetail`  —— 赞助收入
+  2. `MLAccountingGoodsDetail`    —— 商品/周边收入
+  3. `MLAccountingCupPrizeDetail` —— 杯赛奖金
+  4. `MLAccountingOptionDetail`   —— 期权/选项相关
+  5. `MLAccountingTicketDetail`   —— 门票收入
+  6. `MLAccountingPenaltyDetail`  —— 罚款/违约金
+  7. `MLAccountingTransferFeeDetail` —— 转会费明细
+  8. `MLAccountingSalaryDetail`   —— 工资明细
+
+**意义**：
+- 从 UI 层面证实 "余额 = 初始预算(+0x598) + 多类收支流水汇总" 的运行期模型——
+  会计系统本来就是分门别类的收支账，这与之前在 exe 字符串表发现的 `MLAccounting*` 命名、
+  以及 0x12A72FD 动态事件表（§2.6）互为支撑。
+- **局限**：这些 `.json` 是 UI 导航层（菜单跳转），**不含字段级定义**；要精确闭合 0x12A72FD 事件表的
+  字段语义，仍需从存档二进制（0x12A72FD 统计）或 `dt11` 的 `budgetReport.bin` / `informationTransferMarket.bin`
+  等菜单数据层中提取列定义与文案。
+
+## 2.8 CPK 数据库提取（2026-08-29 新增，`cpk_extract.py` / `cpk_scan_all.py`）
+
+通过项目内生工具 `tools/CirPakGUI/LibCPK.dll`（.NET 托管库，x64，与 Python 同架构）实现无界面解包，
+绕过 GUI；核心 API：`LibCPK.CPK.ReadCPK(path, Encoding)` + `FileEntry`，支持 CRILAYLA 解压。
+`--dry` 仅解析 TOC 零数据展开；`--filter` 支持多子串精确提取。游戏目录只读、产物写入 `outputs/`。
+
+### 2.8.1 dt16_all.cpk —— ML 会计 UI flow（已提取）
+提取 9 个 `MLAccounting*.json`（`outputs/cpk_extract_dt16/`），均为 **UI 状态机**（菜单跳转），非字段定义。
+但自上而下确认 ML 会计框架为 **8 类收支 + 1 张总账**：
+- `MLAccountingClubBS`（资产负债表/总账，其余均回到此处）
+- Sponsor / Goods / CupPrize / Option / Ticket / Penalty（赞助/商品/杯赛奖金/期权/门票/罚款）
+- **TransferFeeDetail**（转会费明细）、**SalaryDetail**（工资明细）
+→ 印证"余额 = 初始预算(+0x598) + 多类收支流水汇总"运行期模型；`MLAccounting*` 是 UI 窗口名而非单独序列化类。
+
+### 2.8.2 dt11_x64.cpk —— 菜单资源（已提取，判定为 UI 资源）
+提取 `common/menu/general/*.bin`（budgetReport / informationTransferMarket / teamRecord / playerRecord / awardPlayer）。
+经 zlib 解压（QWESYS 封装，`78 DA`/`78 9C` @ 0x10）后确认是 **CRI APK 资源**（`afp_xxx.apk` / `TXP2` 块），
+内部仅含 `budgetReport_shape1` 这类 UI 控件布局名，**无任何财务字段定义**。与 2.8.1 同为展示层、数据分离。
+
+### 2.8.3 dt10_x64.cpk —— pesdb 数据库（已提取，含明文实体）
+提取 `common/etc/` 共 31 文件（`outputs/cpk_extract_dt10/`）。关键：
+- `Team.bin`（48KB → zlib 解压 1.13MB）是 **pesdb 球队数据库**，QWESYS+zlib 封装，记录为**变长结构**（队名间 0x00 填充、多语言名并存）。
+  提取出 **311 条队名候选**（`outputs/cpk_dt10_team_names.txt`，国家+俱乐部混合，需进一步分离），证实包含明文实体名（Arsenal/Aston Villa/Ireland 等）。
+- 其余 `Coach.bin`/`Competition.bin`/`Country.bin`/`Stadium.bin`/`Tactics.bin` 等同为 pesdb 数据库。
+- **局限**：这些是静态定义库（球队/国家/赛事），**不含 ML 运行时账本**；Player.bin（核心球员库）在 47 个成功解析的包里 0 命中，疑似位于唯一解析失败的加密包 `dt00_x64.cpk`。
+
+### 2.8.4 结论与下一步
+静态数据库无法直接闭合余额——必须由存档二进制侧（§2.6 的 `0x12A72FD` 事件表）继续：
+要么用 `f1`/`f7` 区分收支方向做 Σ 校验，要么先攻克 `dt00` 加密包拿 `Player.bin`（ID↔实体映射）以标注事件表 `f2` 的球员 ID。
+`cpk_extract.py` 已就绪；`dt00` 加密解析需另行处理（不同 CPK 变体 / 密钥）。
 
 ## 三、未解问题与下一步建议
 

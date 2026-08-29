@@ -28,29 +28,28 @@ TARGETS = [
 def find_xrefs(mm, sections, text_sec, target_rva):
     """扫代码段找 rip-relative 引用 target_rva 的位置（返回文件偏移列表）。
 
-    利用代码段内 off↔rva 线性关系加速，规避逐字节 rva2off 的 O(节数) 开销。
+    只匹配真正的 rip-relative LEA：可选 REX 前缀(0x40~0x4F) + 0x8D +
+    ModRM(mod=00, rm=101) -> [RIP+disp32]。指令末尾 RVA + disp32 == target_rva。
     """
     vaddr = text_sec["vaddr"]
     raddr = text_sec["raddr"]
     base = raddr
-    n = text_sec["rsize"] - 4
+    n = text_sec["rsize"] - 7
     xrefs = []
     data = mm
-    try:
-        import numpy as np
-        buf = data[base:base + n]
-        arr = np.frombuffer(buf, dtype="<i4")
-        idx = np.arange(len(arr), dtype=np.int64)
-        pos = base + idx * 4
-        need = (target_rva - (vaddr + (pos + 4 - raddr))).astype(np.int32)
-        hits = np.nonzero(arr == need)[0]
-        return [int(base + int(i) * 4) for i in hits]
-    except ImportError:
-        pass
     for pos in range(base, base + n):
-        disp = struct.unpack_from("<i", data, pos)[0]
-        endrva = vaddr + (pos + 4 - raddr)
-        if endrva + disp == target_rva:
+        k = pos
+        if 0x40 <= data[k] <= 0x4F:   # REX 前缀
+            k += 1
+        if data[k] != 0x8D:          # LEA
+            continue
+        modrm = data[k + 1]
+        if (modrm & 0xC7) != 0x05:   # mod=00, rm=101 -> [RIP+disp32]
+            continue
+        disp = struct.unpack_from("<i", data, k + 2)[0]
+        end_file = k + 6             # REX? + op + modrm + disp32
+        end_rva = vaddr + (end_file - raddr)
+        if end_rva + disp == target_rva:
             xrefs.append(pos)
     return xrefs
 
