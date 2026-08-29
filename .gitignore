@@ -22,3 +22,9 @@ resources/
 
 # 工具/IDE 生成的快照文件
 .merkle-snapshot.json
+
+# .NET CLI 缓存（dotnet tool/首次体验产生的文件，不入库）
+.dotnet-home/
+
+# 第三方逆向工具与临时反编译项目（二进制体积大，不入库）
+tools/
