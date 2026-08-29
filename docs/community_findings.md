@@ -75,9 +75,19 @@
   即对第四节验证过的同一条用户球员记录做写入；
 - 自带 `decrypter21.exe/encrypter21.exe`，与本仓库 pesXdecrypter 同源；
 - 其存档偏移常量藏在混淆后的 IL 中，静态提取成本高，暂不作为首选路线。
-- **2026-08-28 复勘**：确认为 **.NET Reactor 强混淆**——元数据根内 `#Strings/#Blob/#GUID` 流名重复、
-  流 offset/size 被篡改（`stream is too small: wanted 0xX found 0x4`），标准 `dnfile/dnlib` 无法读取
-  元数据表，方法体 IL 无法遍历；反编译需 de4dot 专门去混淆（本机无、代理下载受限），此路线**放弃**。
+- **2026-08-28 复勘（第一轮）**：确认为 **.NET Reactor 强混淆**——元数据根内 `#Strings/#Blob/#GUID`
+  流名重复、流 offset/size 被篡改（`stream is too small: wanted 0xX found 0x4`）；Python 库 `dnfile`
+  读取失败（当时误记为 "dnfile/dnlib"）。
+- **2026-08-28 复勘（第二轮，dnread 工具实测）**：用 dnSpy 自带的 **dnlib.dll**（C# 实现，能力远强于
+   Python 的 dnfile）成功读取 IL：**15 类型 / 695 方法 / 691 个方法体 / 124 个 `ldc.i4` 立即数**。
+  但结论仍是**放弃**，证据如下：
+  1. 124 个 `ldc.i4` **全是加密大常量**（`0xCE6244CD`、`0x8171F705`…，无一个明文字段偏移）；
+  2. IL 为 **Reactor 控制流扁平化 + 算术混淆**：`<Module>` 内一个状态机方法以
+     `ldc.i4; ldc.i4; xor; rem; switch(55)` 动态分派，常量靠 xor/mul/shr/shl 链在运行时还原；
+  3. 小立即数（`ldc.i4.s`）仅普通值（0x00~0x54，多为循环计数/索引），**未见 EDIT 式字段偏移**
+     （0x36/0x73/0xB0 全零命中）——BAL 编辑的是 BL 存档用户球员，布局本就异于 EDIT 文档；
+  4. 结论：**存档偏移是运行时动态算出的，静态提取不可行**；需 dnSpy 动态调试（GUI，agent 无法操作）
+     或 de4dot 深度脱壳。收益仅为「BL 用户球员字段图」（语义已从 EDIT 文档拿到），**性价比为负，止损**。
 
 ## 六、对未解项的战术意义
 
