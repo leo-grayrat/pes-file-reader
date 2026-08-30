@@ -147,6 +147,57 @@ def parse_edit(path):
 
 
 # ---------------- ML 解析 ----------------
+def _load_edit_ids_for_links():
+    s = set()
+    p = os.path.join(OUT, "parsed_edit_players_EDIT00000000.csv")
+    if os.path.exists(p):
+        import csv as _csv
+        with open(p, encoding="utf-8") as f:
+            for r in _csv.DictReader(f):
+                try:
+                    s.add(int(r["player_id"]))
+                except (ValueError, KeyError):
+                    pass
+    return s
+
+
+def parse_ml_linktable(b):
+    """解析 ML 队块外的 per-entity 关联/历史链式记录表。
+    记录以 u16 小端 0x07E5('e5 07') 为标记, 实测记录长 596B; 每条:
+      header = 前 8×u32, 其中 u32[2]=条目数(count);
+      之后从 +0x20 起, 16B/条 = [id_u32][0][other_id_u32][val_u32] 的列表
+      (第 2 个 u32==0 是分隔符, 用来筛出有效条目)。
+    同一球员可在多条记录里作为链接项出现(已验证 45144 出现 14 次)。
+    语义 TBD: 疑似转会/球探/关系/历史链接, 非 condition/合约/成长/训练本身。
+    """
+    ids = _load_edit_ids_for_links()
+    tags = [i for i in range(len(b) - 1) if b[i] == 0xE5 and b[i + 1] == 0x07]
+    recs = []
+    i = 0
+    while i < len(tags) - 1:
+        gap = tags[i + 1] - tags[i]
+        if gap == 596:
+            o = tags[i]
+            hdr = [u32(b, o + j * 4) for j in range(8)]
+            count = hdr[2]
+            end = tags[i + 1]
+            entries = []
+            off = o + 32
+            while off + 16 <= end:
+                a = u32(b, off); z = u32(b, off + 4)
+                c = u32(b, off + 8); v = u32(b, off + 12)
+                if z == 0:
+                    entries.append((a, c, v))
+                off += 16
+            recs.append({"off": o, "hdr": hdr, "count": count,
+                         "entries": entries,
+                         "edit_links": sum(1 for a, c, v in entries if a in ids)})
+            i += 1
+        else:
+            i += 1
+    return recs
+
+
 def parse_ml(path):
     b = open(path, "rb").read()
     res = {"file": os.path.basename(path), "size": len(b),
@@ -160,9 +211,20 @@ def parse_ml(path):
         stadium = cstr(b, o + TEAM_OFF_STADIUM, 64).strip()
         budget = u32(b, o + TEAM_OFF_BUDGET)
         seq = u32(b, o + TEAM_OFF_SEQ)
+        # 阵容表 @+0xA0 stride 8 = [player_id][squad_index]; 读到哨兵(0/0xFFFFFFFF)为止
+        squad = []
+        so = o + 0xA0
+        for k in range(60):
+            pid = u32(b, so + k * 8)
+            if pid == 0 or pid == 0xFFFFFFFF:
+                break
+            sidx = u32(b, so + k * 8 + 4)
+            squad.append((pid, sidx))
         teams.append({"idx": r, "name": name, "abbr": abbr,
                       "stadium": stadium, "budget_raw": budget,
-                      "budget_eur": budget * 100, "ml_seq": seq})
+                      "budget_eur": budget * 100, "ml_seq": seq,
+                      "squad": [p for p, _ in squad],
+                      "squad_idx": [i for _, i in squad]})
     res["teams"] = teams
 
     # 动态事件表（环形缓冲）
@@ -231,6 +293,11 @@ def export_ml(ml, tag):
                [[t["idx"], t["name"], t["abbr"], t["stadium"],
                  t["budget_raw"], t["budget_eur"], t["ml_seq"]]
                 for t in ml["teams"]])
+    _write_csv(os.path.join(OUT, f"parsed_ml_team_squads_{tag}.csv"),
+               ["ml_idx", "name_cn", "ml_seq", "player_id", "squad_index"],
+               [[t["idx"], t["name"], t["ml_seq"], pid, sidx]
+                for t in ml["teams"]
+                for pid, sidx in zip(t["squad"], t["squad_idx"])])
     _write_csv(os.path.join(OUT, f"parsed_ml_events_{tag}.csv"),
                ["slot", "f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"],
                [[e["slot"], e["f0"], e["f1"], e["f2"], e["f3"], e["f4"],
@@ -239,6 +306,16 @@ def export_ml(ml, tag):
                ["seq", "year", "month", "day", "round"],
                [[s["seq"], s["year"], s["month"], s["day"], s["round"]]
                 for s in ml["schedule"]])
+    # 队块外 596B 'e5 07' 关联/历史链式记录表
+    links = parse_ml_linktable(open(os.path.join(DEC, tag + ".data"), "rb").read())
+    _write_csv(os.path.join(OUT, f"parsed_ml_link_records_{tag}.csv"),
+               ["rec_idx", "offset_hex", "h0", "h1", "count", "h3", "h4", "h5",
+                "h6", "h7", "n_entries", "edit_id_links", "sample_entries"],
+               [[ri, f"0x{r['off']:X}", r["hdr"][0], r["hdr"][1], r["count"],
+                 r["hdr"][3], r["hdr"][4], r["hdr"][5], r["hdr"][6], r["hdr"][7],
+                 len(r["entries"]), r["edit_links"],
+                 ";".join(f"{a}:{c}:{v}" for a, c, v in r["entries"][:10])]
+                for ri, r in enumerate(links)])
 
 
 def main():

@@ -1,41 +1,11 @@
 {
   "team_names_loaded": 694,
   "saves": {
-    "EDIT00000000": {
-      "size": 10995800,
-      "header": {
-        "player_count": 27513,
-        "team_count": 694,
-        "stadium_count": 55,
-        "team_player_entries": 694
-      },
-      "players": 27513,
-      "team_players": 694,
-      "players_named": 27513
-    },
     "ML00000000": {
       "size": 19742413,
       "teams": 700,
       "events": 100,
       "schedule_dated": 10205
-    },
-    "ML00000001": {
-      "size": 19742199,
-      "teams": 700,
-      "events": 100,
-      "schedule_dated": 7175
-    },
-    "ML00000002": {
-      "size": 19611318,
-      "teams": 700,
-      "events": 100,
-      "schedule_dated": 6588
-    },
-    "ML00000013": {
-      "size": 19742156,
-      "teams": 700,
-      "events": 100,
-      "schedule_dated": 7157
     }
   },
   "unsolved": [
