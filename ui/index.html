@@ -100,6 +100,8 @@
     <button data-s="events">动态事件表</button>
     <button data-s="schedules">赛程表</button>
     <button data-s="competitions">赛事定义表</button>
+    <button data-s="ml_squads">大师联赛阵容</button>
+    <button data-s="ml_links">队际链接网络</button>
     <div class="ft">数据来自 decoded/ + outputs/*.csv<br>不写回存档</div>
   </nav>
   <main id="main"><div class="loading">加载中…</div></main>
@@ -161,13 +163,15 @@ function fmtCell(c,v){
 }
 
 const TITLE={edit_teams:'EDIT 球队（已命名）',ml_teams:'大师联赛球队块（700）',
-  events:'动态事件表（已命名）',schedules:'赛程表（ML0）',competitions:'赛事定义表'};
+  events:'动态事件表（已命名）',schedules:'赛程表（ML0）',competitions:'赛事定义表',
+  ml_squads:'大师联赛阵容（队 → 球员）',ml_links:'队际链接网络（596B 记录）'};
 const COLS={
   edit_teams:[{k:'team_id',label:'球队ID'},{k:'team_name',label:'队名'},{k:'confidence',label:'置信度'},{k:'n_players',label:'球员数'}],
   ml_teams:[{k:'ml_idx',label:'序号'},{k:'name_cn',label:'中文队名'},{k:'abbr',label:'缩写'},{k:'stadium',label:'球场'},{k:'budget_eur',label:'预算',fmt:'eur'},{k:'ml_seq',label:'ML序号'}],
   events:[{k:'idx',label:'事件#'},{k:'date',label:'日期'},{k:'v1_status',label:'状态'},{k:'v3_money_x100',label:'金额(×100)',fmt:'eur'},{k:'name',label:'主体'},{k:'any_name',label:'关联名'},{k:'v4_name',label:'v4名'},{k:'v5_name',label:'v5名'},{k:'v6_name',label:'v6名'}],
   schedules:[{k:'seq',label:'seq'},{k:'year',label:'年'},{k:'month',label:'月'},{k:'day',label:'日'},{k:'round',label:'轮次'}],
   competitions:[{k:'idx',label:'#'},{k:'name',label:'赛事名'},{k:'comp_id',label:'赛事ID'},{k:'type',label:'类型'},{k:'season_year',label:'起始年'},{k:'operable',label:'可操作'}],
+  ml_links:[{k:'rec_idx',label:'记录#'},{k:'h3_team',label:'源队'},{k:'h4_team',label:'目标队'},{k:'h4',label:'目标队ID'},{k:'count',label:'count'},{k:'n_entries',label:'条目数'},{k:'edit_id_links',label:'EDIT引用'},{k:'sample_entries',label:'样例(球员:类型:值)'}],
 };
 
 /* ---------- 球员（修复渲染 bug） ---------- */
@@ -279,6 +283,36 @@ async function showPlayers(){
   $('#mask').onclick=e=>{if(e.target.id==='mask')closeD();};
   runP();
 }
+/* ---------- 大师联赛阵容（队 → 球员） ---------- */
+async function showSquads(){
+  const D=await getJSON('/api/ml_squads');
+  const teams=D.teams.slice().sort((a,b)=>a.ml_idx-b.ml_idx);
+  const byIdx={};teams.forEach(t=>byIdx[t.ml_idx]=t);
+  let h=`<div class="secttl">大师联赛阵容（队 → 球员）</div>`;
+  h+=`<div class="secnote">${teams.length} 支球队的注册球员（team→player 映射 @+0xA0 stride 8）。`+
+     `姓名 join EDIT 库（${D.player_name_hits.toLocaleString()} 人命中）；未注册的默认库球员仅显示 ID。</div>`;
+  h+=`<div class="filters"><div class="fld"><label>选择球队</label><select id="sqTeam"></select></div>`+
+     `<div class="fld"><label>队内搜索</label><input type="text" id="sqQ" placeholder="姓名或 pid…"></div></div>`;
+  h+=`<div class="resn" id="sqN"></div>`;
+  h+=`<table><thead><tr><th>序号</th><th>球员ID</th><th>姓名</th></tr></thead><tbody id="sqBody"></tbody></table>`;
+  main.innerHTML=h;
+  $('#sqTeam').innerHTML=teams.map(t=>`<option value="${t.ml_idx}">${t.ml_idx} · ${t.name}</option>`).join('');
+  function render(){
+    const ti=+$('#sqTeam').value;
+    const t=byIdx[ti]||teams[0];
+    const q=$('#sqQ').value.trim().toLowerCase();
+    const ps=t.players.filter(p=>!q||(p.name&&p.name.toLowerCase().includes(q))||String(p.pid).includes(q));
+    $('#sqN').textContent=`${t.name}：共 ${t.players.length} 人，命中 ${ps.length}`;
+    const tb=$('#sqBody');tb.innerHTML='';
+    for(const p of ps){
+      const name=p.name?p.name:`<span style="color:var(--dim)">未知 (pid ${p.pid})</span>`;
+      tb.innerHTML+=`<tr><td>${p.idx}</td><td>${p.pid}</td><td>${name}</td></tr>`;
+    }
+  }
+  $('#sqTeam').onchange=render;
+  $('#sqQ').oninput=render;
+  render();
+}
 function kvp(k,v){return `<div class="kv"><span>${k}</span><span>${v}</span></div>`;}
 
 /* ---------- 路由 ---------- */
@@ -287,6 +321,7 @@ async function show(s){
   try{
     if(s==='overview')await showOverview();
     else if(s==='players')await showPlayers();
+    else if(s==='ml_squads')await showSquads();
     else await showTable(s, COLS[s], NOTE[s]);
   }catch(e){main.innerHTML='<div class="loading">加载失败：'+e+'</div>';}
 }
@@ -296,6 +331,8 @@ const NOTE={
   events:'动态事件表（route-A 命名 122/297），v3 为金额(×100)。',
   schedules:'大师联赛赛程（ML0，逐条 seq/日期/轮次）。',
   competitions:'赛事定义表（直接解 ML 数据块 0x1F1E30，stride 0x314）。',
+  ml_squads:'大师联赛 700 队块内的阵容（team→player 映射 @+0xA0 stride 8），球员姓名 join EDIT 库；默认库球员仅显示 ID。',
+  ml_links:'ML 文件级队际球员监控/关系网络（596B e5 07 记录：h3=源队注册id, h4=目标队注册id, entry=16B[球员][0][类型][值]）。属隐藏机制一类，非状态/合约/成长/训练。',
 };
 show('overview');
 </script>

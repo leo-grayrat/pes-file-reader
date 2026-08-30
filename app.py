@@ -101,6 +101,55 @@ def parse_competitions():
     return out
 
 
+def load_ml_squads():
+    """大师联赛 700 队块内的阵容（team→player 映射）：join EDIT 库名字。"""
+    pid_name = {}
+    p = os.path.join(OUT, "parsed_edit_players_EDIT00000000.csv")
+    if os.path.exists(p):
+        with open(p, encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                try:
+                    pid_name[int(r["player_id"])] = r.get("name", "")
+                except (KeyError, ValueError):
+                    pass
+    src = os.path.join(OUT, "parsed_ml_team_squads_ML00000000.csv")
+    teams = {}
+    if os.path.exists(src):
+        with open(src, encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                try:
+                    idx = int(r["ml_idx"])
+                except (KeyError, ValueError):
+                    continue
+                t = teams.setdefault(idx, {"ml_idx": idx, "name": r.get("name_cn", ""),
+                                           "ml_seq": r.get("ml_seq", ""), "players": []})
+                try:
+                    pid = int(r["player_id"])
+                except (KeyError, ValueError):
+                    pid = 0
+                t["players"].append({"pid": pid, "idx": r.get("squad_index", ""),
+                                     "name": pid_name.get(pid, "")})
+    for t in teams.values():
+        t["players"].sort(key=lambda x: int(x["idx"]) if str(x["idx"]).isdigit() else 0)
+    return {"teams": list(teams.values()),
+            "player_name_hits": sum(1 for t in teams.values() for p in t["players"] if p["name"])}
+
+
+def load_ml_links():
+    """596B 'e5 07' 队际球员链接网络；给 h4 也解析队名（h4⊆h3 命名空间）。"""
+    src = os.path.join(OUT, "parsed_ml_link_records_ML00000000.csv")
+    rows = []
+    h3_to_team = {}
+    if os.path.exists(src):
+        with open(src, encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                h3_to_team[r.get("h3", "")] = r.get("h3_team", "")
+                rows.append(r)
+    for r in rows:
+        r["h4_team"] = h3_to_team.get(r.get("h4", ""), "")
+    return rows
+
+
 DATA = {}
 def build():
     DATA["players"] = load_players()
@@ -109,6 +158,8 @@ def build():
     DATA["events"] = csv_rows("event_table_named_full.csv")
     DATA["schedules"] = csv_rows("parsed_ml_schedule_ML00000000.csv")
     DATA["competitions"] = parse_competitions()
+    DATA["ml_squads"] = load_ml_squads()
+    DATA["ml_links"] = load_ml_links()
     DATA["overview"] = {
         "source": "decoded/ (EDIT+ML) + outputs/*.csv",
         "counts": {
@@ -118,10 +169,12 @@ def build():
             "动态事件(已命名)": len(DATA["events"]),
             "赛程条目(ML0)": len(DATA["schedules"]),
             "赛事定义表": len(DATA["competitions"]),
+            "大师联赛阵容(球员引用)": sum(len(t["players"]) for t in DATA["ml_squads"]["teams"]),
+            "队际链接网络(记录)": len(DATA["ml_links"]),
         },
         "unsolved": [
             "ML<->EDIT 球队ID映射（预算闭合缺口，需 Konami ID 主表或存档内映射表）",
-            "ML 球员实例动态布局（成长/训练/状态/合约）—— C 块，仍待逆向",
+            "ML 球员 condition/合约/成长/训练 精确字节偏移—— C 块深层待逆向（队→球员阵容与队际链接网络已解并接入 UI）",
             "当前余额（仅初始预算 +0x598 落盘，余额运行时计算）",
             "Salary / Market Value 存档编码",
         ],
@@ -165,6 +218,10 @@ class H(BaseHTTPRequestHandler):
                 self._json(DATA["schedules"])
             elif path == "/api/competitions":
                 self._json(DATA["competitions"])
+            elif path == "/api/ml_squads":
+                self._json(DATA["ml_squads"])
+            elif path == "/api/ml_links":
+                self._json(DATA["ml_links"])
             else:
                 self.send_error(404)
         except BrokenPipeError:
