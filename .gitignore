@@ -37,3 +37,7 @@ outputs/trace_seg.bin
 outputs/cpk_extract_dt10/
 outputs/cpk_extract_dt11/
 outputs/cpk_extract/
+
+# 脚本生成的超大产物（可由脚本随时重建，不入库）
+outputs/player_browser.html
+outputs/edit_player_abilities.csv
