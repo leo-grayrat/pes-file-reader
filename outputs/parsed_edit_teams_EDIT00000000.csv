@@ -1,0 +1,695 @@
+team_id,team_name,confidence,n_players
+1,Ireland,HIGH,23
+2,Northern Ireland,HIGH,23
+3,Scotland,HIGH,26
+4,Wales,HIGH,26
+5,England,HIGH,26
+6,Portugal,HIGH,26
+7,Spain,HIGH,24
+8,France,HIGH,26
+9,Belgium,HIGH,26
+10,Netherlands,HIGH,25
+11,Switzerland,HIGH,26
+12,Italy,HIGH,26
+13,Czech Republic,HIGH,26
+14,Germany,HIGH,26
+15,Denmark,HIGH,26
+16,Norway,HIGH,23
+17,Sweden,HIGH,26
+18,Finland,HIGH,26
+19,Poland,HIGH,25
+20,Slovakia,HIGH,26
+21,Austria,HIGH,26
+22,Hungary,HIGH,26
+23,Slovenia,HIGH,23
+24,Croatia,HIGH,26
+26,Bulgaria,HIGH,23
+27,Greece,HIGH,23
+28,Turkey,HIGH,23
+29,Ukraine,HIGH,26
+30,Russia,HIGH,26
+31,Morocco,HIGH,26
+32,Tunisia,HIGH,23
+33,Egypt,HIGH,23
+34,Nigeria,HIGH,23
+35,Cameroon,HIGH,23
+36,South Africa,HIGH,23
+37,Senegal,HIGH,23
+38,United States,HIGH,23
+39,Mexico,HIGH,23
+40,Jamaica,HIGH,23
+41,Costa Rica,HIGH,23
+42,Honduras,HIGH,23
+43,Colombia,HIGH,23
+44,Brazil,HIGH,23
+45,Peru,HIGH,23
+46,Chile,HIGH,23
+47,Paraguay,HIGH,23
+48,Uruguay,HIGH,23
+49,Argentina,HIGH,23
+50,Ecuador,HIGH,23
+51,Japan,HIGH,23
+52,South Korea,HIGH,23
+53,China,HIGH,21
+54,Iran,HIGH,29
+55,Saudi Arabia,HIGH,23
+56,Australia,HIGH,23
+57,Latvia,HIGH,23
+59,Arsenal FC,MED,23
+100,Kashiwa Reysol,MED,33
+101,FC Tokyo,MED,35
+102,Yokohama F. Marinos,MED,29
+103,Shimizu S-Pulse,MED,37
+104,JÃºbilo Iwata,MED,34
+105,Nagoya Grampus,MED,31
+106,Kyoto Sanga,MED,32
+107,Gamba Osaka,MED,60
+108,Vissel Kobe,MED,30
+109,Sanfrecce Hiroshima,MED,34
+110,Kawasaki Frontale,MED,32
+111,Shonan Bellmare,MED,23
+112,Monaco,HIGH,28
+113,Marseille,HIGH,37
+114,Paris Saint-Germain,HIGH,36
+115,Bordeaux,HIGH,29
+116,Manchester City,MED,32
+117,RSC Anderlecht,MED,27
+118,AC Sparta Prague,MED,36
+119,Blackburn Rovers,MED,37
+120,Everton FC,MED,39
+121,Fulham FC,MED,60
+122,Tottenham Hotspur,MED,60
+123,AJ Auxerre,MED,60
+124,Olympique Lyonnais,MED,33
+125,RC Lens,MED,60
+127,Bayern Munchen,HIGH,39
+128,Bayer Leverkusen,HIGH,32
+130,Galatasaray,HIGH,30
+131,SL Benfica,MED,31
+132,FC Porto,MED,31
+133,Olympiacos,HIGH,35
+134,Dynamo Kyiv,HIGH,36
+135,Celta de Vigo,MED,33
+136,Real Sociedad,MED,30
+137,FenerbahÃ§e SK,MED,27
+138,Panathinaikos FC,MED,37
+139,Zalgiris Vilnius,MED,36
+140,Ceres Negros,MED,28
+172,FC Utrecht,MED,31
+173,Vitesse Arnhem,MED,31
+174,FC Volendam,MED,30
+175,Sparta Praha,HIGH,30
+176,Athletic Bilbao,MED,34
+177,RCD Espanyol,MED,34
+178,MÃ¡laga CF,MED,30
+179,RCD Mallorca,MED,34
+180,Auxerre,HIGH,29
+181,Lyon,HIGH,29
+182,Lens,HIGH,31
+184,Schalke 04,HIGH,39
+186,Club Brugge KV,MED,60
+187,AEK Athens,MED,28
+188,Lokomotiv Moskva,MED,33
+190,BeÅiktaÅ JK,MED,33
+191,Cruzeiro EC,MED,34
+192,Jeonbuk Hyundai Motors,MED,30
+193,Pohang Steelers,MED,32
+194,Beijing Guoan,MED,32
+195,Changchun Yatai,MED,37
+196,Wuhan Three Towns,MED,37
+197,Fenerbahce,HIGH,32
+198,Panathinaikos,HIGH,33
+199,Ascoli Calcio,MED,27
+200,SSC Bari,MED,34
+201,Cagliari Calcio,MED,33
+203,SSC Napoli,MED,23
+204,Ternana Calcio,MED,35
+205,Torino FC,MED,32
+207,SC Cambuur-Leeuwarden,MED,31
+208,FC Emmen,MED,33
+209,Ajaccio,HIGH,30
+211,Guingamp,HIGH,30
+213,Lille,HIGH,29
+215,Montpellier,HIGH,32
+216,Nantes,HIGH,29
+217,Nice,HIGH,35
+218,Rennes,HIGH,28
+219,Sochaux,HIGH,34
+221,Toulouse,HIGH,37
+234,Stade Malherbe Caen,MED,31
+235,Clermont Foot,MED,33
+239,Chamois Niortais FC,MED,33
+240,AS Saint-Ãtienne,MED,28
+242,FSV Mainz 05,MED,37
+243,Rainmakers Classics,MED,60
+244,Fireblast Classics,MED,31
+245,Warmstorm Classics,MED,32
+250,Predators Classics,MED,25
+251,Afghanistan,MED,35
+252,Bahrain,MED,29
+254,Cambodia,MED,30
+255,India,MED,31
+256,Indonesia,MED,30
+258,Jordan,MED,30
+259,North Korea,MED,34
+260,Kuwait,MED,60
+261,Lebanon,MED,34
+263,Myanmar,MED,31
+264,Nepal,MED,23
+265,Oman,MED,33
+266,Pakistan,MED,60
+267,Palestine,MED,33
+268,Philippines,MED,33
+269,Qatar,MED,32
+270,AEK Athens,HIGH,30
+271,Syria,MED,36
+273,Besiktas,HIGH,27
+274,Vietnam,MED,29
+289,Tanzania,MED,23
+295,Canada,MED,28
+306,Andorra,MED,32
+310,Bosnia and Herzegovina,MED,32
+317,Liechtenstein,MED,36
+320,North Macedonia,MED,33
+323,San Marino,MED,32
+325,KRC Genk,MED,23
+327,Standard LiÃ¨ge,MED,30
+328,KV Mechelen,MED,60
+333,PAOK Thessaloniki,MED,37
+336,FCSB,MED,60
+337,CSKA Moskva,MED,31
+342,Hibernian FC,MED,34
+345,Argentinos Juniors,MED,30
+349,CA Independiente,MED,29
+351,CA Rosario Central,MED,27
+355,Botafogo,MED,29
+357,CR Flamengo,MED,30
+361,SC Internacional,MED,32
+362,Santos FC,MED,31
+363,SÃ£o Paulo FC,MED,34
+364,CSD Colo Colo,MED,60
+366,Millonarios FC,MED,30
+368,Olimpia AsunciÃ³n,MED,23
+370,CA PeÃ±arol,MED,32
+377,Al Shabab Riyadh,MED,38
+378,Pakhtakor Tashkent,MED,29
+379,TP Mazembe,MED,35
+382,Buriram United,MED,31
+383,Valenciennes FC,MED,60
+387,Sydney FC,MED,29
+388,AIK Solna,MED,33
+389,RB Salzburg,MED,32
+391,SD Ponferradina,MED,60
+394,FC Basel,MED,37
+395,HJK Helsinki,MED,35
+398,Legia Warszawa,MED,33
+399,Bristol City,MED,34
+400,Blackpool FC,MED,23
+403,Angers,HIGH,33
+405,Caen,HIGH,38
+406,Chateauroux,HIGH,39
+407,Clermont,HIGH,26
+413,Le Havre,HIGH,34
+414,Lorient,HIGH,33
+415,Nancy,HIGH,31
+416,Niort,HIGH,32
+418,Saint-Etienne,HIGH,39
+420,Troyes,HIGH,34
+1010,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1011,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1012,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1013,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1015,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1022,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1026,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1031,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1032,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1040,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1044,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1051,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1058,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1059,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1067,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1083,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1113,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1128,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1129,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1141,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1164,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1165,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1166,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1167,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1168,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1169,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1170,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1171,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1172,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1173,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1174,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1175,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1176,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1177,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1178,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1179,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1180,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+1181,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1182,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1183,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1184,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1195,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+1196,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+1197,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+1200,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+1203,Dinamo Zagreb,HIGH,37
+1207,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+1208,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+1212,PAOK,HIGH,33
+1217,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+1218,"(补丁新增/EDIT自定义,缺补丁表)",LOW,38
+1219,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+1220,"(补丁新增/EDIT自定义,缺补丁表)",LOW,37
+1222,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+1230,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+1232,Shakhtar Donetsk,HIGH,32
+1236,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1237,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1238,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+1239,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1240,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1241,"(补丁新增/EDIT自定义,缺补丁表)",LOW,39
+1242,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1243,"(补丁新增/EDIT自定义,缺补丁表)",LOW,39
+1244,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1245,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+1246,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+1247,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+1248,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+1249,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+1250,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1251,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+1252,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+1254,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1255,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+1256,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1257,"(补丁新增/EDIT自定义,缺补丁表)",LOW,24
+1258,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+1327,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+1328,Dijon,HIGH,31
+1329,Brest,HIGH,29
+1330,Reims,HIGH,28
+1363,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+1386,Esperance Tunis,HIGH,23
+1493,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+1528,Valenciennes,HIGH,27
+1550,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1551,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1588,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+1589,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1595,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+1600,"(补丁新增/EDIT自定义,缺补丁表)",LOW,39
+1706,"(补丁新增/EDIT自定义,缺补丁表)",LOW,35
+1753,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+1760,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1765,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1804,"(补丁新增/EDIT自定义,缺补丁表)",LOW,37
+1809,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+1818,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+1832,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+1909,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+1910,Nimes,HIGH,34
+1919,"(补丁新增/EDIT自定义,缺补丁表)",LOW,35
+1920,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+1921,"(补丁新增/EDIT自定义,缺补丁表)",LOW,39
+1922,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1923,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+1924,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+1927,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1929,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+1930,"(补丁新增/EDIT自定义,缺补丁表)",LOW,37
+1931,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+1932,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+1933,"(补丁新增/EDIT自定义,缺补丁表)",LOW,25
+1935,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+1936,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+1937,"(补丁新增/EDIT自定义,缺补丁表)",LOW,19
+1941,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+1944,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+1945,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+1950,Young Boys,HIGH,29
+1955,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+1956,"(补丁新增/EDIT自定义,缺补丁表)",LOW,25
+1957,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+1958,Servette,HIGH,32
+1973,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+1974,"(补丁新增/EDIT自定义,缺补丁表)",LOW,38
+1976,"(补丁新增/EDIT自定义,缺补丁表)",LOW,37
+1978,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+1979,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+1981,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+1985,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+1986,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+1987,"(补丁新增/EDIT自定义,缺补丁表)",LOW,22
+1989,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+1995,"(补丁新增/EDIT自定义,缺补丁表)",LOW,37
+1996,"(补丁新增/EDIT自定义,缺补丁表)",LOW,39
+2009,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2010,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+2013,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2019,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2066,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2067,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2068,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2069,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+2070,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2071,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2187,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2188,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2191,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+2192,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2193,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+2194,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2195,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2208,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+2209,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+2210,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+2215,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+2216,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2229,"(补丁新增/EDIT自定义,缺补丁表)",LOW,39
+2284,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2285,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2287,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2293,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+2297,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+2298,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2300,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2301,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+2344,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2345,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+2346,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+2347,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+2348,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+2349,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2350,"(补丁新增/EDIT自定义,缺补丁表)",LOW,24
+2351,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+2352,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2353,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2354,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2355,"(补丁新增/EDIT自定义,缺补丁表)",LOW,25
+2356,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2357,Ferencvaros,HIGH,30
+2360,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+2361,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2365,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2369,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2382,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2387,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2388,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2391,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2393,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2398,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2399,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2400,Oleksandriya,HIGH,27
+2401,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2402,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2403,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2404,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2405,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2406,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2407,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+2408,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2409,Astana,HIGH,23
+2450,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+2451,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2452,"(补丁新增/EDIT自定义,缺补丁表)",LOW,24
+2453,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+2454,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2459,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2464,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+2465,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+2468,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2469,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2473,"(补丁新增/EDIT自定义,缺补丁表)",LOW,25
+2478,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2480,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+2481,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+2483,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+2484,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2486,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+2488,"(补丁新增/EDIT自定义,缺补丁表)",LOW,25
+2490,"(补丁新增/EDIT自定义,缺补丁表)",LOW,25
+2491,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2493,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2494,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2496,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2497,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2498,"(补丁新增/EDIT自定义,缺补丁表)",LOW,25
+2499,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2501,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+2506,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+2514,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+2517,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2523,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2538,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2541,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+2542,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+2543,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2544,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2545,"(补丁新增/EDIT自定义,缺补丁表)",LOW,37
+2546,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+2547,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+2548,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2551,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2553,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+2610,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+2614,"(补丁新增/EDIT自定义,缺补丁表)",LOW,24
+2615,"(补丁新增/EDIT自定义,缺补丁表)",LOW,35
+2616,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+2618,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+2622,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+2625,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+2643,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+2650,"(补丁新增/EDIT自定义,缺补丁表)",LOW,24
+2651,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+2652,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2653,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2654,"(补丁新增/EDIT自定义,缺补丁表)",LOW,24
+2655,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2657,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+2676,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+2689,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2690,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+2691,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2692,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2693,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2694,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+2695,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+2696,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+2697,"(补丁新增/EDIT自定义,缺补丁表)",LOW,35
+2698,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+2699,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+2703,European Classics,HIGH,37
+2704,American Classics,HIGH,36
+2707,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+2708,"(补丁新增/EDIT自定义,缺补丁表)",LOW,35
+2717,"(补丁新增/EDIT自定义,缺补丁表)",LOW,38
+2719,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+2722,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+2729,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+2730,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+4000,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+4001,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+4002,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+4003,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+4004,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+4005,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+4031,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+4032,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+4033,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+4034,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+4035,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+4036,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+4037,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+4038,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+4040,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+4041,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+4042,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+4043,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+4044,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+4045,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+4046,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+4071,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+4077,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+4086,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+4092,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+4094,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+4095,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+4108,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+4110,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+4111,"(补丁新增/EDIT自定义,缺补丁表)",LOW,22
+4123,Metz,HIGH,30
+4143,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+4145,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+4146,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+4147,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+4168,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+4175,"(补丁新增/EDIT自定义,缺补丁表)",LOW,35
+4180,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+4183,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+4192,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+4193,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+4194,"(补丁新增/EDIT自定义,缺补丁表)",LOW,37
+4200,Amiens,HIGH,32
+4206,Dunkerque,HIGH,31
+4211,Paris FC,HIGH,32
+4213,Strasbourg,HIGH,33
+4220,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+4225,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+4229,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+4230,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+4232,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+4234,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+4237,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+4240,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+4241,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+4244,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+4255,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+4260,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+4269,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+4272,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+4302,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+4308,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+4309,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+4323,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+4363,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+4370,Grenoble,HIGH,30
+4372,Rodez,HIGH,28
+4395,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+4914,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+4915,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+4923,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+4928,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+4937,"(补丁新增/EDIT自定义,缺补丁表)",LOW,37
+4938,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+4941,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+4943,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+4962,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+4964,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+4965,Lugano,HIGH,29
+4971,"(补丁新增/EDIT自定义,缺补丁表)",LOW,0
+4973,"(补丁新增/EDIT自定义,缺补丁表)",LOW,37
+4995,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+5028,"(补丁新增/EDIT自定义,缺补丁表)",LOW,35
+5046,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+5047,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5048,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+5096,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+5099,Pau,HIGH,28
+5127,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5129,"(补丁新增/EDIT自定义,缺补丁表)",LOW,0
+5137,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+5139,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+5140,"(补丁新增/EDIT自定义,缺补丁表)",LOW,22
+5141,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+5142,"(补丁新增/EDIT自定义,缺补丁表)",LOW,22
+5143,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5145,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+5168,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+5170,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+5171,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+5173,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+5174,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5175,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+5183,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+5184,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5185,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5189,Slavia Praha,HIGH,32
+5190,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5191,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+5192,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+5193,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+5194,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5195,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+5196,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+5197,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+5200,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+5201,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+5202,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+5203,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+5204,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+5206,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+5207,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+5208,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+5210,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+5216,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+5217,"(补丁新增/EDIT自定义,缺补丁表)",LOW,38
+5223,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5224,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+5225,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5226,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+5235,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5296,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5298,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+5301,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5302,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5306,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+5312,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+5319,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+5346,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5353,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+5354,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+5355,"(补丁新增/EDIT自定义,缺补丁表)",LOW,36
+5356,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+5360,"(补丁新增/EDIT自定义,缺补丁表)",LOW,39
+5370,"(补丁新增/EDIT自定义,缺补丁表)",LOW,28
+5389,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+5394,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+5395,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+5397,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5399,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5400,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+5401,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5402,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+5403,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5404,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5405,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5416,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+5420,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5433,"(补丁新增/EDIT自定义,缺补丁表)",LOW,35
+5439,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5440,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+5452,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+5454,"(补丁新增/EDIT自定义,缺补丁表)",LOW,29
+5652,"(补丁新增/EDIT自定义,缺补丁表)",LOW,34
+5660,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+65686,"(补丁新增/EDIT自定义,缺补丁表)",LOW,35
+65688,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+65694,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+65813,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+65815,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+65818,"(补丁新增/EDIT自定义,缺补丁表)",LOW,38
+65831,"(补丁新增/EDIT自定义,缺补丁表)",LOW,23
+65846,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+66871,"(补丁新增/EDIT自定义,缺补丁表)",LOW,33
+66877,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+66885,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+66895,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+67025,"(补丁新增/EDIT自定义,缺补丁表)",LOW,31
+67112,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+67114,"(补丁新增/EDIT自定义,缺补丁表)",LOW,25
+68103,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+68113,"(补丁新增/EDIT自定义,缺补丁表)",LOW,39
+68116,"(补丁新增/EDIT自定义,缺补丁表)",LOW,32
+69630,"(补丁新增/EDIT自定义,缺补丁表)",LOW,24
+69703,"(补丁新增/EDIT自定义,缺补丁表)",LOW,24
+69706,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+69709,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+69710,"(补丁新增/EDIT自定义,缺补丁表)",LOW,37
+69712,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+70484,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+70487,"(补丁新增/EDIT自定义,缺补丁表)",LOW,25
+70489,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60
+70709,"(补丁新增/EDIT自定义,缺补丁表)",LOW,27
+70931,"(补丁新增/EDIT自定义,缺补丁表)",LOW,21
+71200,"(补丁新增/EDIT自定义,缺补丁表)",LOW,26
+71205,"(补丁新增/EDIT自定义,缺补丁表)",LOW,30
+71212,"(补丁新增/EDIT自定义,缺补丁表)",LOW,60

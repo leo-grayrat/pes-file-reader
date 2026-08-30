@@ -531,6 +531,20 @@
 - 球队块**内不存在** EDIT team_id（值域 1..71212）字段 → ML 队序号与 EDIT team_id 是**两套 ID 空间**，
   两者映射表尚未定位。这是 `+0x598` 预算与事件表闭合的最后缺口。
 
+**桥接尝试（2026-08-30，`ml_konami_bridge.py`，负结果）**：
+- 思路：ML 块含 3 字母缩写（`+0x62A`）+ 中文名（`+0x5E4`）；`Team.bin` 含同名缩写（`+0x272`）
+  + 英文名（`+0x70`）。以缩写码作语言无关键对接 `Team.bin` 得 pesdb 索引，再经
+  `team_id_names_final.csv` 的英文名反查 Konami team_id。
+- 结果：**缩写码命中 `Team.bin` 410/700（唯一码）**，但经 `team_id_names_final.csv` 反查 Konami
+  team_id 仅 115 条，且**这 115 条不可靠**——`team_id_names_final.csv` 对俱乐部（MED）是用
+  `Team.bin[team_id]` 推测名，而 Konami club 段存在系统偏移（如 `team_id 418`→`Team.bin[240]`），
+  名字↔ID 回查会把错队的 ID 带回来（先前的 `bridge_probe.py` 已验证 `Team.bin` 无中文名，
+  中文↔中文直配不成立，故只能走码桥）。
+- 结论：在无「Konami 官方 team_id ↔ 队名/缩写」主表（如社区 PES 编辑器导出的 team DB）
+  或存档内映射表的前提下，**ML↔EDIT 队 ID 无法从现有本地数据干净闭合**。这是预算 Σ 闭合仍卡住的根因。
+- 后续可行路径（待定）：① 抓取社区 PES2021 默认队 ID 主表（按码/英文名接入 `ml_konami_bridge.py`）；
+  ② 继续定位存档内「ML 队序号→Konami team_id」映射数组（此前盲扫未命中，可能不在球队块内）。
+
 **6. pesdb 队名表（dt10 `Team.bin`）与 team_id 映射问题（2026-08-30）**
 
 **Team.bin 结构（实测确认）**：QWESYS 头 + zlib（@0x10）→ 解压 1,133,680 B；
