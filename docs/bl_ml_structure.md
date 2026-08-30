@@ -553,16 +553,29 @@
 | **418** | **240** | **AS Saint-Étienne**（哈兹里、德比希、布德布兹） | STE |
 | **420** | **241** | **ESTAC Troyes**（吉罗东、图兹加尔、石玄俊） | TRO |
 
-→ **国家队段 1:1 成立**；俱乐部段存在偏移（418→240，差 178）。
+→ **国家队段 1:1 成立（已全覆盖）**：team_id 1..~57 与 Team.bin 索引严格 1:1
+（1=Ireland … 24=Croatia, 26=Bulgaria … 56=Australia, 57=Latvia；国家队止于 ~57，
+team_id 59 起为俱乐部如 Arsenal）。**俱乐部段存在偏移**（418→240），且 Team.bin
+整体按**联赛排序**（前 ~90 是国家队，之后 J联赛→法甲→意乙→阿甲… 分组），
+**绝不可 `Team.bin[team_id]` 取俱乐部名**。
 
-- 产出 `outputs/edit_team_names.csv`：694 个 team_id 中 **15 个已验证**、201 个 1:1 候选（**未验证，可能错配**）、
-  **478 个无候选**（team_id > 739，均为俱乐部，如 1010/1493/71212）。
-- **外部网站不可用**：pesmaster 的 `team/418`、`team/240` 均返回 404，其编号体系与 EDIT team_id
-  及 pesdb 索引**都不一致**（仅 `team/1`=爱尔兰这样的小编号可用），无法作为批量数据源。
+**重大校正（2026-08-30 续）：team_id = Konami 官方球队 ID**
+- 验证：`team_id 418`=Saint-Étienne、`420`=Troyes 与 **SoFrench Patch 2023-24 / ICMP 2021 V1.0** 公布的 ID→队名完全一致。
+- 本存档含 SoFrench+ICMP **改链 ID**（1329 Brest、4213 Strasbourg、127 Bayern…），说明是**补丁化存档**；
+  改链队的 `Team.bin[team_id]` 是错的（如 Team.bin[112]=Cerezo Osaka 而非 Monaco）。
+- pesmaster 用**另一套编号**（`team/1`=Ireland 可用，但 `team/418`/`team/240` 均 404），**不可作批量源**。
+- 产出 `outputs/team_id_names_final.csv`（694 队，带置信度）与 `outputs/edit_teams_named.csv`（合并球员抽样）。
 
-**7. 未解**：EDIT team_id → pesdb 索引的**完整映射表**（需从 pesdb 其他文件或 EDIT 的 team 段获取；
-EDIT 球员表止于 `0x82FBF4`，team-player 表止于 `0xA04830`，其后 491KB 为 1861 个 16B 稀疏块——
-间隔 272、首值 262143(0x3FFFF) 位掩码，**不是映射表**）。其余：年龄、能力值位域布局、
+**命名覆盖率（`team_id_map.py`）**：
+
+| 置信度 | 数量 | 来源 |
+|---|---|---|
+| **HIGH** | 119 | 国家队 1:1（57）+ 社区补丁命名队（~62：法/德/欧/日/南美/新增国家队） |
+| **MED** | 123 | team_id ≤739 的俱乐部，`Team.bin[team_id]` 最佳推测（基础授权队正确，改链队可能错） |
+| **LOW** | 452 | team_id >739 的补丁新增/EDIT 自定义（1000–9999 段 446 + ≥10000 自定义 32），缺对应补丁表 |
+
+**7. 剩余未解**：452 个 LOW 队需对应补丁的 ID 列表（1000–1999 / 2000–2999 等簇疑似特定 megapatch
+或用户 EDIT 新增）；如提供所用补丁清单可批量补全。其余旧项：年龄、能力值位域布局、
 Salary/Market Value 存档编码、ML↔EDIT 球队 ID 映射（`+0x598` 预算闭合的最后缺口）。
 
 ## 三、未解问题与下一步建议
