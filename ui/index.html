@@ -220,7 +220,7 @@ async function showPlayers(){
     $('#fAbil').value='-1';$('#fMin').value=40;$('#fMax').value=99;$('#fWfu').value=1;$('#fWfa').value=1;$('#fIr').value=1;$('#fCond').value=1;
     sel.sk.clear();sel.com.clear();skMode='any';comMode='any';$('#skMode').textContent='任一';$('#comMode').textContent='任一';
     document.querySelectorAll('.chip.on').forEach(c=>c.classList.remove('on'));runP();};
-  function ov(p){return p[16];}  /* 总评：后端按实况位置加权算法估算 */
+  function ov(p){const v=p&&p[16];return (typeof v==='number')?v:'—';}  /* 总评：后端按注册位置非负加权×熟练度乘子估算 */
   function filt(){
     const name=$('#fName').value.trim().toLowerCase();
     const pos=+$('#fPos').value,sty=+$('#fStyle').value,foot=+$('#fFoot').value;

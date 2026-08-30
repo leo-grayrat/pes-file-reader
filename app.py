@@ -64,8 +64,10 @@ def load_players():
                 1 if (row.get("stronger_foot") or "").startswith("L") else 0,
                 gi("weak_foot_usage", 1), gi("weak_foot_accuracy", 1),
                 gi("injury_resistance", 1), gi("conditioning", 1), gi("star_rating"),
-                (row.get("playable") or "0" * 13)[:13], com, sk, ab,
-                pr.compute_overall({k: int(row[k]) for k in bp.ABIL_ORDER if k in row}, gi("reg_pos")),
+                [int(c) for c in (row.get("playable") or "0" * 13)[:13]], com, sk, ab,
+                pr.compute_overall({k: int(row[k]) for k in bp.ABIL_ORDER if k in row},
+                                   gi("reg_pos"), int((row.get("playable") or "0" * 13)
+                                                      [max(0, min(12, gi("reg_pos")))] or "2")),
             ])
     meta = {
         "source": "EDIT00000000.data -> edit_player_abilities.py",
@@ -74,9 +76,9 @@ def load_players():
         "abilityLabels": [bp.ABIL_LABEL.get(k, k) for k in bp.ABIL_ORDER],
         "positions": bp.REG_POS_NAMES, "playableOrder": bp.PLAYABLE_ORDER,
         "playStyles": bp.PLAY_STYLES, "skills": bp.SKILLS, "comStyles": bp.COM_STYLES,
-        "overallNote": "总评按实况位置加权算法估算（参考 PES master 球员界面；已用 273 名真实球员验证，"
-                       "平均与 PES master 相差约 3–7 分）。精确 Konami 权重未公开，属社区近似；"
-                       "能力值下限 40（范围 [40,99]）。",
+        "overallNote": "总评 = 注册位置能力加权(非负权重) × 注册位置熟练度乘子(A=1.0 / B·C 递减)。"
+                       "权重与熟练度罚分均为社区近似(精确 Konami 值未公开)；已用 273 名 PES master 真实球员"
+                       "验证平均误差约 3–7 分。身高属身体数据、与能力数据无关，不进加权式。能力值下限 40（[40,99]）。",
     }
     return {"meta": meta, "players": players}
 
@@ -192,6 +194,9 @@ class H(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+        self.send_header("Pragma", "no-cache")
+        self.send_header("Expires", "0")
         self.end_headers()
         self.wfile.write(body)
 
@@ -201,6 +206,9 @@ class H(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+        self.send_header("Pragma", "no-cache")
+        self.send_header("Expires", "0")
         self.end_headers()
         self.wfile.write(body)
 

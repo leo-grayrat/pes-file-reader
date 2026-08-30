@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""身高/体重 与 能力值 的相关性分析 (验证"身高通过身体子项影响总评"的假设)。
+"""身高/体重 与 能力值 的相关性分析 (仅统计观察, 不用于 OVR 公式)。
 
 数据来源(均为本存档解码结果, 按 pid 关联):
   - outputs/parsed_edit_players_EDIT00000000.csv : player_id, height_cm, weight_kg
   - outputs/edit_player_abilities.csv            : pid + 25 项能力值
 
-目的: 检验用户提醒"身高跟能力值也有关系"。
-结论预期: 身高与 jump/heading/physical_contact/balance 显著正相关, 与 gk_reach(门将)正相关;
-=> 身高对总评的影响已通过这些身体子项进入加权公式, 无需(也不应)把身高作为独立加权项,
-   否则会与身体子项共线重复计数。
+目的: 检验"身高与能力值是否相关"这一经验现象(统计层面)。
+
+重要结论(2026-08-30 用户纠正): 身高属"身体数据", 在游戏里与"能力数据"完全分开、可独立
+任意赋值 —— 矮门将可有高弹跳、高门将可有低弹跳。本文件算出的相关性只是现实世界数据
+碰巧相关, **不是游戏机制**, 因而身高绝不进入 OVR 加权式(见 pes_ratings.py: 公式只含
+25 项能力值, 不含身高)。本文件仅作统计记录, 其相关性不得用于推断公式结构。
 """
 import csv, math, os
 from collections import defaultdict

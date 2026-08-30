@@ -1,4 +1,4 @@
-"""PES 2021 总评(Overall)估算 —— 位置加权算法。
+"""PES 2021 总评(Overall)估算 —— 位置加权算法（非负权重 + 熟练度乘子）。
 
 重要事实（来自逆向与社区资料）：
 - 实况存档（EDIT 240B）**不存储**总评。权威字段表 implyingrigged.info 仅列出 25 项
@@ -17,25 +17,32 @@ github.com/andinoferdi/efootball-pes2021-stats-converter 的 compute_pes_overall
 建模约束（2026-08-30 用户反馈 + PES 游戏机制，已落实）：
 - **只看注册位置(reg_pos)**：总评按球员的注册位置现算，不混入 PES master 界面上
   同球员 13 个位置的独立总评。不同位置总评不同，反映的是"角色契合度"，位置加权结构即此机制。
+- **OVR 是能力的非负加权和**：任何能力值增强，总评必增，不存在负相关项（用户明确）。
+  因此权重全部 ≥ 0、权重和 = 1；本模块采用社区已文档化的非负权重，绝不做会产出
+  负权重/角点解的纯数据拟合（见下方「为什么不做 NNLS 反推」）。
+- **身高不进加权式**：身高属"身体数据"，在游戏里与"能力数据"完全分开、可独立任意赋值
+  （矮门将可有高弹跳、高门将可有低弹跳）。OVR 公式只含能力值，不含身高；任何"身高经
+  子项体现"的推断都是把现实世界相关性带进来了，错误（见 height_analysis.py 修正说明）。
 - **GK = 门将五项 + 跳起**：门将总评主要和门将五项(gk_*)及跳起有关，与余者关系很小
   （见 OVERALL_WEIGHTS["GK"]，jump 取 0.06、门将五项整体缩至 0.94）。
-- **身高不单列**：身高确实与能力值相关（见 height_analysis.py：身高 vs 跳起 r=0.42 /
-  头球 0.55 / 身体接触 0.69 / 门将覆盖 0.39），但其影响已通过 jump/heading/physical_contact
-  等身体子项进入加权公式；公式不直接含身高项，否则与身体子项共线重复计数。
-- **熟练度/对称惩罚超出静态解码范围**：PES 中"注册位置有轻微加成、同侧双侧 A 熟练度时
-  非注册侧仍略低、低熟练度降低该位置评分"等机制，需要逐位置熟练度数据（存档未解/动态），
-  无法从静态能力值还原。本模块只输出"注册位置、满熟练度"下的总评，即 PES master 界面
-  展示的该球员主总评；这也是为什么与 PES master 仍有约 3-7 分残差。
+- **A/B/C 熟练度乘子**：存档已解出每个球员 13 个位置的熟练度（playable，0=C/1=B/2=A）。
+  注册位置的熟练度作为 ≤1 乘子作用于总评——低熟练度降低该位置评分（用户明确）。
+  乘子值见 FAMILIARITY_FACTOR（精确 Konami 罚分未公开，社区近似占位）。
+  注意：本工具仅算"注册位置"总评；若某球员被放到非注册位置，其 OVR 应按该位置熟练度
+  重新计算（当前 UI 只展示注册位置，符合 PES master 主总评语义）。
 
-实证验证（2026-08-30，采集 PES master 真实球员页 compare?id=<pid> 共 273 名，
-按注册位置组对照其真实总评）：
+为什么不做 NNLS 反推精确权重（2026-08-30 复盘）：
+- 曾采集 273 名 PES master 真实球员(compare?id=<pid>)做岭回归/NNLS，结果塌成非物理角点
+  （DEF 的 low_pass 权重 0.58、GK 的 gk_clearing 0.92、FWD 的 heading 0.14）——其"更低 MAE"
+  是 25 项能力值在数据上高度共线、纯数据拟合吸相关性所致，不是真公式。
+- 用户明确指出：游戏里能力值是任意赋的、身体与能力数据独立，所谓"共线"是现实世界数据
+  碰巧相关，并非游戏机制。故真公式就是"非负加权 + 熟练度乘子"，直接采用社区文档化的
+  非负权重，不再把退化的拟合权重接进代码。
+
+实证验证（同上 273 名样本，按注册位置组对照 PES master 真实总评）：
 - 本模块权重与 PES master 真实总评的平均绝对误差(MAE): FWD≈3.8 / MID≈3.7 /
-  DEF≈4.1 / GK≈7.3（GK 样本少、波动大）。
-- 曾尝试用 NNLS 回归反推精确权重：因 25 项能力值高度共线、GK 仅 23 样本，
-  纯数据拟合会塌成非物理角点解（如 DEF 的 low_pass 权重 0.58、GK 的 gk_clearing
-  权重 0.92、FWD 的 heading 0.14），其"更低 MAE"是吸共线相关性而非真公式。
-- 结论：Konami 精确总评权重从未公开，任何工具均为近似；本模块为忠实参考
-  PES master 位置加权结构 + 上述游戏机制约束的最佳可用近似，UI 中已如实标注。
+  DEF≈4.1 / GK≈7.3（GK 样本少、波动大）。残差主要来自：① 本存档是自定义/修改库，
+  与 PES master 默认库数值不同；② 熟练度罚分/同侧对称等动态机制近似。
 """
 
 # reg_pos 数字码 -> 位置名（与 edit_player_abilities.py 的 REG_POS_NAMES 对应）
@@ -68,13 +75,21 @@ OVERALL_WEIGHTS = {
 FLOOR = 40
 CEIL = 99
 
+# 注册位置熟练度乘子：2=A(满,不罚分) / 1=B / 0=C(低熟练度降分)。
+# 精确 Konami 罚分未公开，此处为社区近似占位值；若你有准确罚分可在此替换。
+FAMILIARITY_FACTOR = {2: 1.0, 1: 0.96, 0: 0.92}
 
-def compute_overall(stats, reg_pos):
+
+def compute_overall(stats, reg_pos, fam=None):
     """计算位置加权总评。
 
     stats: dict，键为能力值字段名(snake_case)，值为 int；缺失按 FLOOR。
     reg_pos: int 0-12（注册位置码）。
+    fam: 注册位置熟练度 0=C/1=B/2=A（可选，默认按 A=不罚分）。
     返回: int，钳制在 [FLOOR, CEIL]。
+
+    公式: OVR = 钳制( round( Σ(w_i · ability_i) / Σw_i  ×  FAMILIARITY_FACTOR[fam] ) )
+    权重 w_i 全部 ≥ 0（任意能力增强 → 总评必增），熟练度乘子 ≤ 1（低熟练度降分）。
     """
     g = POS_GROUP.get(int(reg_pos), "MID")
     s = w = 0.0
@@ -86,6 +101,8 @@ def compute_overall(stats, reg_pos):
         s += v * ww
         w += ww
     val = s / max(w, 1e-9)
+    if fam is not None:
+        val *= FAMILIARITY_FACTOR.get(int(fam), 1.0)
     return max(FLOOR, min(CEIL, round(val)))
 
 
