@@ -161,40 +161,73 @@ def _load_edit_ids_for_links():
     return s
 
 
+def _load_squad_maps():
+    """返回 (player_id->set(ml_idx), ml_idx->队名)。用于把 596B 记录的 h3/h4 反查到队。"""
+    import csv as _csv
+    import glob as _glob
+    p2t = {}; t2n = {}
+    cand = _glob.glob(os.path.join(OUT, "parsed_ml_team_squads_*.csv"))
+    if cand:
+        with open(cand[0], encoding="utf-8") as f:
+            for r in _csv.DictReader(f):
+                try:
+                    pid = int(r["player_id"]); idx = int(r["ml_idx"])
+                except (ValueError, KeyError):
+                    continue
+                p2t.setdefault(pid, set()).add(idx)
+                t2n[idx] = r["name_cn"]
+    return p2t, t2n
+
+
 def parse_ml_linktable(b):
-    """解析 ML 队块外的 per-entity 关联/历史链式记录表。
-    记录以 u16 小端 0x07E5('e5 07') 为标记, 实测记录长 596B; 每条:
-      header = 前 8×u32, 其中 u32[2]=条目数(count);
-      之后从 +0x20 起, 16B/条 = [id_u32][0][other_id_u32][val_u32] 的列表
-      (第 2 个 u32==0 是分隔符, 用来筛出有效条目)。
-    同一球员可在多条记录里作为链接项出现(已验证 45144 出现 14 次)。
-    语义 TBD: 疑似转会/球探/关系/历史链接, 非 condition/合约/成长/训练本身。
+    """解析 ML 队块外的 596B 'e5 07' 队际球员链接记录表(选项 C 深挖结果)。
+
+    结构(已全量验证):
+      - 标记: u16 小端 0x07E5 出现在每条记录开头; 记录定长 596B。
+      - header = 前 8×u32: h0 低16位=0x07E5(高16位为子类型, 120种, 非恒定),
+        h1∈{0,1}, h2=count(真实记录 11..30; 另有 count=14098/超大 为碰巧含标记的其他表, 已过滤),
+        h3 = 源队注册id, h4 = 目标队注册id(同命名空间, h4⊆h3 100%),
+        h5∈小枚举(39种), h6∈{0..1538}(9种), h7 = 每条记录属性(1180种, 可能种子/子类型)。
+      - entry 区 = 从 +0x20 起, 16B/条 = [player_a u32][0 分隔符][linktype_c u32][value_v u32];
+        仅第2 u32==0 的条目有效。
+      - 语义: 每条 = (队h3 → 队h4) 的有向链接, 列出 ~10-20 名球员(player_a),
+        各带链接类型 c(全局仅 216 种, ~6.29-6.36M) 与每链接值 v(多为 0xFFFF 哨兵或 4-117 小值/~12800)。
+        同一队的各子表(h4不同)球员集合基本不相交(Jaccard≈0.2) -> 非阵容切分, 而是队际球员监控/关系网络。
+        列出球员多归第三方队(非 h3/h4 本队阵容)。
+      - 这是 ML 的一类"隐藏机制"(队际球员关联网络), 但明确不是 condition/合约/成长/训练。
     """
     ids = _load_edit_ids_for_links()
+    p2t, t2n = _load_squad_maps()
     tags = [i for i in range(len(b) - 1) if b[i] == 0xE5 and b[i + 1] == 0x07]
     recs = []
-    i = 0
-    while i < len(tags) - 1:
-        gap = tags[i + 1] - tags[i]
-        if gap == 596:
-            o = tags[i]
-            hdr = [u32(b, o + j * 4) for j in range(8)]
-            count = hdr[2]
-            end = tags[i + 1]
-            entries = []
-            off = o + 32
-            while off + 16 <= end:
-                a = u32(b, off); z = u32(b, off + 4)
-                c = u32(b, off + 8); v = u32(b, off + 12)
-                if z == 0:
-                    entries.append((a, c, v))
-                off += 16
-            recs.append({"off": o, "hdr": hdr, "count": count,
-                         "entries": entries,
-                         "edit_links": sum(1 for a, c, v in entries if a in ids)})
-            i += 1
-        else:
-            i += 1
+    for i in range(len(tags) - 1):
+        if tags[i + 1] - tags[i] != 596:
+            continue
+        o = tags[i]
+        hdr = [u32(b, o + j * 4) for j in range(8)]
+        count = hdr[2]
+        if not (11 <= count <= 30):   # 过滤碰巧含标记的其他表(噪声)
+            continue
+        end = tags[i + 1]
+        entries = []
+        off = o + 32
+        while off + 16 <= end:
+            a = u32(b, off); z = u32(b, off + 4)
+            c = u32(b, off + 8); v = u32(b, off + 12)
+            if z == 0:
+                entries.append((a, c, v))
+            off += 16
+        # 用 entry 的 player_a 反查主导队(ml_idx), 解析 h3/h4 队名
+        tc = {}
+        for a, c, v in entries:
+            if a in ids:
+                for t in p2t.get(a, ()):
+                    tc[t] = tc.get(t, 0) + 1
+        dom = max(tc.items(), key=lambda kv: kv[1])[0] if tc else None
+        recs.append({"off": o, "hdr": hdr, "count": count,
+                     "entries": entries, "edit_links": sum(1 for a, c, v in entries if a in ids),
+                     "h3_team": t2n.get(dom, "") if dom is not None else "",
+                     "h3_team_idx": dom})
     return recs
 
 
@@ -306,13 +339,13 @@ def export_ml(ml, tag):
                ["seq", "year", "month", "day", "round"],
                [[s["seq"], s["year"], s["month"], s["day"], s["round"]]
                 for s in ml["schedule"]])
-    # 队块外 596B 'e5 07' 关联/历史链式记录表
+    # 队块外 596B 'e5 07' 队际球员链接记录表
     links = parse_ml_linktable(open(os.path.join(DEC, tag + ".data"), "rb").read())
     _write_csv(os.path.join(OUT, f"parsed_ml_link_records_{tag}.csv"),
-               ["rec_idx", "offset_hex", "h0", "h1", "count", "h3", "h4", "h5",
+               ["rec_idx", "offset_hex", "h3", "h4", "h3_team", "count", "h5",
                 "h6", "h7", "n_entries", "edit_id_links", "sample_entries"],
-               [[ri, f"0x{r['off']:X}", r["hdr"][0], r["hdr"][1], r["count"],
-                 r["hdr"][3], r["hdr"][4], r["hdr"][5], r["hdr"][6], r["hdr"][7],
+               [[ri, f"0x{r['off']:X}", r["hdr"][3], r["hdr"][4], r.get("h3_team", ""),
+                 r["count"], r["hdr"][5], r["hdr"][6], r["hdr"][7],
                  len(r["entries"]), r["edit_links"],
                  ";".join(f"{a}:{c}:{v}" for a, c, v in r["entries"][:10])]
                 for ri, r in enumerate(links)])
