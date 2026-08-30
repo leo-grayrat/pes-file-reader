@@ -47,6 +47,16 @@ def load_players():
     wfu,wfa,ir,cond,star,play(13),com[],sk[],ab[25]] ]"""
     src = os.path.join(OUT, "edit_player_abilities.csv")
     players = []
+    # 身高(身体数据)映射 pid -> height_cm, 来自解码的 parsed_edit_players
+    height_map = {}
+    hp = os.path.join(OUT, "parsed_edit_players_EDIT00000000.csv")
+    if os.path.exists(hp):
+        with open(hp, encoding="utf-8", newline="") as hf:
+            for r in csv.DictReader(hf):
+                try:
+                    height_map[int(r["player_id"])] = int(r["height_cm"])
+                except (KeyError, ValueError):
+                    pass
     with open(src, encoding="utf-8", newline="") as f:
         for row in csv.DictReader(f):
             try:
@@ -67,7 +77,8 @@ def load_players():
                 [int(c) for c in (row.get("playable") or "0" * 13)[:13]], com, sk, ab,
                 pr.compute_overall({k: int(row[k]) for k in bp.ABIL_ORDER if k in row},
                                    gi("reg_pos"), int((row.get("playable") or "0" * 13)
-                                                      [max(0, min(12, gi("reg_pos")))] or "2")),
+                                                      [max(0, min(12, gi("reg_pos")))] or "2"),
+                                   height_map.get(gi("pid"))),
             ])
     meta = {
         "source": "EDIT00000000.data -> edit_player_abilities.py",
@@ -76,9 +87,11 @@ def load_players():
         "abilityLabels": [bp.ABIL_LABEL.get(k, k) for k in bp.ABIL_ORDER],
         "positions": bp.REG_POS_NAMES, "playableOrder": bp.PLAYABLE_ORDER,
         "playStyles": bp.PLAY_STYLES, "skills": bp.SKILLS, "comStyles": bp.COM_STYLES,
-        "overallNote": "总评 = 注册位置能力加权(非负权重) × 注册位置熟练度乘子(A=1.0 / B·C 递减)。"
-                       "权重与熟练度罚分均为社区近似(精确 Konami 值未公开)；已用 273 名 PES master 真实球员"
-                       "验证平均误差约 3–7 分。身高属身体数据、与能力数据无关，不进加权式。能力值下限 40（[40,99]）。",
+        "overallNote": "总评 = 注册位置能力加权(非负权重) + 身高直接因子(见 pes_ratings.HEIGHT_WEIGHT) "
+                       "× 注册位置熟练度乘子(A=1.0 / B·C 递减)。身高是总评线性式的直接因子(与 25 项能力值并列,"
+                       "身体数据/能力数据各自独立键入); 其系数无法从 PES master 数据反推(与跳起/头球/身体接触共线),"
+                       "当前为待填占位。权重/熟练度罚分/身高系数均为社区近似(精确 Konami 值未公开); 验证平均误差约 3–7 分。"
+                       "能力值下限 40（[40,99]）。",
     }
     return {"meta": meta, "players": players}
 

@@ -20,9 +20,13 @@ github.com/andinoferdi/efootball-pes2021-stats-converter 的 compute_pes_overall
 - **OVR 是能力的非负加权和**：任何能力值增强，总评必增，不存在负相关项（用户明确）。
   因此权重全部 ≥ 0、权重和 = 1；本模块采用社区已文档化的非负权重，绝不做会产出
   负权重/角点解的纯数据拟合（见下方「为什么不做 NNLS 反推」）。
-- **身高不进加权式**：身高属"身体数据"，在游戏里与"能力数据"完全分开、可独立任意赋值
-  （矮门将可有高弹跳、高门将可有低弹跳）。OVR 公式只含能力值，不含身高；任何"身高经
-  子项体现"的推断都是把现实世界相关性带进来了，错误（见 height_analysis.py 修正说明）。
+- **身高是总评线性式的直接因子（用户明确，2026-08-30 末轮纠正）**：身高属"身体数据"，
+  与 25 项"能力数据"在游戏里是**各自独立键入**的两个输入（矮门将可有高弹跳、高门将可有低
+  弹跳，互不因果）——但两者**平级地直接参与同一个线性求和**算出总评。身高不是"经子项间接
+  影响"，也不是"经验相关"，它就是加权式里的一个直接项（见 HEIGHT_WEIGHT，与 OVERALL_WEIGHTS
+  并列、作为加权平均里的另一项）。系数 HEIGHT_WEIGHT 无法从 PES master 数据反推（默认库里
+  身高与跳起/头球/身体接触高度共线，这些子项已带权重，身高的独立贡献被吸收）；真实值请按
+  游戏内部系数填入（见 HEIGHT_WEIGHT 注释）。
 - **GK = 门将五项 + 跳起**：门将总评主要和门将五项(gk_*)及跳起有关，与余者关系很小
   （见 OVERALL_WEIGHTS["GK"]，jump 取 0.06、门将五项整体缩至 0.94）。
 - **A/B/C 熟练度乘子**：存档已解出每个球员 13 个位置的熟练度（playable，0=C/1=B/2=A）。
@@ -37,7 +41,7 @@ github.com/andinoferdi/efootball-pes2021-stats-converter 的 compute_pes_overall
   是 25 项能力值在数据上高度共线、纯数据拟合吸相关性所致，不是真公式。
 - 用户明确指出：游戏里能力值是任意赋的、身体与能力数据独立，所谓"共线"是现实世界数据
   碰巧相关，并非游戏机制。故真公式就是"非负加权 + 熟练度乘子"，直接采用社区文档化的
-  非负权重，不再把退化的拟合权重接进代码。
+  非负权重，不再把退化的拟合权重接进代码。真公式 = 非负位置加权 + 身高直接因子 + 熟练度乘子。
 
 实证验证（同上 273 名样本，按注册位置组对照 PES master 真实总评）：
 - 本模块权重与 PES master 真实总评的平均绝对误差(MAE): FWD≈3.8 / MID≈3.7 /
@@ -79,17 +83,26 @@ CEIL = 99
 # 精确 Konami 罚分未公开，此处为社区近似占位值；若你有准确罚分可在此替换。
 FAMILIARITY_FACTOR = {2: 1.0, 1: 0.96, 0: 0.92}
 
+# 身高对总评的直接线性系数(对 raw cm)。身高是总评加权式里与 25 项能力值**并列**的直接因子
+# (用户明确 2026-08-30 末轮: 非间接、非因果于子项, 直接参与同一个线性求和)。
+# 实现: 与能力值同一加权平均 —— num += HEIGHT_WEIGHT * height_cm; den += HEIGHT_WEIGHT。
+# 数值无法从 PES master 数据反推: 默认库里身高与 jump/heading/physical_contact/gk_reach 高度
+# 共线, 这些子项已带权重, 身高的独立贡献被吸收(单参数 W_H 拟合恒=0.0000)。
+# => 请填入真实 Konami 系数(或按游戏内部身高表示方式的换算值)。当前 0.0 = 待填(惰性, 填>0 即生效)。
+HEIGHT_WEIGHT = 0.0
 
-def compute_overall(stats, reg_pos, fam=None):
+
+def compute_overall(stats, reg_pos, fam=None, height_cm=None):
     """计算位置加权总评。
 
     stats: dict，键为能力值字段名(snake_case)，值为 int；缺失按 FLOOR。
     reg_pos: int 0-12（注册位置码）。
     fam: 注册位置熟练度 0=C/1=B/2=A（可选，默认按 A=不罚分）。
+    height_cm: 身高(cm)，可选；作为总评线性式的直接因子参与(见 HEIGHT_WEIGHT)。
     返回: int，钳制在 [FLOOR, CEIL]。
 
-    公式: OVR = 钳制( round( Σ(w_i · ability_i) / Σw_i  ×  FAMILIARITY_FACTOR[fam] ) )
-    权重 w_i 全部 ≥ 0（任意能力增强 → 总评必增），熟练度乘子 ≤ 1（低熟练度降分）。
+    公式: OVR = 钳制( round( (Σ(w_i·ability_i) + W_H·height) / (Σw_i + W_H) × FAM[fam] ) )
+    权重 w_i 全部 ≥ 0（任意能力增强 → 总评必增）；身高项 W_H≥0 同理；熟练度乘子 ≤ 1。
     """
     g = POS_GROUP.get(int(reg_pos), "MID")
     s = w = 0.0
@@ -100,6 +113,9 @@ def compute_overall(stats, reg_pos, fam=None):
             v = FLOOR
         s += v * ww
         w += ww
+    if height_cm is not None and HEIGHT_WEIGHT > 0:
+        s += HEIGHT_WEIGHT * float(height_cm)
+        w += HEIGHT_WEIGHT
     val = s / max(w, 1e-9)
     if fam is not None:
         val *= FAMILIARITY_FACTOR.get(int(fam), 1.0)
