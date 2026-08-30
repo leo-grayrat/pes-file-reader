@@ -1,0 +1,12 @@
+[
+  {
+    "date": "2026-08-31",
+    "macrostructure": "Workbench",
+    "theme": "Lumen (night foundry drop)",
+    "enrichment": "E5 hand-built SVG apparatus — filament chamber with live API callouts",
+    "brief": "PES2021 存档浏览器 · read-only save decoder workbench (single-page redesign of ui/index.html)",
+    "nav": "N10 vertical instrument rail",
+    "footer": "Ft1 status strip",
+    "stamp": "contrast: pass (40-41) · slop: pass (42-45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (34,49,50-57)"
+  }
+]

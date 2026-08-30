@@ -4,105 +4,259 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PES2021 存档浏览器（只读）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0e1320;--panel:#161d2e;--panel2:#1d2740;--line:#2a3550;
-    --txt:#e6ecf5;--dim:#8b97b0;--accent:#4da3ff;--accent2:#ffcb47;
-    --good:#3fbf6f;--mid:#f4b740;--low:#e2603f;--gk:#9b6bff;}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);height:100vh;overflow:hidden;
-    font-family:-apple-system,"Segoe UI","Microsoft YaHei",system-ui,sans-serif;font-size:13px}
-  .app{display:flex;height:100vh}
-  nav{width:200px;flex:0 0 200px;background:var(--panel);border-right:1px solid var(--line);
-    display:flex;flex-direction:column;padding:10px 0}
-  nav h1{font-size:13px;color:var(--accent);padding:4px 14px 12px;margin:0;line-height:1.4}
-  nav .sub{font-size:10px;color:var(--dim);padding:0 14px 12px}
-  nav button{flex:0 0 auto;background:none;border:none;color:var(--dim);text-align:left;
-    padding:9px 14px;cursor:pointer;font-size:13px;border-left:3px solid transparent}
-  nav button:hover{background:var(--panel2);color:var(--txt)}
-  nav button.on{background:var(--panel2);color:var(--accent);border-left-color:var(--accent);font-weight:600}
-  nav .ft{margin-top:auto;font-size:10px;color:var(--dim);padding:10px 14px;border-top:1px solid var(--line)}
-  main{flex:1;min-width:0;overflow:auto;padding:16px 20px}
-  .secttl{font-size:15px;color:var(--txt);margin:0 0 4px}
-  .secnote{color:var(--dim);font-size:11px;margin-bottom:12px}
-  .ovcard{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px}
-  .ovgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:8px 0}
-  .ovcell{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
-  .ovcell .n{font-size:22px;font-weight:700;color:var(--accent2)}
-  .ovcell .l{color:var(--dim);font-size:11px;margin-top:2px}
-  .unsolved{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:8px}
-  .unsolved li{color:var(--dim);margin:4px 0;font-size:12px}
-  /* filters */
-  .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-bottom:10px}
-  .fld{display:flex;flex-direction:column;gap:3px}
-  .fld label{color:var(--dim);font-size:11px}
-  select,input[type=text],input[type=number]{background:var(--panel2);color:var(--txt);
-    border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:12px}
-  input[type=text]:focus,select:focus{outline:1px solid var(--accent)}
-  .chips{display:flex;flex-wrap:wrap;gap:5px;max-height:120px;overflow:auto;padding:4px;
-    background:var(--panel2);border:1px solid var(--line);border-radius:6px;min-width:220px}
-  .chip{padding:3px 7px;border-radius:12px;background:#243152;color:var(--dim);cursor:pointer;
-    font-size:11px;border:1px solid transparent;user-select:none}
-  .chip.on{background:var(--accent);color:#06101f;font-weight:600}
-  .mode{font-size:11px;color:var(--dim)}
-  .mode b{color:var(--accent2);cursor:pointer}
-  .clearbtn{background:#2a3550;color:var(--txt);border:1px solid var(--line);border-radius:6px;
-    padding:6px 10px;cursor:pointer;font-size:12px}
-  /* table */
-  table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
-  th,td{padding:6px 8px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
-  th{color:var(--dim);font-weight:600;position:sticky;top:0;background:var(--bg);cursor:pointer;user-select:none}
-  tbody tr:hover{background:var(--panel2)}
-  .pos{display:inline-block;min-width:30px;text-align:center;padding:1px 5px;border-radius:4px;
-    background:#243152;color:var(--txt);font-weight:600;font-size:11px}
-  .pos.GK{background:var(--gk);color:#0e1320}
-  .ov{font-weight:700;color:var(--accent2)}
-  .badge{display:inline-block;padding:0 5px;border-radius:3px;font-size:10px;margin-right:3px}
-  .bA{background:var(--good);color:#06101f}.bB{background:var(--mid);color:#06101f}.bC{background:#3a4767;color:var(--txt)}
-  .n{color:var(--accent2);font-weight:600;font-size:12px}
-  .resn{color:var(--dim);font-size:11px;margin:6px 0}
-  /* detail modal */
-  .mask{position:fixed;inset:0;background:rgba(4,8,16,.72);display:none;align-items:flex-start;
-    justify-content:center;padding:30px 12px;overflow:auto;z-index:50}
-  .mask.show{display:flex}
-  .card{width:680px;max-width:100%;background:var(--panel);border:1px solid var(--line);
-    border-radius:12px;padding:18px 20px}
-  .card h2{margin:0 0 2px;font-size:19px}
-  .card .sub{color:var(--dim);font-size:12px;margin-bottom:12px}
-  .close{float:right;cursor:pointer;color:var(--dim);font-size:20px;line-height:1}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin:10px 0}
-  .kv{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding:3px 0}
-  .kv span:first-child{color:var(--dim)}
-  .bars{margin-top:10px}
-  .bar{display:flex;align-items:center;gap:8px;margin:4px 0}
-  .bar .nm{width:84px;color:var(--dim);font-size:11px;flex:0 0 84px}
-  .bar .track{flex:1;height:12px;background:#223;border-radius:6px;overflow:hidden}
-  .bar .fill{height:100%;border-radius:6px}
-  .bar .v{width:26px;text-align:right;font-weight:600;font-size:11px}
-  .secttl2{margin:14px 0 4px;color:var(--accent);font-size:12px;font-weight:600;
-    text-transform:uppercase;letter-spacing:.5px;border-top:1px solid var(--line);padding-top:10px}
-  .tag{display:inline-block;background:#243152;color:var(--txt);padding:2px 7px;border-radius:5px;margin:2px 3px 2px 0;font-size:11px}
-  .tag.gk{background:var(--gk);color:#0e1320}
-  .playpos{display:flex;flex-wrap:wrap;gap:5px}
-  .pp{display:flex;align-items:center;gap:4px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:3px 7px;font-size:11px}
-  .foot{color:var(--dim);font-size:11px;margin-top:14px;border-top:1px solid var(--line);padding-top:8px}
-  .loading{color:var(--dim);padding:20px}
+/* Hallmark · genre: atmospheric · macrostructure: Workbench · theme: lumen · drop: night
+   source: C:\Users\34788\.agents\skills\hallmark · redesigned: ui/index.html · scope: single-page visual layer
+   pre-emit critique: P4 H4 E4 S4 R4 V5
+   contrast: pass (40–41) · nav: N10 vertical rail · footer: Ft1 status strip · slop: pass (42–45)
+   honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (34,49,50–57) · icons: pass (30)
+   knob deltas: first Hallmark run for this project (no prior .hallmark/log.json entry) — apparatus = filament
+   chamber, never a glowing orb; mono register scoped to eyebrows / labels / table-heads / status only;
+   meter strip is decorative signal, not a metric; every figure on the page is a live /api/overview value. */
+:root{
+  --color-paper:      oklch(13% 0.014 265);
+  --color-paper-2:    oklch(16% 0.016 265);
+  --color-ink:        oklch(96% 0.006 262);
+  --color-dim:        oklch(72% 0.010 262);
+  --color-accent:     oklch(76% 0.17 50);    /* molten brass */
+  --color-accent-ink: oklch(15% 0.03 50);    /* text on brass fill */
+  --color-accent-2:   oklch(68% 0.16 18);    /* coral chord — drawn underline + landmark */
+  --color-glow:       oklch(80% 0.16 50 / 0.42);
+  --color-paper-emit: oklch(76% 0.17 50 / 0.04);
+  --rule-blueprint:   oklch(96% 0.006 262 / 0.04);
+  --rule:             oklch(96% 0.006 262 / 0.10);
+  --rule-strong:      oklch(96% 0.006 262 / 0.18);
+  --color-good:       oklch(72% 0.14 150);   --color-good-ink: oklch(16% 0.05 150);
+  --color-mid:        oklch(78% 0.13 85);    --color-mid-ink:  oklch(22% 0.06 85);
+  --color-low:        oklch(64% 0.17 25);
+  --color-gk:         oklch(70% 0.14 295);   --color-gk-ink:    oklch(16% 0.05 295);
+  --color-scrim:      oklch(8% 0.01 265 / 0.74);
+  --brass-1:          oklch(82% 0.16 50);    /* apparatus gradient stops */
+  --brass-2:          oklch(76% 0.17 50);
+  --brass-3:          oklch(66% 0.16 50);
+  --font-display:     "Instrument Serif", ui-serif, Georgia, serif;
+  --font-body:        "Geist", ui-sans-serif, system-ui, "Microsoft YaHei", sans-serif;
+  --font-label:       "JetBrains Mono", ui-monospace, monospace;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{margin:0;height:100vh;overflow:hidden;color:var(--color-ink);
+  font-family:var(--font-body);font-size:13px;line-height:1.55;
+  background-color:var(--color-paper);
+  background-image:
+    linear-gradient(var(--rule-blueprint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-blueprint) 1px, transparent 1px);
+  background-size:32px 32px;
+  -webkit-font-smoothing:antialiased;
+}
+.app{display:flex;height:100vh}
+
+/* ---------- nav rail (N10: vertical instrument rail) ---------- */
+nav{width:216px;flex:0 0 216px;background:var(--color-paper-2);
+  border-right:1px solid var(--rule);display:flex;flex-direction:column;padding:16px 0}
+nav .brand{font-family:var(--font-label);text-transform:uppercase;letter-spacing:.16em;
+  font-size:10px;color:var(--color-accent);padding:0 16px 4px}
+nav .brand b{display:block;font-family:var(--font-display);font-size:24px;letter-spacing:0;
+  text-transform:none;color:var(--color-ink);font-weight:400;line-height:1.2}
+nav .sub{font-family:var(--font-label);text-transform:uppercase;letter-spacing:.14em;
+  font-size:9px;color:var(--color-dim);padding:0 16px 16px}
+nav button{flex:0 0 auto;background:none;border:none;color:var(--color-dim);text-align:left;
+  padding:8px 16px;cursor:pointer;font-size:13px;font-family:var(--font-body);
+  display:flex;align-items:center;gap:8px;border-left:2px solid transparent;
+  white-space:nowrap;line-height:1}
+nav button .ni{font-family:var(--font-label);font-size:10px;color:var(--color-dim);line-height:1}
+nav button:hover{background:var(--color-paper);color:var(--color-ink)}
+nav button:focus-visible{outline:2px solid var(--color-accent);outline-offset:-2px}
+nav button:active{background:var(--color-paper);color:var(--color-ink)}
+nav button.on{background:var(--color-paper);color:var(--color-ink);border-left-color:var(--color-accent);
+  box-shadow:inset 0 0 24px var(--color-paper-emit)}
+nav button.on .ni{color:var(--color-accent)}
+nav .ft{margin-top:auto;font-family:var(--font-label);text-transform:uppercase;letter-spacing:.08em;
+  font-size:9px;color:var(--color-dim);padding:12px 16px 0;border-top:1px solid var(--rule);line-height:1.8}
+
+/* ---------- main ---------- */
+main{flex:1;min-width:0;overflow:auto;padding:24px 28px 64px}
+.eyebrow{font-family:var(--font-label);text-transform:uppercase;letter-spacing:.18em;
+  font-size:11px;color:var(--color-accent);margin-bottom:8px}
+.secttl{font-size:18px;font-weight:600;color:var(--color-ink);margin:0 0 4px;
+  overflow-wrap:anywhere;min-width:0}
+.secnote{color:var(--color-dim);font-size:11px;margin-bottom:12px}
+
+/* ---------- overview hero (Workbench: apparatus + instrument readouts) ---------- */
+.hero{display:grid;grid-template-columns:248px minmax(0,1fr);gap:32px;align-items:center;
+  margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--rule)}
+.hero-app{display:flex;justify-content:center}
+.apparatus{width:100%;max-width:248px;height:auto}
+.apparatus .chamber{fill:none;stroke:var(--rule-strong);stroke-width:1}
+.apparatus .chamber-in{fill:none;stroke:var(--rule);stroke-width:1}
+.apparatus .rod{fill:url(#brass);filter:drop-shadow(0 0 7px var(--color-glow));
+  animation:breathe 4s ease-out infinite}
+.apparatus .el{stroke:var(--rule-strong);stroke-width:1}
+.apparatus .lead{stroke:var(--rule);stroke-width:1}
+.apparatus .node{fill:var(--color-accent)}
+.apparatus .gs-top{stop-color:var(--brass-1)}
+.apparatus .gs-mid{stop-color:var(--brass-2)}
+.apparatus .gs-bot{stop-color:var(--brass-3)}
+.apparatus .cap-l{fill:var(--color-dim);font-family:var(--font-label);font-size:8px;
+  letter-spacing:.12em;text-transform:uppercase}
+.apparatus .cap-v{fill:var(--color-accent);font-family:var(--font-display);font-size:18px}
+@keyframes breathe{0%,100%{opacity:.8}50%{opacity:1}}
+.display{font-size:32px;line-height:1.25;color:var(--color-ink);margin:4px 0 8px;font-weight:500;
+  overflow-wrap:anywhere;min-width:0}
+.display .land{font-family:var(--font-display);color:var(--color-accent-2);font-weight:400;font-style:normal}
+.display .ul{position:relative;white-space:nowrap}
+.display .ul::after{content:'';position:absolute;left:-4px;right:-4px;bottom:-3px;height:5px;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20200%205'%20preserveAspectRatio='none'%3E%3Cpath%20d='M1%203%20C40%201%2080%204%20120%201.5%20S180%204%20199%202'%20stroke='%23cf6a4c'%20stroke-width='2'%20fill='none'%20stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+  background-size:100% 100%}
+.lede{color:var(--color-dim);font-size:13px;max-width:46ch;margin:0 0 16px}
+.stats{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end}
+.stat{display:flex;flex-direction:column;line-height:1}
+.stat-v{font-family:var(--font-display);font-size:32px;line-height:1;color:var(--color-accent);
+  font-variant-numeric:tabular-nums}
+.stat-l{font-family:var(--font-label);text-transform:uppercase;letter-spacing:.12em;
+  font-size:9px;color:var(--color-dim);margin-top:4px;line-height:1}
+.meter{display:flex;align-items:flex-end;gap:4px;height:32px;margin-top:16px;
+  border-bottom:1px solid var(--rule);overflow:hidden}
+.meter i{width:4px;background:linear-gradient(var(--color-accent),transparent);
+  opacity:.45;border-radius:1px}
+
+/* ---------- overview grid ---------- */
+.ovgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:12px;margin:8px 0 4px}
+.ovcell{background:var(--color-paper-2);border:1px solid var(--rule);border-radius:8px;
+  padding:12px 16px;box-shadow:inset 0 0 24px var(--color-paper-emit)}
+.ovcell .n{font-size:24px;font-weight:700;color:var(--color-accent);font-variant-numeric:tabular-nums;line-height:1.2}
+.ovcell .l{color:var(--color-dim);font-size:11px;margin-top:4px}
+.unsolved{background:var(--color-paper-2);border:1px solid var(--rule);border-radius:8px;
+  padding:12px 16px;margin-top:12px;box-shadow:inset 0 0 24px var(--color-paper-emit)}
+.unsolved .uh{color:var(--color-accent);font-family:var(--font-label);text-transform:uppercase;
+  letter-spacing:.12em;font-size:11px;margin-bottom:8px}
+.unsolved li{color:var(--color-dim);margin:4px 0;font-size:12px;list-style:none}
+.unsolved ul{margin:0;padding:0}
+
+/* ---------- filters ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:12px}
+.fld{display:flex;flex-direction:column;gap:4px}
+.fld label{color:var(--color-dim);font-size:10px;font-family:var(--font-label);
+  text-transform:uppercase;letter-spacing:.08em;line-height:1}
+select,input[type=text],input[type=number]{background:var(--color-paper-2);color:var(--color-ink);
+  border:1px solid var(--rule);border-radius:8px;padding:8px 12px;font-size:12px;
+  font-family:var(--font-body);min-height:32px;line-height:1;
+  outline:2px solid transparent;outline-offset:1px}
+select:hover,input[type=text]:hover,input[type=number]:hover{border-color:var(--rule-strong)}
+select:focus-visible,input[type=text]:focus-visible,input[type=number]:focus-visible{
+  outline-color:var(--color-accent);border-color:var(--color-accent)}
+select:active,input[type=text]:active,input[type=number]:active{border-color:var(--color-accent)}
+select:disabled,input[type=text]:disabled,input[type=number]:disabled{
+  opacity:.55;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:4px;max-height:120px;overflow:auto;padding:8px;
+  background:var(--color-paper-2);border:1px solid var(--rule);border-radius:8px;min-width:220px}
+.chip{padding:4px 8px;border-radius:12px;background:var(--color-paper);color:var(--color-dim);
+  cursor:pointer;font-size:11px;border:1px solid var(--rule);user-select:none;font-family:var(--font-body);
+  white-space:nowrap;line-height:1}
+.chip:hover{border-color:var(--rule-strong);color:var(--color-ink)}
+.chip:focus-visible{outline:2px solid var(--color-accent);outline-offset:1px}
+.chip:active{border-color:var(--color-accent)}
+.chip.on{background:var(--color-accent);color:var(--color-accent-ink);font-weight:600;border-color:var(--color-accent)}
+.mode{font-size:11px;color:var(--color-dim)}
+.mode b{color:var(--color-accent-2);cursor:pointer;font-weight:600}
+.clearbtn{background:var(--color-paper-2);color:var(--color-ink);border:1px solid var(--rule);
+  border-radius:8px;padding:8px 12px;cursor:pointer;font-size:12px;font-family:var(--font-body);
+  min-height:32px;line-height:1;white-space:nowrap}
+.clearbtn:hover{border-color:var(--color-accent);color:var(--color-accent)}
+.clearbtn:focus-visible{outline:2px solid var(--color-accent);outline-offset:1px}
+.clearbtn:active{background:var(--color-paper);color:var(--color-accent)}
+
+/* ---------- table ---------- */
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{color:var(--color-dim);font-weight:600;position:sticky;top:0;background:var(--color-paper);
+  cursor:pointer;user-select:none;font-family:var(--font-label);text-transform:uppercase;
+  letter-spacing:.05em;font-size:10px}
+tbody tr:hover{background:var(--color-paper-2)}
+.pos{display:inline-block;min-width:32px;text-align:center;padding:0 4px;border-radius:4px;
+  background:var(--color-paper);color:var(--color-ink);font-weight:600;font-size:11px;line-height:1.4}
+.pos.GK{background:var(--color-gk);color:var(--color-gk-ink)}
+.ov{font-weight:700;color:var(--color-accent);font-variant-numeric:tabular-nums}
+.badge{display:inline-block;padding:0 4px;border-radius:4px;font-size:10px;margin-right:4px;line-height:1.4}
+.bA{background:var(--color-good);color:var(--color-good-ink)}
+.bB{background:var(--color-mid);color:var(--color-mid-ink)}
+.bC{background:var(--color-paper);color:var(--color-dim)}
+.n{color:var(--color-accent);font-weight:600;font-size:12px}
+.resn{color:var(--color-dim);font-size:11px;margin:8px 0}
+
+/* ---------- detail modal ---------- */
+.mask{position:fixed;inset:0;background:var(--color-scrim);display:none;align-items:flex-start;
+  justify-content:center;padding:32px 16px;overflow:auto;z-index:50}
+.mask.show{display:flex}
+.card{width:680px;max-width:100%;background:var(--color-paper-2);border:1px solid var(--rule-strong);
+  border-radius:12px;padding:20px 24px;box-shadow:inset 0 0 40px var(--color-paper-emit)}
+.card h2{margin:0 0 4px;font-size:24px;font-weight:600;font-family:var(--font-body);line-height:1.25}
+.card .sub{color:var(--color-dim);font-size:12px;margin-bottom:16px}
+.close{float:right;cursor:pointer;color:var(--color-dim);font-size:20px;line-height:1;font-family:var(--font-body)}
+.close:hover{color:var(--color-accent)}
+.close:focus-visible{outline:2px solid var(--color-accent);outline-offset:2px}
+.close:active{color:var(--color-accent)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 24px;margin:12px 0}
+.kv{display:flex;justify-content:space-between;border-bottom:1px dashed var(--rule);padding:4px 0}
+.kv span:first-child{color:var(--color-dim);font-size:12px}
+.kv span:last-child{color:var(--color-ink);font-size:12px}
+.bars{margin-top:12px}
+.bar{display:flex;align-items:center;gap:8px;margin:4px 0}
+.bar .nm{width:84px;color:var(--color-dim);font-size:11px;flex:0 0 84px}
+.bar .track{flex:1;min-width:0;height:12px;background:var(--color-paper);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.bar .fill{height:100%;border-radius:8px}
+.bar .v{width:28px;text-align:right;font-weight:600;font-size:11px;color:var(--color-ink);
+  font-variant-numeric:tabular-nums}
+.secttl2{margin:16px 0 4px;color:var(--color-accent);font-size:11px;font-weight:600;
+  font-family:var(--font-label);text-transform:uppercase;letter-spacing:.1em;
+  border-top:1px solid var(--rule);padding-top:12px}
+.tag{display:inline-block;background:var(--color-paper);color:var(--color-ink);padding:4px 8px;
+  border-radius:4px;margin:4px 4px 4px 0;font-size:11px;white-space:nowrap;line-height:1.2}
+.tag.gk{background:var(--color-gk);color:var(--color-gk-ink)}
+.playpos{display:flex;flex-wrap:wrap;gap:4px}
+.pp{display:flex;align-items:center;gap:4px;background:var(--color-paper);border:1px solid var(--rule);
+  border-radius:4px;padding:4px 8px;font-size:11px;line-height:1}
+.foot{color:var(--color-dim);font-size:11px;margin-top:16px;border-top:1px solid var(--rule);padding-top:12px}
+.loading{color:var(--color-dim);padding:24px}
+
+@media (prefers-reduced-motion: reduce){
+  .apparatus .rod{animation:none;opacity:1}
+}
+@media (max-width: 900px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:24px}
+  .hero-app{order:-1;justify-self:center}
+}
+@media (max-width: 768px){
+  .app{flex-direction:column;height:auto;min-height:100vh}
+  nav{width:auto;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;border-right:none;
+    border-bottom:1px solid var(--rule);padding:8px 0}
+  nav .brand,nav .sub,nav .ft{display:none}
+  nav button{border-left:none;border-bottom:2px solid transparent;padding:8px 16px;white-space:nowrap}
+  nav button.on{border-left:none;border-bottom-color:var(--color-accent)}
+  main{overflow:visible;padding:16px 16px 48px}
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .stats{gap:16px}
+}
 </style>
 </head>
 <body>
 <div class="app">
   <nav>
-    <h1>PES2021<br>存档浏览器</h1>
+    <div class="brand"><b>PES2021</b>存档浏览器</div>
     <div class="sub">外置 · 独立 · 只读</div>
-    <button data-s="overview" class="on">概览</button>
-    <button data-s="players">球员（能力值+隐藏）</button>
-    <button data-s="edit_teams">EDIT 球队</button>
-    <button data-s="ml_teams">大师联赛球队</button>
-    <button data-s="events">动态事件表</button>
-    <button data-s="schedules">赛程表</button>
-    <button data-s="competitions">赛事定义表</button>
-    <button data-s="ml_squads">大师联赛阵容</button>
-    <button data-s="ml_links">队际链接网络</button>
-    <div class="ft">数据来自 decoded/ + outputs/*.csv<br>不写回存档</div>
+    <button data-s="overview" class="on"><span class="ni">00</span>概览</button>
+    <button data-s="players"><span class="ni">01</span>球员</button>
+    <button data-s="edit_teams"><span class="ni">02</span>EDIT 球队</button>
+    <button data-s="ml_teams"><span class="ni">03</span>大师联赛球队</button>
+    <button data-s="events"><span class="ni">04</span>动态事件</button>
+    <button data-s="schedules"><span class="ni">05</span>赛程</button>
+    <button data-s="competitions"><span class="ni">06</span>赛事</button>
+    <button data-s="ml_squads"><span class="ni">07</span>ML 阵容</button>
+    <button data-s="ml_links"><span class="ni">08</span>队际链接</button>
+    <div class="ft">DATA · decoded/ + outputs/*.csv<br>WRITE-BACK · none</div>
   </nav>
   <main id="main"><div class="loading">加载中…</div></main>
 </div>
@@ -134,12 +288,72 @@ async function getJSON(url){
 /* ---------- 概览 ---------- */
 async function showOverview(){
   const o=await getJSON('/api/overview');
-  let h=`<div class="secttl">存档结构总览</div><div class="secnote">数据源：${o.source}｜本工具只读展示，不写回。</div>`;
+  const players=o.counts['球员(EDIT 能力值+隐藏)']||0;
+  const teams=(o.counts['EDIT 球队(已命名)']||0)+(o.counts['大师联赛球队块']||0);
+  const gaps=(o.unsolved||[]).length;
+  let h=`<div class="hero">
+    <div class="hero-app">
+      <svg class="apparatus" viewBox="0 0 260 340" role="img" aria-label="解码核心：存档结构读数">
+        <defs>
+          <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
+            <stop class="gs-top" offset="0"/>
+            <stop class="gs-mid" offset="0.5"/>
+            <stop class="gs-bot" offset="1"/>
+          </linearGradient>
+        </defs>
+        <rect class="chamber" x="96" y="34" width="68" height="272" rx="10"/>
+        <rect class="chamber-in" x="104" y="42" width="52" height="256" rx="7"/>
+        <rect class="rod" x="124" y="58" width="8" height="228" rx="4"/>
+        <line class="el" x1="108" y1="50" x2="140" y2="50"/>
+        <line class="el" x1="108" y1="294" x2="140" y2="294"/>
+        <line class="lead" x1="128" y1="120" x2="176" y2="120"/>
+        <line class="lead" x1="128" y1="174" x2="176" y2="174"/>
+        <line class="lead" x1="128" y1="228" x2="176" y2="228"/>
+        <circle class="node" cx="128" cy="120" r="2.4"/>
+        <circle class="node" cx="128" cy="174" r="2.4"/>
+        <circle class="node" cx="128" cy="228" r="2.4"/>
+        <text class="cap-l" x="182" y="115">PLAYERS</text>
+        <text class="cap-v" x="182" y="132" id="apPlayers">—</text>
+        <text class="cap-l" x="182" y="169">TEAMS · EDIT+ML</text>
+        <text class="cap-v" x="182" y="186" id="apTeams">—</text>
+        <text class="cap-l" x="182" y="223">OPEN GAPS</text>
+        <text class="cap-v" x="182" y="240" id="apGaps">—</text>
+      </svg>
+    </div>
+    <div class="hero-copy">
+      <div class="eyebrow">00 · DECODE CORE</div>
+      <h1 class="display">把 <span class="land">PES</span> 存档<span class="ul">拆开</span>给你看</h1>
+      <p class="lede">外置、独立、只读的存档解码浏览器。每一块结构都逆向清楚，再把全部信息摊开——不写回，只显示。</p>
+      <div class="stats">
+        <div class="stat"><div class="stat-v" id="stPlayers">—</div><div class="stat-l">PLAYERS</div></div>
+        <div class="stat"><div class="stat-v" id="stTeams">—</div><div class="stat-l">TEAMS · EDIT+ML</div></div>
+        <div class="stat"><div class="stat-v" id="stGaps">—</div><div class="stat-l">OPEN GAPS</div></div>
+      </div>
+      <div class="meter" id="meter"></div>
+    </div>
+  </div>`;
+  h+=`<div class="eyebrow">SOURCE</div><div class="secnote">${o.source}｜本工具只读展示，不写回。</div>`;
   h+=`<div class="ovgrid">`+Object.entries(o.counts).map(([k,v])=>
     `<div class="ovcell"><div class="n">${v.toLocaleString()}</div><div class="l">${k}</div></div>`).join('')+`</div>`;
-  h+=`<div class="unsolved"><div style="color:var(--accent);font-size:12px;margin-bottom:6px">尚未闭合 / 待逆向</div><ul>`+
+  h+=`<div class="unsolved"><div class="uh">尚未闭合 / 待逆向</div><ul>`+
     o.unsolved.map(x=>`<li>${x}</li>`).join('')+`</ul></div>`;
   main.innerHTML=h;
+  $('#apPlayers').textContent=players.toLocaleString();
+  $('#apTeams').textContent=teams.toLocaleString();
+  $('#apGaps').textContent=gaps;
+  $('#stPlayers').textContent=players.toLocaleString();
+  $('#stTeams').textContent=teams.toLocaleString();
+  $('#stGaps').textContent=gaps;
+  buildMeter();
+}
+function buildMeter(){
+  const m=document.getElementById('meter'); if(!m)return;
+  let s='';
+  for(let i=0;i<56;i++){
+    const ht=8+Math.round(Math.abs(Math.sin(i*0.6))*20);
+    s+=`<i style="height:${ht}px"></i>`;
+  }
+  m.innerHTML=s;
 }
 
 /* ---------- 通用表格 ---------- */
@@ -149,7 +363,7 @@ async function showTable(sec, cols, note){
   function render(q){
     q=(q||'').toLowerCase();
     const f=rows.filter(r=>cols.some(c=>String(r[c.k]??'').toLowerCase().includes(q)));
-    let h=`<div class="secttl">${TITLE[sec]}</div><div class="secnote">${note}</div>`;
+    let h=`<div class="eyebrow">${EYEBROW[sec]}</div><div class="secttl">${TITLE[sec]}</div><div class="secnote">${note}</div>`;
     h+=`<div class="filters"><div class="fld"><label>搜索（全部列）</label><input type="text" id="q_${key}" value="${q}" placeholder="输入关键字…"></div></div>`;
     h+=`<div class="resn">命中 ${f.length.toLocaleString()} / ${rows.length.toLocaleString()} 条（渲染前 500）</div>`;
     h+=`<table><thead><tr>${cols.map(c=>`<th>${c.label}</th>`).join('')}</tr></thead><tbody>`;
@@ -164,7 +378,7 @@ async function showTable(sec, cols, note){
   render('');
 }
 function fmtCell(c,v){
-  if(v===null||v===undefined||v==='')return '<span style="color:var(--dim)">—</span>';
+  if(v===null||v===undefined||v==='')return '<span style="color:var(--color-dim)">—</span>';
   if(c.fmt==='eur')return euro(v);
   return String(v);
 }
@@ -172,6 +386,10 @@ function fmtCell(c,v){
 const TITLE={edit_teams:'EDIT 球队（已命名）',ml_teams:'大师联赛球队块（700）',
   events:'动态事件表（已命名）',schedules:'赛程表（ML0）',competitions:'赛事定义表',
   ml_squads:'大师联赛阵容（队 → 球员）',ml_links:'队际链接网络（596B 记录）'};
+const EYEBROW={overview:'00 · DECODE CORE',players:'01 · PLAYER BROWSER',
+  edit_teams:'02 · EDIT TEAMS',ml_teams:'03 · MASTER LEAGUE TEAMS',events:'04 · EVENT TABLE',
+  schedules:'05 · SCHEDULE',competitions:'06 · COMPETITIONS',ml_squads:'07 · ML SQUADS',
+  ml_links:'08 · LINK NETWORK'};
 const COLS={
   edit_teams:[{k:'team_id',label:'球队ID'},{k:'team_name',label:'队名'},{k:'confidence',label:'置信度'},{k:'n_players',label:'球员数'}],
   ml_teams:[{k:'ml_idx',label:'序号'},{k:'name_cn',label:'中文队名'},{k:'abbr',label:'缩写'},{k:'stadium',label:'球场'},{k:'budget_eur',label:'预算',fmt:'eur'},{k:'ml_seq',label:'ML序号'}],
@@ -186,11 +404,11 @@ let PLAY=null;
 async function showPlayers(){
   const D=await getJSON('/api/players');PLAY={data:D.players,meta:D.meta};
   const M=PLAY.meta;
-  let h=`<div class="secttl">球员检索 / 筛选（EDIT 能力值 + 隐藏机制）</div>`;
+  let h=`<div class="eyebrow">${EYEBROW.players}</div><div class="secttl">球员检索 / 筛选（EDIT 能力值 + 隐藏机制）</div>`;
   h+=`<div class="secnote">${M.count.toLocaleString()} 名球员｜双击打开的 player_browser.html 是同一数据的离线版（已修复渲染）。</div>`;
   /* 自诊断：若数据列数不足（旧缓存/旧后端），明确报出而不是静默显示 — */
   if(PLAY.data.length && PLAY.data[0].length < 17){
-    h+=`<div class="secnote" style="color:#e06c6c">⚠ 检测到 /api/players 返回 ${PLAY.data[0].length} 列（应为 17 列，缺总评字段）。`+
+    h+=`<div class="secnote" style="color:var(--color-low)">⚠ 检测到 /api/players 返回 ${PLAY.data[0].length} 列（应为 17 列，缺总评字段）。`+
        `多半是取到了旧缓存或旧后端进程，请硬刷新（Ctrl+Shift+R）或重启服务。</div>`;
     console.warn('[pes-ui] players 记录列数异常:', PLAY.data[0].length, '应为 17');
   }
@@ -276,9 +494,9 @@ async function showPlayers(){
   function openDetail(p){
     const o=ov(p);let pp='';
     for(let i=0;i<13;i++){const g=+p[12][i];pp+=`<span class="pp">${M.playableOrder[i]} ${gb(g)}</span>`;}
-    const sk=p[14].map(i=>`<span class="tag">${M.skills[i]}</span>`).join('')||'<span style="color:var(--dim)">无</span>';
-    const com=p[13].map(i=>`<span class="tag gk">${M.comStyles[i]}</span>`).join('')||'<span style="color:var(--dim)">无</span>';
-    const bars=M.abilities.map((n,i)=>{const v=p[15][i];const c=v>=85?'var(--good)':v>=75?'var(--accent)':v>=60?'var(--mid)':'var(--low)';
+    const sk=p[14].map(i=>`<span class="tag">${M.skills[i]}</span>`).join('')||'<span style="color:var(--color-dim)">无</span>';
+    const com=p[13].map(i=>`<span class="tag gk">${M.comStyles[i]}</span>`).join('')||'<span style="color:var(--color-dim)">无</span>';
+    const bars=M.abilities.map((n,i)=>{const v=p[15][i];const c=v>=85?'var(--color-good)':v>=75?'var(--color-accent)':v>=60?'var(--color-mid)':'var(--color-low)';
       const pct=Math.max(0,(v-40)/59*100).toFixed(1);
       return `<div class="bar"><div class="nm">${M.abilityLabels[i]}</div><div class="track"><div class="fill" style="width:${pct}%;background:${c}"></div></div><div class="v">${v}</div></div>`;}).join('');
     $('#card').innerHTML=`<span class="close" onclick="closeD()">✕</span><h2>${p[1]}</h2>`+
@@ -291,7 +509,7 @@ async function showPlayers(){
       `<div class="secttl2">球员技能 (${p[14].length})</div>${sk}`+
       `<div class="secttl2">COM 比赛风格 (${p[13].length})</div>${com}`+
       `<div class="foot">数据来自 EDIT 存档解码（implyingrigged.info 字段表）。本工具 read-only，不写回存档。<br>`+
-      `<span style="color:var(--dim)">${M.overallNote||''}</span></div>`;
+      `<span style="color:var(--color-dim)">${M.overallNote||''}</span></div>`;
     $('#mask').classList.add('show');
   }
   window.closeD=()=>$('#mask').classList.remove('show');
@@ -303,7 +521,7 @@ async function showSquads(){
   const D=await getJSON('/api/ml_squads');
   const teams=D.teams.slice().sort((a,b)=>a.ml_idx-b.ml_idx);
   const byIdx={};teams.forEach(t=>byIdx[t.ml_idx]=t);
-  let h=`<div class="secttl">大师联赛阵容（队 → 球员）</div>`;
+  let h=`<div class="eyebrow">${EYEBROW.ml_squads}</div><div class="secttl">大师联赛阵容（队 → 球员）</div>`;
   h+=`<div class="secnote">${teams.length} 支球队的注册球员（team→player 映射 @+0xA0 stride 8）。`+
      `姓名 join EDIT 库（${D.player_name_hits.toLocaleString()} 人命中）；未注册的默认库球员仅显示 ID。</div>`;
   h+=`<div class="filters"><div class="fld"><label>选择球队</label><select id="sqTeam"></select></div>`+
@@ -320,7 +538,7 @@ async function showSquads(){
     $('#sqN').textContent=`${t.name}：共 ${t.players.length} 人，命中 ${ps.length}`;
     const tb=$('#sqBody');tb.innerHTML='';
     for(const p of ps){
-      const name=p.name?p.name:`<span style="color:var(--dim)">未知 (pid ${p.pid})</span>`;
+      const name=p.name?p.name:`<span style="color:var(--color-dim)">未知 (pid ${p.pid})</span>`;
       tb.innerHTML+=`<tr><td>${p.idx}</td><td>${p.pid}</td><td>${name}</td></tr>`;
     }
   }
