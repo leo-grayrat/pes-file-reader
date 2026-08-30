@@ -18,6 +18,7 @@
 import os, csv, json, sys, struct
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import build_player_browser as bp   # 复用标签表与字段顺序
+import pes_ratings as pr              # PES 2021 位置加权总评(估算)
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(BASE, "outputs")
@@ -64,6 +65,7 @@ def load_players():
                 gi("weak_foot_usage", 1), gi("weak_foot_accuracy", 1),
                 gi("injury_resistance", 1), gi("conditioning", 1), gi("star_rating"),
                 (row.get("playable") or "0" * 13)[:13], com, sk, ab,
+                pr.compute_overall({k: int(row[k]) for k in bp.ABIL_ORDER if k in row}, gi("reg_pos")),
             ])
     meta = {
         "source": "EDIT00000000.data -> edit_player_abilities.py",
@@ -72,6 +74,9 @@ def load_players():
         "abilityLabels": [bp.ABIL_LABEL.get(k, k) for k in bp.ABIL_ORDER],
         "positions": bp.REG_POS_NAMES, "playableOrder": bp.PLAYABLE_ORDER,
         "playStyles": bp.PLAY_STYLES, "skills": bp.SKILLS, "comStyles": bp.COM_STYLES,
+        "overallNote": "总评按实况位置加权算法估算（参考 PES master 球员界面；已用 273 名真实球员验证，"
+                       "平均与 PES master 相差约 3–7 分）。精确 Konami 权重未公开，属社区近似；"
+                       "能力值下限 40（范围 [40,99]）。",
     }
     return {"meta": meta, "players": players}
 

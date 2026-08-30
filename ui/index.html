@@ -220,7 +220,7 @@ async function showPlayers(){
     $('#fAbil').value='-1';$('#fMin').value=40;$('#fMax').value=99;$('#fWfu').value=1;$('#fWfa').value=1;$('#fIr').value=1;$('#fCond').value=1;
     sel.sk.clear();sel.com.clear();skMode='any';comMode='any';$('#skMode').textContent='任一';$('#comMode').textContent='任一';
     document.querySelectorAll('.chip.on').forEach(c=>c.classList.remove('on'));runP();};
-  function ov(p){return Math.round(p[15].reduce((a,b)=>a+b,0)/p[15].length);}
+  function ov(p){return p[16];}  /* 总评：后端按实况位置加权算法估算 */
   function filt(){
     const name=$('#fName').value.trim().toLowerCase();
     const pos=+$('#fPos').value,sty=+$('#fStyle').value,foot=+$('#fFoot').value;
@@ -266,7 +266,8 @@ async function showPlayers(){
     const sk=p[14].map(i=>`<span class="tag">${M.skills[i]}</span>`).join('')||'<span style="color:var(--dim)">无</span>';
     const com=p[13].map(i=>`<span class="tag gk">${M.comStyles[i]}</span>`).join('')||'<span style="color:var(--dim)">无</span>';
     const bars=M.abilities.map((n,i)=>{const v=p[15][i];const c=v>=85?'var(--good)':v>=75?'var(--accent)':v>=60?'var(--mid)':'var(--low)';
-      return `<div class="bar"><div class="nm">${M.abilityLabels[i]}</div><div class="track"><div class="fill" style="width:${v}%;background:${c}"></div></div><div class="v">${v}</div></div>`;}).join('');
+      const pct=Math.max(0,(v-40)/59*100).toFixed(1);
+      return `<div class="bar"><div class="nm">${M.abilityLabels[i]}</div><div class="track"><div class="fill" style="width:${pct}%;background:${c}"></div></div><div class="v">${v}</div></div>`;}).join('');
     $('#card').innerHTML=`<span class="close" onclick="closeD()">✕</span><h2>${p[1]}</h2>`+
       `<div class="sub">pid ${p[0]} · 国籍码 ${p[2]} · 总评 ${o} · 球星评级 ${p[11]}</div>`+
       `<div class="grid">`+kvp('注册位置',M.positions[p[4]])+kvp('比赛风格',M.playStyles[p[5]])+
@@ -276,7 +277,8 @@ async function showPlayers(){
       `<div class="secttl2">能力值（25 项）</div><div class="bars">${bars}</div>`+
       `<div class="secttl2">球员技能 (${p[14].length})</div>${sk}`+
       `<div class="secttl2">COM 比赛风格 (${p[13].length})</div>${com}`+
-      `<div class="foot">数据来自 EDIT 存档解码（implyingrigged.info 字段表）。本工具 read-only，不写回存档。</div>`;
+      `<div class="foot">数据来自 EDIT 存档解码（implyingrigged.info 字段表）。本工具 read-only，不写回存档。<br>`+
+      `<span style="color:var(--dim)">${M.overallNote||''}</span></div>`;
     $('#mask').classList.add('show');
   }
   window.closeD=()=>$('#mask').classList.remove('show');
