@@ -455,6 +455,54 @@
 - `outputs/edit_player_names_sample.csv`、`outputs/ml_reg2db.csv`：名表与注册表样例。
 - 脚本 `bl_ml_probe37`~`bl_ml_probe51`（EDIT 表定位/名表提取/注册表抽取/事件标注/多源命名）。
 
+### 2.11 球员字段映射（社区 CT 表对照法，2026-08-30）
+
+**方法**：社区 Cheat Table（`resources/CT/PES 2021 - v21.1.0 英文版/*.CT`）是**免费的字段字典**——
+它明文保存了游戏内对象的「字段名 + 偏移 + 类型」（`ptrPlayer` 128 字段、`ptrBudget` 2 字段）。
+用它的字段语义去比对存档/EDIT 记录，即可反解未知字段。完整表见
+`outputs/pes_player_fieldmap.md`（由 `ct_fieldmap.py` 导出）。
+
+**1. 游戏内球员对象关键字段（`ptrPlayer`，对象 0x17C = 380 字节）**
+
+| 偏移 | 类型 | 字段 | 备注 |
+|---|---|---|---|
+| `+0x00` / `+0x01` | Binary | Height(cm) / Weight(kg) | 用于比对待解记录 |
+| `+0x07` | Binary | Registred Position | |
+| `+0x1C` | Binary | Age | |
+| `+0x1D` | Binary | Playing Style | |
+| `+0x1F`~`+0x29` | Binary | 位置适应性 / 球员技能（**位域打包**） | |
+| `+0x30` | 4B | Player ID | |
+| `+0x38` | String | Player Name | |
+| `+0x12C` | **2B** | **Team (?)** | 球队 ID 为 **u16** |
+| `+0x12E` | 2B | League (?) | 联赛 ID u16 |
+| `+0x144` | 2B | Nationality | |
+| `+0x14A` | Binary | **Is Transfer Listed / Is Loan Listed** | 挂牌标志 |
+| `+0x15C` | 4B | **Salary (Euro)** | |
+| `+0x174` | 4B | **Market Value (Euro)** | 对应事件表 v3 量级 |
+
+**2. EDIT 球员条目（240B）已确认字段**
+
+| 偏移 | 字段 | 验证 |
+|---|---|---|
+| `+0x00` | 球员 ID (u32) | 已知 |
+| `+0x04` | 第二 u32（多数等于 ID，少数为 commentary id） | 待测 |
+| `+0x08` | **疑似国籍**（u16，43 个唯一值，值域 7..241） | 中 |
+| `+0x0A` | **身高 cm**（1 字节） | **200/200 样本落在 164..197** ✓ |
+| `+0x0B` | **体重 kg**（1 字节） | **200/200 样本落在 61..95** ✓ |
+| `+0x36` | 名字（61B UTF-8，null 结尾） | 已知 |
+
+> 身高/体重是本项目**首次解读出的 EDIT 非 ID/名字字段**，由 CT 语义比对真实球员数据确认
+> （阿部勇树 178/77、三浦知良 177/72、朴智星 175/72，全部吻合）。
+
+**3. 头部计数修正（此前记录有误）**
+
+`0x60` = player **27513** ✓；`0x70` = team-player table **694** ✓；
+但 **`0x64` = 80413366、`0x68` = 3407927 并非 team/stadium 计数**（旧记录"team=694/stadium=55"有误）。
+→ 球队/球场段的实际位置与结构需重新定位，不能依赖头部这两个字段。
+
+**4. 未解**：EDIT 条目内的**球队 ID**（前 240B 内 u16 扫描无匹配，可能在 team-player 段或奇偏移）；
+年龄、能力值区（+0x0C 之后是位域打包，非逐字节能力值）；Salary/Market Value 的存档编码。
+
 ## 三、未解问题与下一步建议
 
 | # | 问题 | 现状 | 建议下一步 |
