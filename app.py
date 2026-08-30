@@ -1,0 +1,190 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""app.py -- PES2021 存档浏览器（外置、独立、read-only）本地服务。
+
+把前面几十次提交攒下的全部已逆向结构，统一接到一个只读 UI 里展示：
+  - 球员（EDIT 240B 能力值 + 隐藏机制）
+  - EDIT 球队 + 阵容映射
+  - 大师联赛 700 球队块（中文队名/缩写/球场/预算×100欧/序号）
+  - 动态事件表
+  - 赛程表
+  - 赛事定义表（76，直接解 ML 数据块）
+
+数据来自 decoded/ 已解密块 与 outputs/ 各 CSV（均由 pesfile.py / edit_player_abilities.py 产出）。
+纯标准库，不依赖游戏进程，不写回存档。
+
+用法：python app.py [port]   然后浏览器打开 http://localhost:<port>
+"""
+import os, csv, json, sys, struct
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import build_player_browser as bp   # 复用标签表与字段顺序
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(BASE, "outputs")
+DEC = os.path.join(BASE, "decoded")
+UI = os.path.join(BASE, "ui")
+
+
+def u16(b, o): return struct.unpack_from("<H", b, o)[0]
+def u32(b, o): return struct.unpack_from("<I", b, o)[0]
+def cstr(b, o, n):
+    e = b.find(b"\x00", o, o + n)
+    if e < 0: e = o + n
+    return b[o:e].decode("utf-8", "replace").strip()
+
+
+def csv_rows(name):
+    p = os.path.join(OUT, name)
+    if not os.path.exists(p):
+        return []
+    with open(p, encoding="utf-8", newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def load_players():
+    """复用 build_player_browser 的紧凑结构：players = [ [pid,name,nat,age,rp,ps,sf,
+    wfu,wfa,ir,cond,star,play(13),com[],sk[],ab[25]] ]"""
+    src = os.path.join(OUT, "edit_player_abilities.csv")
+    players = []
+    with open(src, encoding="utf-8", newline="") as f:
+        for row in csv.DictReader(f):
+            try:
+                ab = [int(row[k]) for k in bp.ABIL_ORDER]
+            except (KeyError, ValueError):
+                continue
+            sk = [bp.SKILLS.index(s) for s in (row.get("skills") or "").split(";") if s and s in bp.SKILLS]
+            com = [bp.COM_STYLES.index(s) for s in (row.get("com_styles") or "").split(";") if s and s in bp.COM_STYLES]
+            def gi(k, d=0):
+                v = row.get(k)
+                return int(v) if v not in (None, "") else d
+            players.append([
+                gi("pid"), row.get("name", ""), gi("nat"), gi("age"),
+                gi("reg_pos"), gi("play_style"),
+                1 if (row.get("stronger_foot") or "").startswith("L") else 0,
+                gi("weak_foot_usage", 1), gi("weak_foot_accuracy", 1),
+                gi("injury_resistance", 1), gi("conditioning", 1), gi("star_rating"),
+                (row.get("playable") or "0" * 13)[:13], com, sk, ab,
+            ])
+    meta = {
+        "source": "EDIT00000000.data -> edit_player_abilities.py",
+        "count": len(players),
+        "abilities": bp.ABIL_ORDER,
+        "abilityLabels": [bp.ABIL_LABEL.get(k, k) for k in bp.ABIL_ORDER],
+        "positions": bp.REG_POS_NAMES, "playableOrder": bp.PLAYABLE_ORDER,
+        "playStyles": bp.PLAY_STYLES, "skills": bp.SKILLS, "comStyles": bp.COM_STYLES,
+    }
+    return {"meta": meta, "players": players}
+
+
+def parse_competitions():
+    p = os.path.join(DEC, "ML00000000.data")
+    if not os.path.exists(p):
+        return []
+    b = open(p, "rb").read()
+    base, stride = 0x1F1E30, 0x314
+    out = []
+    for i in range(140):
+        o = base + i * stride
+        if o + stride > len(b):
+            break
+        name = cstr(b, o + 0x2E2, 80)
+        if not name:
+            continue
+        cid = u32(b, o + 0x4C)
+        typ = b[o + 0x50]
+        yr = u16(b, o + 0x2C8)
+        out.append({
+            "idx": i, "name": name, "comp_id": cid, "type": typ,
+            "season_year": None if yr == 0xFFFF else yr,
+            "operable": b[o + 0x1FC],
+        })
+    return out
+
+
+DATA = {}
+def build():
+    DATA["players"] = load_players()
+    DATA["edit_teams"] = csv_rows("parsed_edit_teams_EDIT00000000.csv")
+    DATA["ml_teams"] = csv_rows("parsed_ml_teams_ML00000000.csv")
+    DATA["events"] = csv_rows("event_table_named_full.csv")
+    DATA["schedules"] = csv_rows("parsed_ml_schedule_ML00000000.csv")
+    DATA["competitions"] = parse_competitions()
+    DATA["overview"] = {
+        "source": "decoded/ (EDIT+ML) + outputs/*.csv",
+        "counts": {
+            "球员(EDIT 能力值+隐藏)": DATA["players"]["meta"]["count"],
+            "EDIT 球队(已命名)": len(DATA["edit_teams"]),
+            "大师联赛球队块": len(DATA["ml_teams"]),
+            "动态事件(已命名)": len(DATA["events"]),
+            "赛程条目(ML0)": len(DATA["schedules"]),
+            "赛事定义表": len(DATA["competitions"]),
+        },
+        "unsolved": [
+            "ML<->EDIT 球队ID映射（预算闭合缺口，需 Konami ID 主表或存档内映射表）",
+            "ML 球员实例动态布局（成长/训练/状态/合约）—— C 块，仍待逆向",
+            "当前余额（仅初始预算 +0x598 落盘，余额运行时计算）",
+            "Salary / Market Value 存档编码",
+        ],
+    }
+
+
+class H(BaseHTTPRequestHandler):
+    def _json(self, obj):
+        body = json.dumps(obj, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _html(self):
+        p = os.path.join(UI, "index.html")
+        body = open(p, "rb").read()
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_GET(self):
+        path = self.path.split("?")[0]
+        try:
+            if path in ("/", "/index.html"):
+                self._html()
+            elif path == "/api/overview":
+                self._json(DATA["overview"])
+            elif path == "/api/players":
+                self._json(DATA["players"])
+            elif path == "/api/edit_teams":
+                self._json(DATA["edit_teams"])
+            elif path == "/api/ml_teams":
+                self._json(DATA["ml_teams"])
+            elif path == "/api/events":
+                self._json(DATA["events"])
+            elif path == "/api/schedules":
+                self._json(DATA["schedules"])
+            elif path == "/api/competitions":
+                self._json(DATA["competitions"])
+            else:
+                self.send_error(404)
+        except BrokenPipeError:
+            pass
+
+    def log_message(self, *a):
+        pass
+
+
+def main():
+    build()
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8787
+    srv = ThreadingHTTPServer(("127.0.0.1", port), H)
+    print("PES2021 存档浏览器已启动: http://localhost:%d" % port)
+    print("覆盖区块: " + ", ".join(DATA["overview"]["counts"].keys()))
+    try:
+        srv.serve_forever()
+    except KeyboardInterrupt:
+        srv.shutdown()
+
+
+if __name__ == "__main__":
+    main()

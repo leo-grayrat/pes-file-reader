@@ -274,10 +274,10 @@ const ov=p=>Math.round(p[15].reduce((a,b)=>a+b,0)/p[15].length);
   const pos=document.createElement('select');pos.id='fPos';
   pos.innerHTML='<option value="-1">全部</option>'+M.positions.map((n,i)=>`<option value="${i}">${n}</option>`).join('');
   $('#fPos').replaceWith(pos);
-  const st=document.createElement('select');
+  const st=document.createElement('select');st.id='fStyle';
   st.innerHTML='<option value="-1">全部</option>'+M.playStyles.map((n,i)=>`<option value="${i}">${n}</option>`).join('');
   $('#fStyle').replaceWith(st);
-  const ab=document.createElement('select');
+  const ab=document.createElement('select');ab.id='fAbil';
   ab.innerHTML='<option value="-1">不限制</option>'+M.abilities.map((n,i)=>`<option value="${i}">${M.abilityLabels[i]}</option>`).join('');
   $('#fAbil').replaceWith(ab);
   $('#sortBy').innerHTML='<option value="ov">总评(高→低)</option><option value="name">姓名</option>'+
