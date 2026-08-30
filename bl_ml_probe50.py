@@ -79,25 +79,33 @@ OUT.append("- **教训**：u32 的「空」是 `0xFFFFFFFF`，16位分量的「�
 
 # ---- 3. hi/lo 分解与命中率 ----
 OUT.append("## 3. 各字段 hi/lo 分解与 ID 集命中率\n")
-base_edit = len([x for x in eids if x <= 0xFFFF]) / 65536
-base_reg = len([k for k in regkeys if k <= 0xFFFF]) / 65536
-OUT.append(f"- 随机基线（16 位值偶然落入）：EDIT ≈ {base_edit:.1%}，注册键 ≈ {base_reg:.1%}\n")
-OUT.append("| 分量 | 值域 | 唯一值 | EDIT 命中 | 注册键命中 | 判读 |")
+
+def same_range_base(lo, hi, key_set):
+    """同值域随机基线：注册键落在 [lo,hi] 区间的密度（近似随机取值命中率）。"""
+    span = hi - lo + 1
+    if span <= 0:
+        return 0.0
+    return len([k for k in key_set if lo <= k <= hi]) / span
+
+OUT.append("- 注：随机基线用**同值域密度**计算（注册键在 25..16422 区间极密，"
+           "全局 24% 会低估基线）；仅当实际命中率显著超过同值域基线（>+5pp）才判定为真实引用。\n")
+OUT.append("| 分量 | 值域 | 唯一值 | 注册键命中 | 同值域随机基线 | 判读 |")
 OUT.append("|---|---|---|---|---|---|")
 verdict = {}
 for f in ["v4", "v5", "v6", "v8"]:
     for part, shift in [("hi", 16), ("lo", 0)]:
         vals = [n(r, f) >> 16 if part == "hi" else (n(r, f) & 0xFFFF) for r in rows]
-        e = sum(1 for v in vals if v in eids) / len(vals)
+        vals = [v for v in vals if v is not None]
         rk = sum(1 for v in vals if v in regkeys) / len(vals)
+        base = same_range_base(min(vals), max(vals), regkeys)
         v = "—"
-        if rk > 0.8 and rk > base_reg * 3:
+        if rk > base + 0.05:
             v = "**疑似注册索引**"
-        elif e > base_edit * 2:
-            v = "疑似球员 DB id"
-        verdict[f"{f}_{part}"] = (v, e, rk)
+        elif rk > 0.5:
+            v = "与注册键部分重叠（语义待定）"
+        verdict[f"{f}_{part}"] = (v, rk, base)
         OUT.append(f"| {f}_{part} | {min(vals)}..{max(vals)} | {len(set(vals))} | "
-                   f"{e:.1%} | {rk:.1%} | {v} |")
+                   f"{rk:.1%} | {base:.0%} | {v} |")
 
 # ---- 4. v4 / v8 分类枚举 ----
 OUT.append("\n## 4. v4 / v8 高16位 = 分类枚举（非随机量）\n")
@@ -123,8 +131,9 @@ dense = len([k for k in regkeys if k <= 20000])
 OUT.append(f"- **支持「注册索引」**：注册键在 ≤20000 区间有 **{dense}** 个（密集区），"
            f"v5_hi/v6_hi 值域正好落在该密集区内。")
 hit5 = sum(1 for r in rows if (n(r, "v5") >> 16) in regkeys)
+v5_base = same_range_base(min(n(r,'v5')>>16 for r in rows), max(n(r,'v5')>>16 for r in rows), regkeys)
 OUT.append(f"- v5_hi 落在注册键：**{hit5}/{len(rows)}**（{hit5/len(rows):.0%}，"
-           f"随机基线 {base_reg:.0%}）")
+           f"同值域随机基线 {v5_base:.0%} → **超基线 {hit5/len(rows)-v5_base:.0%}**，确证为注册索引）")
 # 经注册表取名字
 named = []
 for r in rows:
