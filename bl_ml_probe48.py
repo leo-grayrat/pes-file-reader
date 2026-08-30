@@ -110,9 +110,18 @@ v7_1 = [r for r in rows if num(r,"v7_flag")==1]
 v7_0 = [r for r in rows if num(r,"v7_flag")==0]
 v6_when_1 = [num(r,"v6") for r in v7_1]
 v6_when_0 = [num(r,"v6") for r in v7_0]
-OUT.append(f"- v7_flag=1 的行：{len(v7_1)} 条；其中 v6==0 的：{sum(1 for x in v6_when_1 if x==0)} 条")
-OUT.append(f"- v7_flag=0 的行：{len(v7_0)} 条；其中 v6==0 的：{sum(1 for x in v6_when_0 if x==0)} 条")
-OUT.append(f"  → 旧结论「f7=1 时 f6 恒空」：**不成立**（本数据集 v6 恒非零，含 v7_flag=1 的 39 行）")
+SENT6 = 0xFFFFFFFF  # u32 空值哨兵（注意：不是 0）
+n1 = sum(1 for x in v6_when_1 if x == SENT6)
+n0 = sum(1 for x in v6_when_0 if x == SENT6)
+OUT.append(f"- **判据修正**：u32 字段的「空」是 `0xFFFFFFFF` 而非 `0`"
+           f"（v6 全局取 0xFFFFFFFF 共 {sum(1 for r in rows if num(r,'v6')==SENT6)} 行）")
+OUT.append(f"- v7_flag=1 的行：{len(v7_1)} 条；其中 v6==0xFFFFFFFF 的：**{n1} 条"
+           f"（{100*n1/len(v7_1):.0f}%）**")
+OUT.append(f"- v7_flag=0 的行：{len(v7_0)} 条；其中 v6==0xFFFFFFFF 的：**{n0} 条"
+           f"（{100*n0/len(v7_0):.0f}%）**")
+OUT.append(f"  → 旧结论「f7=1 时 f6 恒空」：**成立**（空=0xFFFFFFFF；v7=1 时 100% 命中、"
+           f"v7=0 时 0% 命中，完美互斥）")
+OUT.append(f"  → 注：probe48 初版误用 `v6==0` 作判据故误判为「不成立」，此处已修正。")
 OUT.append(f"- v2_raw 与 idx 是否单调递增（疑似序号/种子）："
            f" idx 单调={all(num(rows[i],'idx')<=num(rows[i+1],'idx') for i in range(len(rows)-1))}")
 
@@ -185,7 +194,8 @@ OUT.append("- **v3 金额判定需谨慎**：中位数 41.9 万欧、P90 158 万
            "但存在 v3×100 达 3690 亿欧的极端值（见 §2c），疑似打包值/哨兵，不能把 v3 全量当金额。")
 OUT.append("- **v1_status**：三档均 85:14 结构（v1=1 共 42 行），v1=1 的金额全部 ≤139 万欧、"
            "分布规整；v1=0 含全部异常大值 → 推测 v1=1 为「已签约/已结算」、v1=0 为「挂牌/在售」，仍需字段语义复核。")
-OUT.append("- **v7_flag=1 → v6 清空不成立**：本数据集 v6 恒非零（§3），旧结论（probe29 阶段）作废。")
+OUT.append("- **v7_flag=1 → v6 清空：成立**（空 = `0xFFFFFFFF`，**不是 0**）：v7=1 的 39 行 v6 **100%** 为哨兵、"
+           "v7=0 的 258 行 **0%** 命中，完美互斥（§3）。此前按 `v6==0` 判定导致误判，已修正。")
 OUT.append("- **v4/v5/v6/v8**：值域 1e8~1e9，远超出「俱乐部 ID」量级；v6 与 v3/v5 有中等相关 "
            "(+0.40/+0.34)、v8 与 v6 负相关(-0.21)，其余接近 0 → 判定为打包值/指针/二级索引，非直接可读字段。")
 OUT.append("- **v2_raw**：与 idx 非单调、与所有数值字段几乎无关(≤0.05)，疑似散列/种子而非序号。")
