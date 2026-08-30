@@ -1,0 +1,740 @@
+pesdb_index,english_name,code3
+1,Ireland,IRL
+2,Northern Ireland,NIR
+3,Scotland,SCO
+4,Wales,WAL
+5,England,ENG
+6,Portugal,POR
+7,Spain,ESP
+8,France,FRA
+9,Belgium,BEL
+10,Netherlands,NED
+11,Switzerland,SUI
+12,Italy,ITA
+13,Czech Republic,CZE
+14,Germany,GER
+15,Denmark,DEN
+16,Norway,NOR
+17,Sweden,SWE
+18,Finland,FIN
+19,Poland,POL
+20,Slovakia,SVK
+21,Austria,AUT
+22,Hungary,HUN
+23,Slovenia,SVN
+24,Croatia,CRO
+25,Romania,ROU
+26,Bulgaria,BUL
+27,Greece,GRE
+28,Turkey,TUR
+29,Ukraine,UKR
+30,Russia,RUS
+31,Morocco,MAR
+32,Tunisia,TUN
+33,Egypt,EGY
+34,Nigeria,NGA
+35,Cameroon,CMR
+36,South Africa,ZAF
+37,Senegal,SEN
+38,United States,USA
+39,Mexico,MEX
+40,Jamaica,JAM
+41,Costa Rica,CRI
+42,Honduras,HND
+43,Colombia,COL
+44,Brazil,BRA
+45,Peru,PER
+46,Chile,CHL
+47,Paraguay,PRY
+48,Uruguay,URY
+49,Argentina,ARG
+50,Ecuador,ECU
+51,Japan,JPN
+52,South Korea,KOR
+53,China,CHN
+54,Iran,IRN
+55,Saudi Arabia,SAU
+56,Australia,AUS
+57,Latvia,LVA
+58,Manchester United,MUN
+59,Arsenal FC,ARS
+60,Chelsea FC,CHE
+61,Liverpool FC,LIV
+62,Leeds United,LEE
+63,West Ham United,WHU
+64,Newcastle United,NEW
+65,Aston Villa FC,AVL
+66,FC Barcelona,BAR
+67,Real Madrid CF,RMA
+68,Valencia CF,VAL
+69,AS Monaco,ASM
+70,Olympique Marseille,OM
+71,Paris Saint-Germain,PSG
+72,Girondins de Bordeaux,GDB
+73,Ajax Amsterdam,AJA
+74,Feyenoord Rotterdam,FEY
+75,PSV Eindhoven,PSV
+76,Inter Milan,INT
+77,Juventus FC,JUV
+78,AC Milan,MIL
+79,SS Lazio,LAZ
+80,Parma Calcio,PAR
+81,ACF Fiorentina,FIO
+82,AS Roma,ROM
+83,Borussia Dortmund,BVB
+84,Bayern München,FCB
+85,Bayer 04 Leverkusen,LEV
+86,Galatasaray SK,GS
+87,Celtic FC,CEL
+88,Rangers FC,RAN
+89,Olympiakos Piraeus,OLY
+90,Dynamo Kyiv,DYN
+91,Spartak Moskva,SPM
+92,Vasco da Gama,VAS
+93,SE Palmeiras,PAL
+94,CA River Plate,RIV
+95,CA Boca Juniors,BOC
+96,ML Default Europe,MLD
+97,Consadole Sapporo,SPP
+98,Kashima Antlers,KAA
+99,Urawa Red Diamonds,URD
+100,Kashiwa Reysol,KAS
+101,FC Tokyo,TOK
+102,Yokohama F. Marinos,YFM
+103,Shimizu S-Pulse,SMZ
+104,Júbilo Iwata,IWT
+105,Nagoya Grampus,NGY
+106,Kyoto Sanga,KYT
+107,Gamba Osaka,GAM
+108,Vissel Kobe,KBE
+109,Sanfrecce Hiroshima,SAH
+110,Kawasaki Frontale,KAF
+111,Shonan Bellmare,SHN
+112,Cerezo Osaka,COS
+113,Avispa Fukuoka,AVI
+114,Sagan Tosu,TSU
+115,Atlético Madrid,ATM
+116,Manchester City,MCI
+117,RSC Anderlecht,AND
+118,AC Sparta Prague,SPA
+119,Blackburn Rovers,BLB
+120,Everton FC,EVE
+121,Fulham FC,FUL
+122,Tottenham Hotspur,TOT
+123,AJ Auxerre,AJA
+124,Olympique Lyonnais,OL
+125,RC Lens,RCL
+126,FC Schalke 04,S04
+127,SV Werder Bremen,SVW
+128,Bologna FC,BOL
+129,Brescia Calcio,BRE
+130,Udinese Calcio,UDI
+131,SL Benfica,SLB
+132,FC Porto,POR
+133,Sporting CP,SCP
+134,Real Betis,BET
+135,Celta de Vigo,CEL
+136,Real Sociedad,RSO
+137,Fenerbahçe SK,FB
+138,Panathinaikos FC,PAN
+139,Zalgiris Vilnius,ZLG
+140,Ceres Negros,CER
+141,Birmingham City,BIR
+142,Leicester City,LEI
+143,Middlesbrough FC,MID
+144,Southampton FC,SOU
+145,Wolverhampton Wanderers,WOL
+146,AC Ajaccio,ACA
+147,SC Bastia,SCB
+148,EA Guingamp,EAG
+149,LOSC Lille,LIL
+150,Montpellier HSC,MON
+151,FC Nantes,FCN
+152,OGC Nice,OGC
+153,Stade Rennais FC,REN
+154,FC Sochaux-Montbéliard,SOC
+155,FC Toulouse,TFC
+156,Borussia Mönchengladbach,BMG
+157,Eintracht Frankfurt,SGE
+158,SC Freiburg,SCF
+159,VfB Stuttgart,VFB
+160,VfL Wolfsburg,WOL
+161,Atalanta BC,ATA
+162,FC Empoli,EMP
+163,Modena FC,MOD
+164,Palermo FC,PAL
+165,Reggina 1914,REG
+166,UC Sampdoria,SAM
+167,AZ Alkmaar,AZ
+168,FC Groningen,GRO
+169,SC Heerenveen,HEE
+170,NEC Nijmegen,NEC
+171,FC Twente,TWE
+172,FC Utrecht,UTR
+173,Vitesse Arnhem,VIT
+174,FC Volendam,VOL
+175,RKC Waalwijk,RKC
+176,Athletic Bilbao,ATH
+177,RCD Espanyol,ESP
+178,Málaga CF,MAL
+179,RCD Mallorca,MLL
+180,CA Osasuna,OSA
+181,Racing Santander,RRC
+182,Sevilla FC,SEV
+183,Real Valladolid,VLL
+184,Villarreal CF,VIL
+185,Real Zaragoza,ZAR
+186,Club Brugge KV,BRU
+187,AEK Athens,AEK
+188,Lokomotiv Moskva,LMO
+189,FK Partizan,PTZ
+190,Beşiktaş JK,BJK
+191,Cruzeiro EC,CRU
+192,Jeonbuk Hyundai Motors,JEO
+193,Pohang Steelers,POH
+194,Beijing Guoan,BJG
+195,Changchun Yatai,CCY
+196,Wuhan Three Towns,WTL
+197,Guangzhou FC,GFC
+198,Chengdu Rongcheng,CDR
+199,Ascoli Calcio,ASC
+200,SSC Bari,BAR
+201,Cagliari Calcio,CAG
+202,Genoa CFC,GEN
+203,SSC Napoli,NAP
+204,Ternana Calcio,TER
+205,Torino FC,TOR
+206,Hellas Verona,VER
+207,SC Cambuur-Leeuwarden,SCC
+208,FC Emmen,EMM
+209,SBV Excelsior,EXC
+210,Fortuna Sittard,FOR
+211,Go Ahead Eagles,GAE
+212,Sparta Rotterdam,SPA
+213,UD Almería,ALM
+214,Elche CF,ELC
+215,Getafe CF,GET
+216,Sporting Gijón,GIJ
+217,UD Las Palmas,LAP
+218,Levante UD,LEV
+219,Rayo Vallecano,RAY
+220,Brighton & Hove Albion,BHA
+221,Burnley FC,BUR
+222,Cardiff City,CAR
+223,Crystal Palace FC,CRY
+224,Millwall FC,MIL
+225,Norwich City,NOR
+226,Nottingham Forest,NFO
+227,Reading FC,REA
+228,Stoke City,STK
+229,Sunderland AFC,SUN
+230,Watford FC,WAT
+231,West Bromwich Albion,WBA
+232,Wigan Athletic,WIG
+233,Angers SCO,SCO
+234,Stade Malherbe Caen,SMC
+235,Clermont Foot,CLE
+236,Stade Lavallois,LAV
+237,AC Le Havre,HAC
+238,FC Lorient,FCL
+239,Chamois Niortais FC,NIO
+240,AS Saint-Étienne,STE
+241,ESTAC Troyes,TRO
+242,FSV Mainz 05,M05
+243,Rainmakers Classics,RMC
+244,Fireblast Classics,FBC
+245,Warmstorm Classics,WSC
+246,Powerball Classics,PBC
+247,Wildcats Classics,WCC
+248,Screambeem Classics,SBC
+249,Meanmachine Classics,MMC
+250,Predators Classics,PRC
+251,Afghanistan,AFG
+252,Bahrain,BHR
+253,Bangladesh,BGD
+254,Cambodia,KHM
+255,India,IND
+256,Indonesia,IDN
+257,Iraq,IRQ
+258,Jordan,JOR
+259,North Korea,PRK
+260,Kuwait,KWT
+261,Lebanon,LBN
+262,Malaysia,MYS
+263,Myanmar,MMR
+264,Nepal,NPL
+265,Oman,OMN
+266,Pakistan,PAK
+267,Palestine,PSE
+268,Philippines,PHL
+269,Qatar,QAT
+270,Singapore,SGP
+271,Syria,SYR
+272,Thailand,THA
+273,United Arab Emirates,ARE
+274,Vietnam,VNM
+275,Tajikistan,TJK
+276,Algeria,DZA
+277,Angola,AGO
+278,Benin,BEN
+279,Burkina Faso,BFA
+280,Cabo Verde,CPV
+281,Congo Dr,COD
+282,Côte D'Ivoire,CIV
+283,Gabon,GAB
+284,Ghana,GHA
+285,Guinea,GIN
+286,Kenya,KEN
+287,Madagascar,MDG
+288,Mali,MLI
+289,Tanzania,TZN
+290,Togo,TGO
+291,Uganda,UGA
+292,Zambia,ZMB
+293,Zimbabwe,ZWE
+294,Congo,COG
+295,Canada,CAN
+296,El Salvador,SLV
+297,Haiti,HTI
+298,Panama,PAN
+299,Trinidad and Tobago,TTO
+300,Curacao,CUW
+301,Bolivia,BOL
+302,Venezuela,VEN
+303,New Zealand,NZL
+304,Israel,ISR
+305,Albania,ALB
+306,Andorra,AND
+307,Armenia,ARM
+308,Azerbaijan,AZE
+309,Belarus,BLR
+310,Bosnia and Herzegovina,BIH
+311,Cyprus,CYP
+312,Estonia,EST
+313,Faroe Islands,FRO
+314,Georgia,GEO
+315,Iceland,ISL
+316,Kazakhstan,KAZ
+317,Liechtenstein,LIE
+318,Lithuania,LTU
+319,Luxembourg,LUX
+320,North Macedonia,MKD
+321,Malta,MLT
+322,Moldova,MDA
+323,San Marino,SMR
+324,Uzbekistan,UZB
+325,KRC Genk,GNK
+326,KAA Gent,GNT
+327,Standard Liège,STA
+328,KV Mechelen,KVM
+329,GNK Dinamo Zagreb,DZG
+330,FC Slovan Liberec,SLO
+331,FC København,FCK
+332,FC Nordsjælland,FCN
+333,PAOK Thessaloniki,PAO
+334,Maccabi Haifa,MAC
+335,Rosenborg BK,ROS
+336,FCSB,FSB
+337,CSKA Moskva,CSK
+338,Zenit St. Petersburg,ZSP
+339,Aberdeen FC,ABE
+340,Dundee United,DUD
+341,Heart of Midlothian,HEA
+342,Hibernian FC,HIB
+343,FK Crvena Zvezda,CZV
+344,Shakhtar Donetsk,SHK
+345,Argentinos Juniors,ARG
+346,Racing Club,RAC
+347,Estudiantes de la Plata,EST
+348,Gimnasia La Plata,GIM
+349,CA Independiente,IND
+350,Newell's Old Boys,NOB
+351,CA Rosario Central,RC
+352,CA San Lorenzo,SLO
+353,CA Vélez Sarsfield,VEL
+354,Atlético Mineiro,CAM
+355,Botafogo,BOT
+356,SC Corinthians,COR
+357,CR Flamengo,FLA
+358,Fluminense FC,FLU
+359,Grêmio,GRE
+360,Guarani FC,GUA
+361,SC Internacional,INT
+362,Santos FC,SAN
+363,São Paulo FC,SAO
+364,CSD Colo Colo,CC
+365,América de Cali,AME
+366,Millonarios FC,MIL
+367,Club Cerro Porteño,CER
+368,Olimpia Asunción,OLI
+369,Club Nacional,CNF
+370,CA Peñarol,PEN
+371,Club América,CA
+372,Queens Park Rangers,QPR
+373,Dijon FCO,DIJ
+374,Stade Brestois,SB
+375,Stade de Reims,SDR
+376,Al Rayyan SC,RYN
+377,Al Shabab Riyadh,SHA
+378,Pakhtakor Tashkent,PAK
+379,TP Mazembe,MAZ
+380,Al Gharafa SC,GFC
+381,Al Hilal Saudi FC,HIL
+382,Buriram United,BRU
+383,Valenciennes FC,VA
+384,Serbia,SRB
+385,Montenegro,MNE
+386,Esteghlal FC,EST
+387,Sydney FC,SYD
+388,AIK Solna,AIK
+389,RB Salzburg,RBS
+390,Hull City,HUL
+391,SD Ponferradina,PON
+392,Spezia Calcio,SPE
+393,Malmö FF,MFF
+394,FC Basel,BAS
+395,HJK Helsinki,HJK
+396,CFR Cluj,CLJ
+397,Dinamo Moskva,DMO
+398,Legia Warszawa,WRZ
+399,Bristol City,BCI
+400,Blackpool FC,BLA
+401,Granada CF,GRA
+402,Atlas Guadalajara,ATL
+403,CF Monterrey,MON
+404,Tigres UANL,TIG
+405,Vitória Sport Clube,VSC
+406,Sivasspor,SIV
+407,Aalborg BK,AAB
+408,Rapid Vienna,SCR
+409,Brøndby IF,BIF
+410,Swansea City,SWA
+411,Nîmes Olympique,NIM
+412,US Sassuolo,SAS
+413,AS Cittadella,CIT
+414,Arsenal Fútbol Club,ARS
+415,CA Huracán,HUR
+416,CA Colón,COL
+417,Godoy Cruz,GOD
+418,CA Tigre,TIG
+419,CA Banfield,BAN
+420,CA Lanús,LAN
+421,Athletico Paranaense,CAP
+422,Coritiba FC,CFC
+423,Goiás EC,GOI
+424,Clube Náutico,NAU
+425,Sport Recife,SPO
+426,Trabzonspor,TS
+427,BSC Young Boys,YB
+428,FC Zürich,FCZ
+429,Sporting Braga,BRA
+430,CS Marítimo,MAR
+431,Paços de Ferreira,PFE
+432,Rio Ave FC,TON
+433,Kilmarnock FC,KIL
+434,Motherwell FC,MOT
+435,St. Mirren FC,STM
+436,Antalyaspor,ANT
+437,Istanbul Başakşehir FK,IBB
+438,Kayserispor,KAY
+439,Cercle Brugge,CER
+440,RSC Charleroi,CHA
+441,KV Kortrijk,KVK
+442,SV Zulte Waregem,ZUL
+443,Torpedo Moscow,TOR
+444,FC Flora Tallinn,FLO
+445,FC Viktoria Plzeň,VIK
+446,FK Radnicki Nis,RDN
+447,FK Cukaricki,FKC
+448,AC Horsens,ACH
+449,Aarhus GF,AGF
+450,FC Midtjylland,FCM
+451,Odense Boldklub,OB
+452,Randers FC,RFC
+453,Lech Poznan,LPO
+454,APOEL Nicosia,APO
+455,Omonia Nikosia,OMO
+456,Girona FC,GIR
+457,SD Huesca,HUE
+458,Universidad Católica,UC
+459,Audax Italiano,AUD
+460,Atlético Nacional,NAC
+461,Club Libertad,LIB
+462,CD Everton,EVE
+463,Universidad de Chile,UCH
+464,Independiente Medellín,MED
+465,Universitario de Deportes,UNI
+466,Sporting Cristal,SC
+467,Deportivo Táchira,DEP
+468,FK Rostov,FCR
+469,Bolívar La Paz,BOL
+470,Once Caldas,ONC
+471,Junior FC,JUN
+472,Club Alianza Lima,ALI
+473,Unión Española,UE
+474,Deportes Tolima,TOL
+475,St. Johnstone FC,STJ
+476,Portimonense SC,PTM
+477,Astana FC,AST
+478,Ferencváros TC,FTC
+479,FC Arouca,FCA
+480,GD Estoril Praia,EST
+481,Gil Vicente FC,GIL
+482,CD Santa Clara,STA
+483,América Mineiro,AME
+484,Atlético Goianiense,ACG
+485,Avaí FC,AVA
+486,EC Bahia,BAH
+487,Ceará SC,CEA
+488,Red Bull Bragantino,RBB
+489,Criciúma EC,CEC
+490,AA Ponte Preta,PON
+491,Vila Nova FC,VIL
+492,ML Default Latinamerica,MDL
+493,Clube de Regatas Brasil,CRB
+494,Club Atlético Unión,CAU
+495,CD O'Higgins,OHI
+496,Deportes La Serena,LAS
+497,Huachipato FC,HUA
+498,Unión La Calera,ULC
+499,Deportes Antofagasta,ANT
+500,CD Palestino,PAL
+501,CD Cobresal,CSL
+502,Al Duhail SC,DUH
+503,Al Nassr FC,NSR
+504,Al Taawoun FC,TAA
+505,FK Vojvodina,VOJ
+506,Tractor Club,TRA
+507,Huddersfield Town,HUD
+508,CD Lugo,LUG
+509,CD Mirandés,MIR
+510,FK Krasnodar,KRA
+511,Ross County FC,ROS
+512,Kasimpaşa SK,KAS
+513,Deportivo Cali,CAL
+514,Deportivo Pasto,PAS
+515,Envigado FC,ENV
+516,Rionegro Águilas,RIO
+517,CD La Equidad,EQU
+518,Boyacá Patriotas FC,PAT
+519,Independiente Santa Fe,SFE
+520,Barcelona SC,BSC
+521,Independiente Del Valle,IND
+522,ML Default Asia,MLA
+523,CD Ñublense,NUB
+524,Coquimbo Unido,COQ
+525,Curicó Unido,CUR
+526,CA Aldosivi,CAA
+527,Atlético Tucumán,ATU
+528,Defensa y Justicia,DYJ
+529,CA Patronato,PAT
+530,CA Sarmiento,CAS
+531,AFC Bournemouth,BOU
+532,GD Chaves,GDC
+533,Dalian Professional,DAL
+534,Shanghai Port,SHP
+535,Wuhan Yangtze,WFC
+536,Chapecoense,CHA
+537,Sampaio Corrêa,SAM
+538,Tampines Rovers,TMR
+539,FC Metz,FCM
+540,FC Augsburg,AUG
+541,Hertha BSC,BSC
+542,TSG 1899 Hoffenheim,TSG
+543,VfL Bochum,VFL
+544,FC Köln,KOL
+545,FC Union Berlin,UNI
+546,Krylya Sovetov Samara,KRY
+547,Deportivo Alavés,ALV
+548,SD Eibar,EIB
+549,CD Tenerife,TEN
+550,Chicago Fire FC,CHI
+551,Colorado Rapids,COL
+552,Columbus Crew,CLB
+553,DC United,DCU
+554,FC Dallas,FCD
+555,Los Angeles Galaxy,LAG
+556,CF Montréal,MTL
+557,New England Revolution,NER
+558,New York RB,NYR
+559,Portland Timbers,POR
+560,San Jose Earthquakes,SJE
+561,Seattle Sounders,SEA
+562,Sporting Kansas City,SKC
+563,Toronto FC,TOR
+564,Vancouver Whitecaps,VW
+565,Shandong Taishan,SDL
+566,Foolad FC,FLD
+567,Al Shorta SC,SHR
+568,Al Sadd SC,SDD
+569,Ulsan Hyundai,ULS
+570,Shabab Al Ahli Dubai,AHD
+571,Brentford FC,BRE
+572,Coventry City,COV
+573,Preston North End,PRE
+574,Rotherham United,ROT
+575,Sheffield United,SHU
+576,Amiens SC,ASC
+577,Paris FC,PFC
+578,RC Strasbourg Alsace,RCS
+579,Como 1907,COM
+580,US Cremonese,CRE
+581,FC Südtirol,SAA
+582,Venezia FC,VNZ
+583,Benevento Calcio,BEN
+584,Frosinone Calcio,FRO
+585,US Lecce,LEC
+586,AC Perugia Calcio,PER
+587,Pisa Sporting Club,PIS
+588,US Salernitana,SAL
+589,Burgos CF,BRG
+590,Real Oviedo,OVI
+591,CD Leganés,LEG
+592,Villarreal B,VRB
+593,Albacete Balompié,ALB
+594,Cádiz CF,CAD
+595,FC Cartagena,CAR
+596,Boavista FC,BOA
+597,FK Qarabağ,QAR
+598,Slovan Bratislava,SLO
+599,FC Sheriff Tiraspol,FCS
+600,Ludogorets Razgrad,LUD
+601,Luton Town,LUT
+602,Grenoble Foot 38,GRB
+603,Rodez AF,ROD
+604,AC Monza,MON
+605,SPAL,SPA
+606,Cosenza Calcio,COS
+607,BG Pathum United,BGP
+608,Guangzhou City,GRF
+609,Kitchee,KCE
+610,Johor Darul Ta'zim,JDT
+611,Persepolis FC,PER
+612,Al Wahda FC,WAH
+613,Al Wehdat SC,WSC
+614,The Old Boys,TOB
+615,Central Córdoba SDE,COR
+616,RB Leipzig,RBL
+617,FC Famalicão,FAM
+618,Club Atlético Talleres,TAL
+619,Londrina EC,LON
+620,New York City,NYC
+621,Orlando City,ORL
+622,Pau FC,PAU
+623,Quevilly Rouen Métropole,QRM
+624,FC Vizela,FCV
+625,World Selection,WOS
+626,EC Juventude,JUV
+627,CSA,CSA
+628,Cuiabá EC,CUI
+629,Fortaleza EC,FOR
+630,Tombense FC,TOM
+631,Hebei FC,HFC
+632,Henan Songshan Longmen,HSL
+633,Shanghai Shenhua,SHE
+634,Tianjin Jinmen Tiger,TJT
+635,Zhejiang FC,ZGT
+636,Meizhou Hakka,MHK
+637,Shenzhen FC,SFC
+638,Cangzhou Mighty Lions,CML
+639,Slavia Praha,SLA
+640,KAS Eupen,EUP
+641,Royal Antwerp FC,ANT
+642,KV Oostende,KVO
+643,Sint-Truiden VV,STV
+644,Akhmat Grozny,AKH
+645,Ural Yekaterinburg,FCU
+646,Alanyaspor,ALA
+647,Konyaspor,KON
+648,Alianza Petrolera,ALI
+649,Atlético Bucaramanga,BUC
+650,Cortuluá,CRT
+651,Jaguares de Córdoba,JAG
+652,OH Leuven,OHL
+653,Union Saint Gilloise,USG
+654,KVC Westerlo,WES
+655,Lyngby BK,LYN
+656,Silkeborg IF,SLK
+657,Viborg FF,VFF
+658,FC Sochi,SOC
+659,Fakel Voronezh,FAK
+660,FK Khimki,KHI
+661,FK Nizhny Novgorod,PNN
+662,FK Orenburg,ORE
+663,Livingston FC,LIV
+664,Adana Demirspor,ADN
+665,Caykur Rizespor,RIZ
+666,Gaziantep FK,GZT
+667,Giresunspor,GIR
+668,Istanbulspor AŞ,IST
+669,MKE Ankaragücü,ANK
+670,Ümraniyespor,UMR
+671,Deportivo Pereira,DPR
+672,Unión Magdalena,MAG
+673,Air Force Club,AFC
+674,Leo Chiangrai United,LCU
+675,Port FC,POR
+676,Ratchaburi FC,RFC
+677,Operário PR,OPE
+678,Gibraltar,GIB
+679,Kosovo,KOS
+680,Hatayspor,HAT
+681,CA Platense,CAP
+682,UD Ibiza,UDI
+683,United City,UNC
+684,Daegu FC,DGU
+685,FC Istiqlol Dushanbe,IST
+686,AGMK Olmaliq,AMK
+687,Casa Pia AC,CP
+688,FC Andorra,AND
+689,Fatih Karagümrük,KAR
+690,CA Barracas Central,BAR
+691,Brusque FC,BRQ
+692,Ituano FC,ITU
+693,Sharjah FC,SHJ
+694,RFC Seraing,RFC
+695,FC Annecy,ANN
+696,Atlanta United FC,ATL
+697,FC Cincinnati,FCC
+698,Inter Miami CF,MIA
+699,Nashville SC,NSC
+700,Los Angeles FC,LA
+701,Minnesota United,MNU
+702,Grêmio Novorizontino,GEN
+703,FC Goa,GOA
+704,Viettel FC,VTT
+705,Kaya FC-Iloilo,KAY
+706,Mumbai City FC,MFC
+707,Bali United FC,BAL
+708,PERSIB Bandung,BAN
+709,Persija Jakarta,JAK
+710,Borneo FC Samarinda,BFC
+711,Arema FC,ARE
+712,PSIS Semarang,SEM
+713,PS Barito Putera,BRT
+714,Persik Kediri,PKE
+715,Madura United FC,MU
+716,Persebaya Surabaya,PER
+717,Bhayangkara FC,BHA
+718,PSM Makassar,PSM
+719,PSS Sleman,PSS
+720,Persikabo 1973,PER
+721,Persita Tangerang,PTG
+722,PERSIS Solo,PSO
+723,RANS Nusantara FC,NFC
+724,Dewa United FC,DEW
+725,FK TSC Backa Topola,TSC
+726,FK Spartak Subotica,SZV
+727,FK Napredak Kruševac,NAP
+728,FK Radnik Surdulica,FRS
+729,FK Mladost GAT Novi Sad,MLA
+730,FK Radnicki 1923,RDK
+731,FK Voždovac,VOZ
+732,FK Kolubara Lazarevac,FKK
+733,FK Mladost Lučani,MLU
+734,FK Javor-Matis Ivanjica,JAV
+735,FK Novi Pazar,NP
+736,El Ahly Cairo,AHL
+737,Wydad Casablanca,WYD
+738,ES Sétif,ESS
+739,CA Petróleos Luanda,CAP

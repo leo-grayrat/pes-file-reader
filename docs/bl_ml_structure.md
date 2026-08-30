@@ -531,8 +531,39 @@
 - 球队块**内不存在** EDIT team_id（值域 1..71212）字段 → ML 队序号与 EDIT team_id 是**两套 ID 空间**，
   两者映射表尚未定位。这是 `+0x598` 预算与事件表闭合的最后缺口。
 
-**6. 未解**：EDIT 条目内的球队 ID（前 240B 内 u16 扫描无匹配——球队归属已改由 team-player 表提供，
-此问不再关键）；年龄、能力值位域布局；Salary/Market Value 的存档编码；ML↔EDIT 球队 ID 映射表。
+**6. pesdb 队名表（dt10 `Team.bin`）与 team_id 映射问题（2026-08-30）**
+
+**Team.bin 结构（实测确认）**：QWESYS 头 + zlib（@0x10）→ 解压 1,133,680 B；
+记录起始 `0x100`，**739 条 × 1532 B（定长）**；`+0x70` = 英文名（UTF-8），`+0x272` = 三字码
+（FIFA 国家码/俱乐部缩写）。由 `team_names.py` 导出 `outputs/pesdb_team_names.csv`。
+
+**关键约束（重要，避免误用）**：Team.bin 记录内**不含 team_id 字段**
+（前 0x70 全 0，`+0x530` 数据段亦无），它是**纯名字表**；而且
+**Team.bin 的记录顺序 ≠ team_id 顺序**。反例：pesdb 第 42 条是 `Honduras`，
+但 EDIT `team_id=42` 的球员（凯洛尔·纳瓦斯、冈卡尔洛·冈萨雷斯、肯德尔·沃斯顿）是**哥斯达黎加**队。
+→ **不能用 team_id 直接索引 Team.bin 取队名**。
+
+**已验证锚点（用队内球员实名核对）**：
+
+| EDIT team_id | pesdb 索引 | 队名 | 码 |
+|---|---|---|---|
+| 1 / 2 / 3 / 4 / 5 | 1 / 2 / 3 / 4 / 5 | Ireland / Northern Ireland / Scotland / Wales / England | IRL/NIR/SCO/WAL/ENG |
+| 6–12 | 6–12 | Portugal / Spain / France / Belgium / Netherlands / Switzerland / Italy | POR/ESP/FRA/BEL/NED/SUI/ITA |
+| 21 | 21 | Austria | AUT |
+| **418** | **240** | **AS Saint-Étienne**（哈兹里、德比希、布德布兹） | STE |
+| **420** | **241** | **ESTAC Troyes**（吉罗东、图兹加尔、石玄俊） | TRO |
+
+→ **国家队段 1:1 成立**；俱乐部段存在偏移（418→240，差 178）。
+
+- 产出 `outputs/edit_team_names.csv`：694 个 team_id 中 **15 个已验证**、201 个 1:1 候选（**未验证，可能错配**）、
+  **478 个无候选**（team_id > 739，均为俱乐部，如 1010/1493/71212）。
+- **外部网站不可用**：pesmaster 的 `team/418`、`team/240` 均返回 404，其编号体系与 EDIT team_id
+  及 pesdb 索引**都不一致**（仅 `team/1`=爱尔兰这样的小编号可用），无法作为批量数据源。
+
+**7. 未解**：EDIT team_id → pesdb 索引的**完整映射表**（需从 pesdb 其他文件或 EDIT 的 team 段获取；
+EDIT 球员表止于 `0x82FBF4`，team-player 表止于 `0xA04830`，其后 491KB 为 1861 个 16B 稀疏块——
+间隔 272、首值 262143(0x3FFFF) 位掩码，**不是映射表**）。其余：年龄、能力值位域布局、
+Salary/Market Value 存档编码、ML↔EDIT 球队 ID 映射（`+0x598` 预算闭合的最后缺口）。
 
 ## 三、未解问题与下一步建议
 

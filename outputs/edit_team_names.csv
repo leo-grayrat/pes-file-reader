@@ -1,0 +1,695 @@
+edit_team_id,team_name,code3,pesdb_index,confidence,note
+1,Ireland,IRL,1,verified,球员实名核对通过
+2,Northern Ireland,NIR,2,verified,球员实名核对通过
+3,Scotland,SCO,3,verified,球员实名核对通过
+4,Wales,WAL,4,verified,球员实名核对通过
+5,England,ENG,5,verified,球员实名核对通过
+6,Portugal,POR,6,verified,球员实名核对通过
+7,Spain,ESP,7,verified,球员实名核对通过
+8,France,FRA,8,verified,球员实名核对通过
+9,Belgium,BEL,9,verified,球员实名核对通过
+10,Netherlands,NED,10,verified,球员实名核对通过
+11,Switzerland,SUI,11,verified,球员实名核对通过
+12,Italy,ITA,12,verified,球员实名核对通过
+13,Czech Republic,CZE,13,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+14,Germany,GER,14,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+15,Denmark,DEN,15,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+16,Norway,NOR,16,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+17,Sweden,SWE,17,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+18,Finland,FIN,18,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+19,Poland,POL,19,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+20,Slovakia,SVK,20,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+21,Austria,AUT,21,verified,球员实名核对通过
+22,Hungary,HUN,22,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+23,Slovenia,SVN,23,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+24,Croatia,CRO,24,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+26,Bulgaria,BUL,26,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+27,Greece,GRE,27,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+28,Turkey,TUR,28,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+29,Ukraine,UKR,29,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+30,Russia,RUS,30,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+31,Morocco,MAR,31,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+32,Tunisia,TUN,32,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+33,Egypt,EGY,33,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+34,Nigeria,NGA,34,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+35,Cameroon,CMR,35,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+36,South Africa,ZAF,36,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+37,Senegal,SEN,37,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+38,United States,USA,38,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+39,Mexico,MEX,39,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+40,Jamaica,JAM,40,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+41,Costa Rica,CRI,41,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+42,Honduras,HND,42,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+43,Colombia,COL,43,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+44,Brazil,BRA,44,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+45,Peru,PER,45,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+46,Chile,CHL,46,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+47,Paraguay,PRY,47,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+48,Uruguay,URY,48,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+49,Argentina,ARG,49,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+50,Ecuador,ECU,50,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+51,Japan,JPN,51,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+52,South Korea,KOR,52,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+53,China,CHN,53,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+54,Iran,IRN,54,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+55,Saudi Arabia,SAU,55,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+56,Australia,AUS,56,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+57,Latvia,LVA,57,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+59,Arsenal FC,ARS,59,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+100,Kashiwa Reysol,KAS,100,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+101,FC Tokyo,TOK,101,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+102,Yokohama F. Marinos,YFM,102,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+103,Shimizu S-Pulse,SMZ,103,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+104,Júbilo Iwata,IWT,104,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+105,Nagoya Grampus,NGY,105,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+106,Kyoto Sanga,KYT,106,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+107,Gamba Osaka,GAM,107,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+108,Vissel Kobe,KBE,108,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+109,Sanfrecce Hiroshima,SAH,109,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+110,Kawasaki Frontale,KAF,110,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+111,Shonan Bellmare,SHN,111,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+112,Cerezo Osaka,COS,112,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+113,Avispa Fukuoka,AVI,113,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+114,Sagan Tosu,TSU,114,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+115,Atlético Madrid,ATM,115,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+116,Manchester City,MCI,116,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+117,RSC Anderlecht,AND,117,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+118,AC Sparta Prague,SPA,118,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+119,Blackburn Rovers,BLB,119,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+120,Everton FC,EVE,120,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+121,Fulham FC,FUL,121,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+122,Tottenham Hotspur,TOT,122,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+123,AJ Auxerre,AJA,123,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+124,Olympique Lyonnais,OL,124,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+125,RC Lens,RCL,125,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+127,SV Werder Bremen,SVW,127,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+128,Bologna FC,BOL,128,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+130,Udinese Calcio,UDI,130,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+131,SL Benfica,SLB,131,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+132,FC Porto,POR,132,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+133,Sporting CP,SCP,133,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+134,Real Betis,BET,134,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+135,Celta de Vigo,CEL,135,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+136,Real Sociedad,RSO,136,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+137,Fenerbahçe SK,FB,137,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+138,Panathinaikos FC,PAN,138,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+139,Zalgiris Vilnius,ZLG,139,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+140,Ceres Negros,CER,140,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+172,FC Utrecht,UTR,172,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+173,Vitesse Arnhem,VIT,173,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+174,FC Volendam,VOL,174,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+175,RKC Waalwijk,RKC,175,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+176,Athletic Bilbao,ATH,176,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+177,RCD Espanyol,ESP,177,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+178,Málaga CF,MAL,178,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+179,RCD Mallorca,MLL,179,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+180,CA Osasuna,OSA,180,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+181,Racing Santander,RRC,181,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+182,Sevilla FC,SEV,182,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+184,Villarreal CF,VIL,184,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+186,Club Brugge KV,BRU,186,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+187,AEK Athens,AEK,187,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+188,Lokomotiv Moskva,LMO,188,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+190,Beşiktaş JK,BJK,190,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+191,Cruzeiro EC,CRU,191,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+192,Jeonbuk Hyundai Motors,JEO,192,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+193,Pohang Steelers,POH,193,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+194,Beijing Guoan,BJG,194,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+195,Changchun Yatai,CCY,195,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+196,Wuhan Three Towns,WTL,196,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+197,Guangzhou FC,GFC,197,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+198,Chengdu Rongcheng,CDR,198,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+199,Ascoli Calcio,ASC,199,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+200,SSC Bari,BAR,200,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+201,Cagliari Calcio,CAG,201,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+203,SSC Napoli,NAP,203,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+204,Ternana Calcio,TER,204,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+205,Torino FC,TOR,205,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+207,SC Cambuur-Leeuwarden,SCC,207,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+208,FC Emmen,EMM,208,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+209,SBV Excelsior,EXC,209,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+211,Go Ahead Eagles,GAE,211,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+213,UD Almería,ALM,213,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+215,Getafe CF,GET,215,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+216,Sporting Gijón,GIJ,216,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+217,UD Las Palmas,LAP,217,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+218,Levante UD,LEV,218,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+219,Rayo Vallecano,RAY,219,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+221,Burnley FC,BUR,221,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+234,Stade Malherbe Caen,SMC,234,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+235,Clermont Foot,CLE,235,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+239,Chamois Niortais FC,NIO,239,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+240,AS Saint-Étienne,STE,240,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+242,FSV Mainz 05,M05,242,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+243,Rainmakers Classics,RMC,243,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+244,Fireblast Classics,FBC,244,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+245,Warmstorm Classics,WSC,245,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+250,Predators Classics,PRC,250,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+251,Afghanistan,AFG,251,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+252,Bahrain,BHR,252,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+254,Cambodia,KHM,254,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+255,India,IND,255,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+256,Indonesia,IDN,256,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+258,Jordan,JOR,258,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+259,North Korea,PRK,259,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+260,Kuwait,KWT,260,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+261,Lebanon,LBN,261,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+263,Myanmar,MMR,263,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+264,Nepal,NPL,264,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+265,Oman,OMN,265,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+266,Pakistan,PAK,266,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+267,Palestine,PSE,267,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+268,Philippines,PHL,268,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+269,Qatar,QAT,269,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+270,Singapore,SGP,270,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+271,Syria,SYR,271,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+273,United Arab Emirates,ARE,273,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+274,Vietnam,VNM,274,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+289,Tanzania,TZN,289,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+295,Canada,CAN,295,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+306,Andorra,AND,306,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+310,Bosnia and Herzegovina,BIH,310,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+317,Liechtenstein,LIE,317,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+320,North Macedonia,MKD,320,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+323,San Marino,SMR,323,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+325,KRC Genk,GNK,325,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+327,Standard Liège,STA,327,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+328,KV Mechelen,KVM,328,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+333,PAOK Thessaloniki,PAO,333,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+336,FCSB,FSB,336,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+337,CSKA Moskva,CSK,337,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+342,Hibernian FC,HIB,342,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+345,Argentinos Juniors,ARG,345,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+349,CA Independiente,IND,349,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+351,CA Rosario Central,RC,351,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+355,Botafogo,BOT,355,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+357,CR Flamengo,FLA,357,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+361,SC Internacional,INT,361,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+362,Santos FC,SAN,362,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+363,São Paulo FC,SAO,363,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+364,CSD Colo Colo,CC,364,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+366,Millonarios FC,MIL,366,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+368,Olimpia Asunción,OLI,368,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+370,CA Peñarol,PEN,370,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+377,Al Shabab Riyadh,SHA,377,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+378,Pakhtakor Tashkent,PAK,378,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+379,TP Mazembe,MAZ,379,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+382,Buriram United,BRU,382,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+383,Valenciennes FC,VA,383,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+387,Sydney FC,SYD,387,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+388,AIK Solna,AIK,388,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+389,RB Salzburg,RBS,389,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+391,SD Ponferradina,PON,391,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+394,FC Basel,BAS,394,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+395,HJK Helsinki,HJK,395,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+398,Legia Warszawa,WRZ,398,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+399,Bristol City,BCI,399,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+400,Blackpool FC,BLA,400,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+403,CF Monterrey,MON,403,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+405,Vitória Sport Clube,VSC,405,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+406,Sivasspor,SIV,406,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+407,Aalborg BK,AAB,407,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+413,AS Cittadella,CIT,413,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+414,Arsenal Fútbol Club,ARS,414,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+415,CA Huracán,HUR,415,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+416,CA Colón,COL,416,candidate,1:1 假设，未验证（Team.bin 顺序!=team_id，可能错配）
+418,AS Saint-Étienne,STE,240,verified,球员实名核对通过
+420,ESTAC Troyes,TRO,241,verified,球员实名核对通过
+1010,,,,unknown,team_id 1010 > pesdb 条目数 739，无候选
+1011,,,,unknown,team_id 1011 > pesdb 条目数 739，无候选
+1012,,,,unknown,team_id 1012 > pesdb 条目数 739，无候选
+1013,,,,unknown,team_id 1013 > pesdb 条目数 739，无候选
+1015,,,,unknown,team_id 1015 > pesdb 条目数 739，无候选
+1022,,,,unknown,team_id 1022 > pesdb 条目数 739，无候选
+1026,,,,unknown,team_id 1026 > pesdb 条目数 739，无候选
+1031,,,,unknown,team_id 1031 > pesdb 条目数 739，无候选
+1032,,,,unknown,team_id 1032 > pesdb 条目数 739，无候选
+1040,,,,unknown,team_id 1040 > pesdb 条目数 739，无候选
+1044,,,,unknown,team_id 1044 > pesdb 条目数 739，无候选
+1051,,,,unknown,team_id 1051 > pesdb 条目数 739，无候选
+1058,,,,unknown,team_id 1058 > pesdb 条目数 739，无候选
+1059,,,,unknown,team_id 1059 > pesdb 条目数 739，无候选
+1067,,,,unknown,team_id 1067 > pesdb 条目数 739，无候选
+1083,,,,unknown,team_id 1083 > pesdb 条目数 739，无候选
+1113,,,,unknown,team_id 1113 > pesdb 条目数 739，无候选
+1128,,,,unknown,team_id 1128 > pesdb 条目数 739，无候选
+1129,,,,unknown,team_id 1129 > pesdb 条目数 739，无候选
+1141,,,,unknown,team_id 1141 > pesdb 条目数 739，无候选
+1164,,,,unknown,team_id 1164 > pesdb 条目数 739，无候选
+1165,,,,unknown,team_id 1165 > pesdb 条目数 739，无候选
+1166,,,,unknown,team_id 1166 > pesdb 条目数 739，无候选
+1167,,,,unknown,team_id 1167 > pesdb 条目数 739，无候选
+1168,,,,unknown,team_id 1168 > pesdb 条目数 739，无候选
+1169,,,,unknown,team_id 1169 > pesdb 条目数 739，无候选
+1170,,,,unknown,team_id 1170 > pesdb 条目数 739，无候选
+1171,,,,unknown,team_id 1171 > pesdb 条目数 739，无候选
+1172,,,,unknown,team_id 1172 > pesdb 条目数 739，无候选
+1173,,,,unknown,team_id 1173 > pesdb 条目数 739，无候选
+1174,,,,unknown,team_id 1174 > pesdb 条目数 739，无候选
+1175,,,,unknown,team_id 1175 > pesdb 条目数 739，无候选
+1176,,,,unknown,team_id 1176 > pesdb 条目数 739，无候选
+1177,,,,unknown,team_id 1177 > pesdb 条目数 739，无候选
+1178,,,,unknown,team_id 1178 > pesdb 条目数 739，无候选
+1179,,,,unknown,team_id 1179 > pesdb 条目数 739，无候选
+1180,,,,unknown,team_id 1180 > pesdb 条目数 739，无候选
+1181,,,,unknown,team_id 1181 > pesdb 条目数 739，无候选
+1182,,,,unknown,team_id 1182 > pesdb 条目数 739，无候选
+1183,,,,unknown,team_id 1183 > pesdb 条目数 739，无候选
+1184,,,,unknown,team_id 1184 > pesdb 条目数 739，无候选
+1195,,,,unknown,team_id 1195 > pesdb 条目数 739，无候选
+1196,,,,unknown,team_id 1196 > pesdb 条目数 739，无候选
+1197,,,,unknown,team_id 1197 > pesdb 条目数 739，无候选
+1200,,,,unknown,team_id 1200 > pesdb 条目数 739，无候选
+1203,,,,unknown,team_id 1203 > pesdb 条目数 739，无候选
+1207,,,,unknown,team_id 1207 > pesdb 条目数 739，无候选
+1208,,,,unknown,team_id 1208 > pesdb 条目数 739，无候选
+1212,,,,unknown,team_id 1212 > pesdb 条目数 739，无候选
+1217,,,,unknown,team_id 1217 > pesdb 条目数 739，无候选
+1218,,,,unknown,team_id 1218 > pesdb 条目数 739，无候选
+1219,,,,unknown,team_id 1219 > pesdb 条目数 739，无候选
+1220,,,,unknown,team_id 1220 > pesdb 条目数 739，无候选
+1222,,,,unknown,team_id 1222 > pesdb 条目数 739，无候选
+1230,,,,unknown,team_id 1230 > pesdb 条目数 739，无候选
+1232,,,,unknown,team_id 1232 > pesdb 条目数 739，无候选
+1236,,,,unknown,team_id 1236 > pesdb 条目数 739，无候选
+1237,,,,unknown,team_id 1237 > pesdb 条目数 739，无候选
+1238,,,,unknown,team_id 1238 > pesdb 条目数 739，无候选
+1239,,,,unknown,team_id 1239 > pesdb 条目数 739，无候选
+1240,,,,unknown,team_id 1240 > pesdb 条目数 739，无候选
+1241,,,,unknown,team_id 1241 > pesdb 条目数 739，无候选
+1242,,,,unknown,team_id 1242 > pesdb 条目数 739，无候选
+1243,,,,unknown,team_id 1243 > pesdb 条目数 739，无候选
+1244,,,,unknown,team_id 1244 > pesdb 条目数 739，无候选
+1245,,,,unknown,team_id 1245 > pesdb 条目数 739，无候选
+1246,,,,unknown,team_id 1246 > pesdb 条目数 739，无候选
+1247,,,,unknown,team_id 1247 > pesdb 条目数 739，无候选
+1248,,,,unknown,team_id 1248 > pesdb 条目数 739，无候选
+1249,,,,unknown,team_id 1249 > pesdb 条目数 739，无候选
+1250,,,,unknown,team_id 1250 > pesdb 条目数 739，无候选
+1251,,,,unknown,team_id 1251 > pesdb 条目数 739，无候选
+1252,,,,unknown,team_id 1252 > pesdb 条目数 739，无候选
+1254,,,,unknown,team_id 1254 > pesdb 条目数 739，无候选
+1255,,,,unknown,team_id 1255 > pesdb 条目数 739，无候选
+1256,,,,unknown,team_id 1256 > pesdb 条目数 739，无候选
+1257,,,,unknown,team_id 1257 > pesdb 条目数 739，无候选
+1258,,,,unknown,team_id 1258 > pesdb 条目数 739，无候选
+1327,,,,unknown,team_id 1327 > pesdb 条目数 739，无候选
+1328,,,,unknown,team_id 1328 > pesdb 条目数 739，无候选
+1329,,,,unknown,team_id 1329 > pesdb 条目数 739，无候选
+1330,,,,unknown,team_id 1330 > pesdb 条目数 739，无候选
+1363,,,,unknown,team_id 1363 > pesdb 条目数 739，无候选
+1386,,,,unknown,team_id 1386 > pesdb 条目数 739，无候选
+1493,,,,unknown,team_id 1493 > pesdb 条目数 739，无候选
+1528,,,,unknown,team_id 1528 > pesdb 条目数 739，无候选
+1550,,,,unknown,team_id 1550 > pesdb 条目数 739，无候选
+1551,,,,unknown,team_id 1551 > pesdb 条目数 739，无候选
+1588,,,,unknown,team_id 1588 > pesdb 条目数 739，无候选
+1589,,,,unknown,team_id 1589 > pesdb 条目数 739，无候选
+1595,,,,unknown,team_id 1595 > pesdb 条目数 739，无候选
+1600,,,,unknown,team_id 1600 > pesdb 条目数 739，无候选
+1706,,,,unknown,team_id 1706 > pesdb 条目数 739，无候选
+1753,,,,unknown,team_id 1753 > pesdb 条目数 739，无候选
+1760,,,,unknown,team_id 1760 > pesdb 条目数 739，无候选
+1765,,,,unknown,team_id 1765 > pesdb 条目数 739，无候选
+1804,,,,unknown,team_id 1804 > pesdb 条目数 739，无候选
+1809,,,,unknown,team_id 1809 > pesdb 条目数 739，无候选
+1818,,,,unknown,team_id 1818 > pesdb 条目数 739，无候选
+1832,,,,unknown,team_id 1832 > pesdb 条目数 739，无候选
+1909,,,,unknown,team_id 1909 > pesdb 条目数 739，无候选
+1910,,,,unknown,team_id 1910 > pesdb 条目数 739，无候选
+1919,,,,unknown,team_id 1919 > pesdb 条目数 739，无候选
+1920,,,,unknown,team_id 1920 > pesdb 条目数 739，无候选
+1921,,,,unknown,team_id 1921 > pesdb 条目数 739，无候选
+1922,,,,unknown,team_id 1922 > pesdb 条目数 739，无候选
+1923,,,,unknown,team_id 1923 > pesdb 条目数 739，无候选
+1924,,,,unknown,team_id 1924 > pesdb 条目数 739，无候选
+1927,,,,unknown,team_id 1927 > pesdb 条目数 739，无候选
+1929,,,,unknown,team_id 1929 > pesdb 条目数 739，无候选
+1930,,,,unknown,team_id 1930 > pesdb 条目数 739，无候选
+1931,,,,unknown,team_id 1931 > pesdb 条目数 739，无候选
+1932,,,,unknown,team_id 1932 > pesdb 条目数 739，无候选
+1933,,,,unknown,team_id 1933 > pesdb 条目数 739，无候选
+1935,,,,unknown,team_id 1935 > pesdb 条目数 739，无候选
+1936,,,,unknown,team_id 1936 > pesdb 条目数 739，无候选
+1937,,,,unknown,team_id 1937 > pesdb 条目数 739，无候选
+1941,,,,unknown,team_id 1941 > pesdb 条目数 739，无候选
+1944,,,,unknown,team_id 1944 > pesdb 条目数 739，无候选
+1945,,,,unknown,team_id 1945 > pesdb 条目数 739，无候选
+1950,,,,unknown,team_id 1950 > pesdb 条目数 739，无候选
+1955,,,,unknown,team_id 1955 > pesdb 条目数 739，无候选
+1956,,,,unknown,team_id 1956 > pesdb 条目数 739，无候选
+1957,,,,unknown,team_id 1957 > pesdb 条目数 739，无候选
+1958,,,,unknown,team_id 1958 > pesdb 条目数 739，无候选
+1973,,,,unknown,team_id 1973 > pesdb 条目数 739，无候选
+1974,,,,unknown,team_id 1974 > pesdb 条目数 739，无候选
+1976,,,,unknown,team_id 1976 > pesdb 条目数 739，无候选
+1978,,,,unknown,team_id 1978 > pesdb 条目数 739，无候选
+1979,,,,unknown,team_id 1979 > pesdb 条目数 739，无候选
+1981,,,,unknown,team_id 1981 > pesdb 条目数 739，无候选
+1985,,,,unknown,team_id 1985 > pesdb 条目数 739，无候选
+1986,,,,unknown,team_id 1986 > pesdb 条目数 739，无候选
+1987,,,,unknown,team_id 1987 > pesdb 条目数 739，无候选
+1989,,,,unknown,team_id 1989 > pesdb 条目数 739，无候选
+1995,,,,unknown,team_id 1995 > pesdb 条目数 739，无候选
+1996,,,,unknown,team_id 1996 > pesdb 条目数 739，无候选
+2009,,,,unknown,team_id 2009 > pesdb 条目数 739，无候选
+2010,,,,unknown,team_id 2010 > pesdb 条目数 739，无候选
+2013,,,,unknown,team_id 2013 > pesdb 条目数 739，无候选
+2019,,,,unknown,team_id 2019 > pesdb 条目数 739，无候选
+2066,,,,unknown,team_id 2066 > pesdb 条目数 739，无候选
+2067,,,,unknown,team_id 2067 > pesdb 条目数 739，无候选
+2068,,,,unknown,team_id 2068 > pesdb 条目数 739，无候选
+2069,,,,unknown,team_id 2069 > pesdb 条目数 739，无候选
+2070,,,,unknown,team_id 2070 > pesdb 条目数 739，无候选
+2071,,,,unknown,team_id 2071 > pesdb 条目数 739，无候选
+2187,,,,unknown,team_id 2187 > pesdb 条目数 739，无候选
+2188,,,,unknown,team_id 2188 > pesdb 条目数 739，无候选
+2191,,,,unknown,team_id 2191 > pesdb 条目数 739，无候选
+2192,,,,unknown,team_id 2192 > pesdb 条目数 739，无候选
+2193,,,,unknown,team_id 2193 > pesdb 条目数 739，无候选
+2194,,,,unknown,team_id 2194 > pesdb 条目数 739，无候选
+2195,,,,unknown,team_id 2195 > pesdb 条目数 739，无候选
+2208,,,,unknown,team_id 2208 > pesdb 条目数 739，无候选
+2209,,,,unknown,team_id 2209 > pesdb 条目数 739，无候选
+2210,,,,unknown,team_id 2210 > pesdb 条目数 739，无候选
+2215,,,,unknown,team_id 2215 > pesdb 条目数 739，无候选
+2216,,,,unknown,team_id 2216 > pesdb 条目数 739，无候选
+2229,,,,unknown,team_id 2229 > pesdb 条目数 739，无候选
+2284,,,,unknown,team_id 2284 > pesdb 条目数 739，无候选
+2285,,,,unknown,team_id 2285 > pesdb 条目数 739，无候选
+2287,,,,unknown,team_id 2287 > pesdb 条目数 739，无候选
+2293,,,,unknown,team_id 2293 > pesdb 条目数 739，无候选
+2297,,,,unknown,team_id 2297 > pesdb 条目数 739，无候选
+2298,,,,unknown,team_id 2298 > pesdb 条目数 739，无候选
+2300,,,,unknown,team_id 2300 > pesdb 条目数 739，无候选
+2301,,,,unknown,team_id 2301 > pesdb 条目数 739，无候选
+2344,,,,unknown,team_id 2344 > pesdb 条目数 739，无候选
+2345,,,,unknown,team_id 2345 > pesdb 条目数 739，无候选
+2346,,,,unknown,team_id 2346 > pesdb 条目数 739，无候选
+2347,,,,unknown,team_id 2347 > pesdb 条目数 739，无候选
+2348,,,,unknown,team_id 2348 > pesdb 条目数 739，无候选
+2349,,,,unknown,team_id 2349 > pesdb 条目数 739，无候选
+2350,,,,unknown,team_id 2350 > pesdb 条目数 739，无候选
+2351,,,,unknown,team_id 2351 > pesdb 条目数 739，无候选
+2352,,,,unknown,team_id 2352 > pesdb 条目数 739，无候选
+2353,,,,unknown,team_id 2353 > pesdb 条目数 739，无候选
+2354,,,,unknown,team_id 2354 > pesdb 条目数 739，无候选
+2355,,,,unknown,team_id 2355 > pesdb 条目数 739，无候选
+2356,,,,unknown,team_id 2356 > pesdb 条目数 739，无候选
+2357,,,,unknown,team_id 2357 > pesdb 条目数 739，无候选
+2360,,,,unknown,team_id 2360 > pesdb 条目数 739，无候选
+2361,,,,unknown,team_id 2361 > pesdb 条目数 739，无候选
+2365,,,,unknown,team_id 2365 > pesdb 条目数 739，无候选
+2369,,,,unknown,team_id 2369 > pesdb 条目数 739，无候选
+2382,,,,unknown,team_id 2382 > pesdb 条目数 739，无候选
+2387,,,,unknown,team_id 2387 > pesdb 条目数 739，无候选
+2388,,,,unknown,team_id 2388 > pesdb 条目数 739，无候选
+2391,,,,unknown,team_id 2391 > pesdb 条目数 739，无候选
+2393,,,,unknown,team_id 2393 > pesdb 条目数 739，无候选
+2398,,,,unknown,team_id 2398 > pesdb 条目数 739，无候选
+2399,,,,unknown,team_id 2399 > pesdb 条目数 739，无候选
+2400,,,,unknown,team_id 2400 > pesdb 条目数 739，无候选
+2401,,,,unknown,team_id 2401 > pesdb 条目数 739，无候选
+2402,,,,unknown,team_id 2402 > pesdb 条目数 739，无候选
+2403,,,,unknown,team_id 2403 > pesdb 条目数 739，无候选
+2404,,,,unknown,team_id 2404 > pesdb 条目数 739，无候选
+2405,,,,unknown,team_id 2405 > pesdb 条目数 739，无候选
+2406,,,,unknown,team_id 2406 > pesdb 条目数 739，无候选
+2407,,,,unknown,team_id 2407 > pesdb 条目数 739，无候选
+2408,,,,unknown,team_id 2408 > pesdb 条目数 739，无候选
+2409,,,,unknown,team_id 2409 > pesdb 条目数 739，无候选
+2450,,,,unknown,team_id 2450 > pesdb 条目数 739，无候选
+2451,,,,unknown,team_id 2451 > pesdb 条目数 739，无候选
+2452,,,,unknown,team_id 2452 > pesdb 条目数 739，无候选
+2453,,,,unknown,team_id 2453 > pesdb 条目数 739，无候选
+2454,,,,unknown,team_id 2454 > pesdb 条目数 739，无候选
+2459,,,,unknown,team_id 2459 > pesdb 条目数 739，无候选
+2464,,,,unknown,team_id 2464 > pesdb 条目数 739，无候选
+2465,,,,unknown,team_id 2465 > pesdb 条目数 739，无候选
+2468,,,,unknown,team_id 2468 > pesdb 条目数 739，无候选
+2469,,,,unknown,team_id 2469 > pesdb 条目数 739，无候选
+2473,,,,unknown,team_id 2473 > pesdb 条目数 739，无候选
+2478,,,,unknown,team_id 2478 > pesdb 条目数 739，无候选
+2480,,,,unknown,team_id 2480 > pesdb 条目数 739，无候选
+2481,,,,unknown,team_id 2481 > pesdb 条目数 739，无候选
+2483,,,,unknown,team_id 2483 > pesdb 条目数 739，无候选
+2484,,,,unknown,team_id 2484 > pesdb 条目数 739，无候选
+2486,,,,unknown,team_id 2486 > pesdb 条目数 739，无候选
+2488,,,,unknown,team_id 2488 > pesdb 条目数 739，无候选
+2490,,,,unknown,team_id 2490 > pesdb 条目数 739，无候选
+2491,,,,unknown,team_id 2491 > pesdb 条目数 739，无候选
+2493,,,,unknown,team_id 2493 > pesdb 条目数 739，无候选
+2494,,,,unknown,team_id 2494 > pesdb 条目数 739，无候选
+2496,,,,unknown,team_id 2496 > pesdb 条目数 739，无候选
+2497,,,,unknown,team_id 2497 > pesdb 条目数 739，无候选
+2498,,,,unknown,team_id 2498 > pesdb 条目数 739，无候选
+2499,,,,unknown,team_id 2499 > pesdb 条目数 739，无候选
+2501,,,,unknown,team_id 2501 > pesdb 条目数 739，无候选
+2506,,,,unknown,team_id 2506 > pesdb 条目数 739，无候选
+2514,,,,unknown,team_id 2514 > pesdb 条目数 739，无候选
+2517,,,,unknown,team_id 2517 > pesdb 条目数 739，无候选
+2523,,,,unknown,team_id 2523 > pesdb 条目数 739，无候选
+2538,,,,unknown,team_id 2538 > pesdb 条目数 739，无候选
+2541,,,,unknown,team_id 2541 > pesdb 条目数 739，无候选
+2542,,,,unknown,team_id 2542 > pesdb 条目数 739，无候选
+2543,,,,unknown,team_id 2543 > pesdb 条目数 739，无候选
+2544,,,,unknown,team_id 2544 > pesdb 条目数 739，无候选
+2545,,,,unknown,team_id 2545 > pesdb 条目数 739，无候选
+2546,,,,unknown,team_id 2546 > pesdb 条目数 739，无候选
+2547,,,,unknown,team_id 2547 > pesdb 条目数 739，无候选
+2548,,,,unknown,team_id 2548 > pesdb 条目数 739，无候选
+2551,,,,unknown,team_id 2551 > pesdb 条目数 739，无候选
+2553,,,,unknown,team_id 2553 > pesdb 条目数 739，无候选
+2610,,,,unknown,team_id 2610 > pesdb 条目数 739，无候选
+2614,,,,unknown,team_id 2614 > pesdb 条目数 739，无候选
+2615,,,,unknown,team_id 2615 > pesdb 条目数 739，无候选
+2616,,,,unknown,team_id 2616 > pesdb 条目数 739，无候选
+2618,,,,unknown,team_id 2618 > pesdb 条目数 739，无候选
+2622,,,,unknown,team_id 2622 > pesdb 条目数 739，无候选
+2625,,,,unknown,team_id 2625 > pesdb 条目数 739，无候选
+2643,,,,unknown,team_id 2643 > pesdb 条目数 739，无候选
+2650,,,,unknown,team_id 2650 > pesdb 条目数 739，无候选
+2651,,,,unknown,team_id 2651 > pesdb 条目数 739，无候选
+2652,,,,unknown,team_id 2652 > pesdb 条目数 739，无候选
+2653,,,,unknown,team_id 2653 > pesdb 条目数 739，无候选
+2654,,,,unknown,team_id 2654 > pesdb 条目数 739，无候选
+2655,,,,unknown,team_id 2655 > pesdb 条目数 739，无候选
+2657,,,,unknown,team_id 2657 > pesdb 条目数 739，无候选
+2676,,,,unknown,team_id 2676 > pesdb 条目数 739，无候选
+2689,,,,unknown,team_id 2689 > pesdb 条目数 739，无候选
+2690,,,,unknown,team_id 2690 > pesdb 条目数 739，无候选
+2691,,,,unknown,team_id 2691 > pesdb 条目数 739，无候选
+2692,,,,unknown,team_id 2692 > pesdb 条目数 739，无候选
+2693,,,,unknown,team_id 2693 > pesdb 条目数 739，无候选
+2694,,,,unknown,team_id 2694 > pesdb 条目数 739，无候选
+2695,,,,unknown,team_id 2695 > pesdb 条目数 739，无候选
+2696,,,,unknown,team_id 2696 > pesdb 条目数 739，无候选
+2697,,,,unknown,team_id 2697 > pesdb 条目数 739，无候选
+2698,,,,unknown,team_id 2698 > pesdb 条目数 739，无候选
+2699,,,,unknown,team_id 2699 > pesdb 条目数 739，无候选
+2703,,,,unknown,team_id 2703 > pesdb 条目数 739，无候选
+2704,,,,unknown,team_id 2704 > pesdb 条目数 739，无候选
+2707,,,,unknown,team_id 2707 > pesdb 条目数 739，无候选
+2708,,,,unknown,team_id 2708 > pesdb 条目数 739，无候选
+2717,,,,unknown,team_id 2717 > pesdb 条目数 739，无候选
+2719,,,,unknown,team_id 2719 > pesdb 条目数 739，无候选
+2722,,,,unknown,team_id 2722 > pesdb 条目数 739，无候选
+2729,,,,unknown,team_id 2729 > pesdb 条目数 739，无候选
+2730,,,,unknown,team_id 2730 > pesdb 条目数 739，无候选
+4000,,,,unknown,team_id 4000 > pesdb 条目数 739，无候选
+4001,,,,unknown,team_id 4001 > pesdb 条目数 739，无候选
+4002,,,,unknown,team_id 4002 > pesdb 条目数 739，无候选
+4003,,,,unknown,team_id 4003 > pesdb 条目数 739，无候选
+4004,,,,unknown,team_id 4004 > pesdb 条目数 739，无候选
+4005,,,,unknown,team_id 4005 > pesdb 条目数 739，无候选
+4031,,,,unknown,team_id 4031 > pesdb 条目数 739，无候选
+4032,,,,unknown,team_id 4032 > pesdb 条目数 739，无候选
+4033,,,,unknown,team_id 4033 > pesdb 条目数 739，无候选
+4034,,,,unknown,team_id 4034 > pesdb 条目数 739，无候选
+4035,,,,unknown,team_id 4035 > pesdb 条目数 739，无候选
+4036,,,,unknown,team_id 4036 > pesdb 条目数 739，无候选
+4037,,,,unknown,team_id 4037 > pesdb 条目数 739，无候选
+4038,,,,unknown,team_id 4038 > pesdb 条目数 739，无候选
+4040,,,,unknown,team_id 4040 > pesdb 条目数 739，无候选
+4041,,,,unknown,team_id 4041 > pesdb 条目数 739，无候选
+4042,,,,unknown,team_id 4042 > pesdb 条目数 739，无候选
+4043,,,,unknown,team_id 4043 > pesdb 条目数 739，无候选
+4044,,,,unknown,team_id 4044 > pesdb 条目数 739，无候选
+4045,,,,unknown,team_id 4045 > pesdb 条目数 739，无候选
+4046,,,,unknown,team_id 4046 > pesdb 条目数 739，无候选
+4071,,,,unknown,team_id 4071 > pesdb 条目数 739，无候选
+4077,,,,unknown,team_id 4077 > pesdb 条目数 739，无候选
+4086,,,,unknown,team_id 4086 > pesdb 条目数 739，无候选
+4092,,,,unknown,team_id 4092 > pesdb 条目数 739，无候选
+4094,,,,unknown,team_id 4094 > pesdb 条目数 739，无候选
+4095,,,,unknown,team_id 4095 > pesdb 条目数 739，无候选
+4108,,,,unknown,team_id 4108 > pesdb 条目数 739，无候选
+4110,,,,unknown,team_id 4110 > pesdb 条目数 739，无候选
+4111,,,,unknown,team_id 4111 > pesdb 条目数 739，无候选
+4123,,,,unknown,team_id 4123 > pesdb 条目数 739，无候选
+4143,,,,unknown,team_id 4143 > pesdb 条目数 739，无候选
+4145,,,,unknown,team_id 4145 > pesdb 条目数 739，无候选
+4146,,,,unknown,team_id 4146 > pesdb 条目数 739，无候选
+4147,,,,unknown,team_id 4147 > pesdb 条目数 739，无候选
+4168,,,,unknown,team_id 4168 > pesdb 条目数 739，无候选
+4175,,,,unknown,team_id 4175 > pesdb 条目数 739，无候选
+4180,,,,unknown,team_id 4180 > pesdb 条目数 739，无候选
+4183,,,,unknown,team_id 4183 > pesdb 条目数 739，无候选
+4192,,,,unknown,team_id 4192 > pesdb 条目数 739，无候选
+4193,,,,unknown,team_id 4193 > pesdb 条目数 739，无候选
+4194,,,,unknown,team_id 4194 > pesdb 条目数 739，无候选
+4200,,,,unknown,team_id 4200 > pesdb 条目数 739，无候选
+4206,,,,unknown,team_id 4206 > pesdb 条目数 739，无候选
+4211,,,,unknown,team_id 4211 > pesdb 条目数 739，无候选
+4213,,,,unknown,team_id 4213 > pesdb 条目数 739，无候选
+4220,,,,unknown,team_id 4220 > pesdb 条目数 739，无候选
+4225,,,,unknown,team_id 4225 > pesdb 条目数 739，无候选
+4229,,,,unknown,team_id 4229 > pesdb 条目数 739，无候选
+4230,,,,unknown,team_id 4230 > pesdb 条目数 739，无候选
+4232,,,,unknown,team_id 4232 > pesdb 条目数 739，无候选
+4234,,,,unknown,team_id 4234 > pesdb 条目数 739，无候选
+4237,,,,unknown,team_id 4237 > pesdb 条目数 739，无候选
+4240,,,,unknown,team_id 4240 > pesdb 条目数 739，无候选
+4241,,,,unknown,team_id 4241 > pesdb 条目数 739，无候选
+4244,,,,unknown,team_id 4244 > pesdb 条目数 739，无候选
+4255,,,,unknown,team_id 4255 > pesdb 条目数 739，无候选
+4260,,,,unknown,team_id 4260 > pesdb 条目数 739，无候选
+4269,,,,unknown,team_id 4269 > pesdb 条目数 739，无候选
+4272,,,,unknown,team_id 4272 > pesdb 条目数 739，无候选
+4302,,,,unknown,team_id 4302 > pesdb 条目数 739，无候选
+4308,,,,unknown,team_id 4308 > pesdb 条目数 739，无候选
+4309,,,,unknown,team_id 4309 > pesdb 条目数 739，无候选
+4323,,,,unknown,team_id 4323 > pesdb 条目数 739，无候选
+4363,,,,unknown,team_id 4363 > pesdb 条目数 739，无候选
+4370,,,,unknown,team_id 4370 > pesdb 条目数 739，无候选
+4372,,,,unknown,team_id 4372 > pesdb 条目数 739，无候选
+4395,,,,unknown,team_id 4395 > pesdb 条目数 739，无候选
+4914,,,,unknown,team_id 4914 > pesdb 条目数 739，无候选
+4915,,,,unknown,team_id 4915 > pesdb 条目数 739，无候选
+4923,,,,unknown,team_id 4923 > pesdb 条目数 739，无候选
+4928,,,,unknown,team_id 4928 > pesdb 条目数 739，无候选
+4937,,,,unknown,team_id 4937 > pesdb 条目数 739，无候选
+4938,,,,unknown,team_id 4938 > pesdb 条目数 739，无候选
+4941,,,,unknown,team_id 4941 > pesdb 条目数 739，无候选
+4943,,,,unknown,team_id 4943 > pesdb 条目数 739，无候选
+4962,,,,unknown,team_id 4962 > pesdb 条目数 739，无候选
+4964,,,,unknown,team_id 4964 > pesdb 条目数 739，无候选
+4965,,,,unknown,team_id 4965 > pesdb 条目数 739，无候选
+4971,,,,unknown,team_id 4971 > pesdb 条目数 739，无候选
+4973,,,,unknown,team_id 4973 > pesdb 条目数 739，无候选
+4995,,,,unknown,team_id 4995 > pesdb 条目数 739，无候选
+5028,,,,unknown,team_id 5028 > pesdb 条目数 739，无候选
+5046,,,,unknown,team_id 5046 > pesdb 条目数 739，无候选
+5047,,,,unknown,team_id 5047 > pesdb 条目数 739，无候选
+5048,,,,unknown,team_id 5048 > pesdb 条目数 739，无候选
+5096,,,,unknown,team_id 5096 > pesdb 条目数 739，无候选
+5099,,,,unknown,team_id 5099 > pesdb 条目数 739，无候选
+5127,,,,unknown,team_id 5127 > pesdb 条目数 739，无候选
+5129,,,,unknown,team_id 5129 > pesdb 条目数 739，无候选
+5137,,,,unknown,team_id 5137 > pesdb 条目数 739，无候选
+5139,,,,unknown,team_id 5139 > pesdb 条目数 739，无候选
+5140,,,,unknown,team_id 5140 > pesdb 条目数 739，无候选
+5141,,,,unknown,team_id 5141 > pesdb 条目数 739，无候选
+5142,,,,unknown,team_id 5142 > pesdb 条目数 739，无候选
+5143,,,,unknown,team_id 5143 > pesdb 条目数 739，无候选
+5145,,,,unknown,team_id 5145 > pesdb 条目数 739，无候选
+5168,,,,unknown,team_id 5168 > pesdb 条目数 739，无候选
+5170,,,,unknown,team_id 5170 > pesdb 条目数 739，无候选
+5171,,,,unknown,team_id 5171 > pesdb 条目数 739，无候选
+5173,,,,unknown,team_id 5173 > pesdb 条目数 739，无候选
+5174,,,,unknown,team_id 5174 > pesdb 条目数 739，无候选
+5175,,,,unknown,team_id 5175 > pesdb 条目数 739，无候选
+5183,,,,unknown,team_id 5183 > pesdb 条目数 739，无候选
+5184,,,,unknown,team_id 5184 > pesdb 条目数 739，无候选
+5185,,,,unknown,team_id 5185 > pesdb 条目数 739，无候选
+5189,,,,unknown,team_id 5189 > pesdb 条目数 739，无候选
+5190,,,,unknown,team_id 5190 > pesdb 条目数 739，无候选
+5191,,,,unknown,team_id 5191 > pesdb 条目数 739，无候选
+5192,,,,unknown,team_id 5192 > pesdb 条目数 739，无候选
+5193,,,,unknown,team_id 5193 > pesdb 条目数 739，无候选
+5194,,,,unknown,team_id 5194 > pesdb 条目数 739，无候选
+5195,,,,unknown,team_id 5195 > pesdb 条目数 739，无候选
+5196,,,,unknown,team_id 5196 > pesdb 条目数 739，无候选
+5197,,,,unknown,team_id 5197 > pesdb 条目数 739，无候选
+5200,,,,unknown,team_id 5200 > pesdb 条目数 739，无候选
+5201,,,,unknown,team_id 5201 > pesdb 条目数 739，无候选
+5202,,,,unknown,team_id 5202 > pesdb 条目数 739，无候选
+5203,,,,unknown,team_id 5203 > pesdb 条目数 739，无候选
+5204,,,,unknown,team_id 5204 > pesdb 条目数 739，无候选
+5206,,,,unknown,team_id 5206 > pesdb 条目数 739，无候选
+5207,,,,unknown,team_id 5207 > pesdb 条目数 739，无候选
+5208,,,,unknown,team_id 5208 > pesdb 条目数 739，无候选
+5210,,,,unknown,team_id 5210 > pesdb 条目数 739，无候选
+5216,,,,unknown,team_id 5216 > pesdb 条目数 739，无候选
+5217,,,,unknown,team_id 5217 > pesdb 条目数 739，无候选
+5223,,,,unknown,team_id 5223 > pesdb 条目数 739，无候选
+5224,,,,unknown,team_id 5224 > pesdb 条目数 739，无候选
+5225,,,,unknown,team_id 5225 > pesdb 条目数 739，无候选
+5226,,,,unknown,team_id 5226 > pesdb 条目数 739，无候选
+5235,,,,unknown,team_id 5235 > pesdb 条目数 739，无候选
+5296,,,,unknown,team_id 5296 > pesdb 条目数 739，无候选
+5298,,,,unknown,team_id 5298 > pesdb 条目数 739，无候选
+5301,,,,unknown,team_id 5301 > pesdb 条目数 739，无候选
+5302,,,,unknown,team_id 5302 > pesdb 条目数 739，无候选
+5306,,,,unknown,team_id 5306 > pesdb 条目数 739，无候选
+5312,,,,unknown,team_id 5312 > pesdb 条目数 739，无候选
+5319,,,,unknown,team_id 5319 > pesdb 条目数 739，无候选
+5346,,,,unknown,team_id 5346 > pesdb 条目数 739，无候选
+5353,,,,unknown,team_id 5353 > pesdb 条目数 739，无候选
+5354,,,,unknown,team_id 5354 > pesdb 条目数 739，无候选
+5355,,,,unknown,team_id 5355 > pesdb 条目数 739，无候选
+5356,,,,unknown,team_id 5356 > pesdb 条目数 739，无候选
+5360,,,,unknown,team_id 5360 > pesdb 条目数 739，无候选
+5370,,,,unknown,team_id 5370 > pesdb 条目数 739，无候选
+5389,,,,unknown,team_id 5389 > pesdb 条目数 739，无候选
+5394,,,,unknown,team_id 5394 > pesdb 条目数 739，无候选
+5395,,,,unknown,team_id 5395 > pesdb 条目数 739，无候选
+5397,,,,unknown,team_id 5397 > pesdb 条目数 739，无候选
+5399,,,,unknown,team_id 5399 > pesdb 条目数 739，无候选
+5400,,,,unknown,team_id 5400 > pesdb 条目数 739，无候选
+5401,,,,unknown,team_id 5401 > pesdb 条目数 739，无候选
+5402,,,,unknown,team_id 5402 > pesdb 条目数 739，无候选
+5403,,,,unknown,team_id 5403 > pesdb 条目数 739，无候选
+5404,,,,unknown,team_id 5404 > pesdb 条目数 739，无候选
+5405,,,,unknown,team_id 5405 > pesdb 条目数 739，无候选
+5416,,,,unknown,team_id 5416 > pesdb 条目数 739，无候选
+5420,,,,unknown,team_id 5420 > pesdb 条目数 739，无候选
+5433,,,,unknown,team_id 5433 > pesdb 条目数 739，无候选
+5439,,,,unknown,team_id 5439 > pesdb 条目数 739，无候选
+5440,,,,unknown,team_id 5440 > pesdb 条目数 739，无候选
+5452,,,,unknown,team_id 5452 > pesdb 条目数 739，无候选
+5454,,,,unknown,team_id 5454 > pesdb 条目数 739，无候选
+5652,,,,unknown,team_id 5652 > pesdb 条目数 739，无候选
+5660,,,,unknown,team_id 5660 > pesdb 条目数 739，无候选
+65686,,,,unknown,team_id 65686 > pesdb 条目数 739，无候选
+65688,,,,unknown,team_id 65688 > pesdb 条目数 739，无候选
+65694,,,,unknown,team_id 65694 > pesdb 条目数 739，无候选
+65813,,,,unknown,team_id 65813 > pesdb 条目数 739，无候选
+65815,,,,unknown,team_id 65815 > pesdb 条目数 739，无候选
+65818,,,,unknown,team_id 65818 > pesdb 条目数 739，无候选
+65831,,,,unknown,team_id 65831 > pesdb 条目数 739，无候选
+65846,,,,unknown,team_id 65846 > pesdb 条目数 739，无候选
+66871,,,,unknown,team_id 66871 > pesdb 条目数 739，无候选
+66877,,,,unknown,team_id 66877 > pesdb 条目数 739，无候选
+66885,,,,unknown,team_id 66885 > pesdb 条目数 739，无候选
+66895,,,,unknown,team_id 66895 > pesdb 条目数 739，无候选
+67025,,,,unknown,team_id 67025 > pesdb 条目数 739，无候选
+67112,,,,unknown,team_id 67112 > pesdb 条目数 739，无候选
+67114,,,,unknown,team_id 67114 > pesdb 条目数 739，无候选
+68103,,,,unknown,team_id 68103 > pesdb 条目数 739，无候选
+68113,,,,unknown,team_id 68113 > pesdb 条目数 739，无候选
+68116,,,,unknown,team_id 68116 > pesdb 条目数 739，无候选
+69630,,,,unknown,team_id 69630 > pesdb 条目数 739，无候选
+69703,,,,unknown,team_id 69703 > pesdb 条目数 739，无候选
+69706,,,,unknown,team_id 69706 > pesdb 条目数 739，无候选
+69709,,,,unknown,team_id 69709 > pesdb 条目数 739，无候选
+69710,,,,unknown,team_id 69710 > pesdb 条目数 739，无候选
+69712,,,,unknown,team_id 69712 > pesdb 条目数 739，无候选
+70484,,,,unknown,team_id 70484 > pesdb 条目数 739，无候选
+70487,,,,unknown,team_id 70487 > pesdb 条目数 739，无候选
+70489,,,,unknown,team_id 70489 > pesdb 条目数 739，无候选
+70709,,,,unknown,team_id 70709 > pesdb 条目数 739，无候选
+70931,,,,unknown,team_id 70931 > pesdb 条目数 739，无候选
+71200,,,,unknown,team_id 71200 > pesdb 条目数 739，无候选
+71205,,,,unknown,team_id 71205 > pesdb 条目数 739，无候选
+71212,,,,unknown,team_id 71212 > pesdb 条目数 739，无候选
