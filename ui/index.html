@@ -119,9 +119,16 @@ navBtns.forEach(b=>b.onclick=()=>{
 });
 function euro(v){return '€'+(+v).toLocaleString('en-US');}
 
+/* 页面每次加载生成唯一版本串：让 API URL 与任何历史缓存条目都不同，
+   彻底绕开浏览器/预览面板的 HTTP 缓存（曾导致旧版 players 数组缺 p[16]，总评显示 —）。 */
+const BOOT = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 async function getJSON(url){
   if(CACHE[url])return CACHE[url];
-  const r=await fetch(url);const j=await r.json();CACHE[url]=j;return j;
+  const u = url + (url.includes('?') ? '&' : '?') + '_v=' + BOOT;
+  const r = await fetch(u, {cache:'no-store'});
+  const j = await r.json();
+  CACHE[url] = j;
+  return j;
 }
 
 /* ---------- 概览 ---------- */
@@ -181,6 +188,12 @@ async function showPlayers(){
   const M=PLAY.meta;
   let h=`<div class="secttl">球员检索 / 筛选（EDIT 能力值 + 隐藏机制）</div>`;
   h+=`<div class="secnote">${M.count.toLocaleString()} 名球员｜双击打开的 player_browser.html 是同一数据的离线版（已修复渲染）。</div>`;
+  /* 自诊断：若数据列数不足（旧缓存/旧后端），明确报出而不是静默显示 — */
+  if(PLAY.data.length && PLAY.data[0].length < 17){
+    h+=`<div class="secnote" style="color:#e06c6c">⚠ 检测到 /api/players 返回 ${PLAY.data[0].length} 列（应为 17 列，缺总评字段）。`+
+       `多半是取到了旧缓存或旧后端进程，请硬刷新（Ctrl+Shift+R）或重启服务。</div>`;
+    console.warn('[pes-ui] players 记录列数异常:', PLAY.data[0].length, '应为 17');
+  }
   h+=`<div class="filters">
     <div class="fld"><label>姓名</label><input type="text" id="fName" placeholder="如 梅西"></div>
     <div class="fld"><label>注册位置</label><select id="fPos"></select></div>
