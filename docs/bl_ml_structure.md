@@ -589,8 +589,41 @@ team_id 59 起为俱乐部如 Arsenal）。**俱乐部段存在偏移**（418→
 | **LOW** | 452 | team_id >739 的补丁新增/EDIT 自定义（1000–9999 段 446 + ≥10000 自定义 32），缺对应补丁表 |
 
 **7. 剩余未解**：452 个 LOW 队需对应补丁的 ID 列表（1000–1999 / 2000–2999 等簇疑似特定 megapatch
-或用户 EDIT 新增）；如提供所用补丁清单可批量补全。其余旧项：年龄、能力值位域布局、
-Salary/Market Value 存档编码、ML↔EDIT 球队 ID 映射（`+0x598` 预算闭合的最后缺口）。
+或用户 EDIT 新增）；如提供所用补丁清单可批量补全。**年龄、能力值位域布局已于 §2.12 解码（已确认）**。
+其余旧项：Salary/Market Value 存档编码（CT `+0x15C`/`+0x174` 4B 欧，EDIT 240B 内未定位）、
+ML↔EDIT 球队 ID 映射（`+0x598` 预算闭合的最后缺口，见 §2.11.5 负结论）。
+
+### 2.12 EDIT 球员 240B 能力值 / 隐藏机制位域解码（已确认，2026-08-30）
+
+来源：`implyingrigged.info/wiki/Pro_Evolution_Soccer_2021/Edit_file` 的 **Player data entry** 字段表
+（逐字节:位，LSB-first 位打包）。`edit_player_abilities.py` 全量解码 27513 名球员并验证通过。
+**这是「破解存档」真正有价值的产出——读出直接决定玩法的属性与隐藏特质，而非把 EDIT 结构复读一遍。**
+
+- **25 项能力值（均为 7-bit，强制范围 [40,99]，默认 77）**：offensive_awareness / ball_control /
+  tight_possession / low_pass / lofted_pass / finishing / place_kicking / curl / speed / acceleration /
+  jump / physical_contact / balance / stamina / ball_winning / aggression / gk_awareness / gk_catching /
+  gk_reach / defensive_awareness / gk_clearing / heading / dribbling / gk_reflexes / kicking_power。
+  自 `0x0E` 起连续位打包，全部落 [40,99] → 位序正确。
+- **隐藏机制字段**：
+  - `age` `@0x20:7`（6bit，[15,50]）
+  - `reg_pos` `@0x21:5`（4bit，0=GK…12=CF）、`play_style` `@0x22:2`（5bit，0–21）
+  - `stronger_foot` `@0x2F:5`（0=右/1=左）
+  - `weak_foot_usage` `@0x0F:6` / `weak_foot_accuracy` `@0x27:6`（各 2bit，存值=游戏值−1）
+  - `injury_resistance` `@0x28:7`（2bit，默认 2）、`conditioning` `@0x1F:4`（3bit，默认 3）
+  - `star_rating` `@0x23:4`（3bit，声誉，游戏内不可访问）
+  - `playable` 13 个可踢位置（A/B/C，值 0/1/2）：分处 `@0x29:5`(18bit=9×2) / `@0x2C:0`(6bit=3×2) / `@0x2E:4`(2bit)
+  - `skills` 41-bit 位掩码 `@0x30:6`（最多激活 10，含 Double Touch / Captaincy / Fighting Spirit 等）
+  - `com_styles` 7-bit 位掩码 `@0x2F:7`（Trickster / Long Ball Expert / Early Cross 等）
+- **语义验证（强证据）**：
+  - GK 样本：布冯 GK意识88/扑救82/臂展89/反应85、卡恩 98/98/96/95（与传奇门将现实评级吻合）；
+  - 朴智星 体能 97（现实「跑不死」吻合）、速度/加速 84；三浦知良 年龄 50、注册 CF；
+  - 全部 25 项能力值落 [40,99]，无一越界 → 位打包实现正确。
+- **产物**：`outputs/edit_player_abilities.csv`（27513 行 × 40 列，可经 `edit_player_abilities.py` 复现）。
+- **布局要点（与 CT ptrPlayer 对照）**：EDIT 240B 与 CT `ptrPlayer`（380B 运行期对象）**不是同一布局**——
+  此前 §2.11.3「EDIT 240B 内年龄/能力值位域」即本条已解；CT 字段字典（高度/体重/年龄…）仅作语义参照，
+  偏移不可直接套用到 EDIT 240B。
+- **下一步价值**：从「读」到「写」——改能力值/隐藏机制需走加密回写（`pes_decrypt.py` 对称写回 +
+  处理 §3.6 头部哈希/尾部），这是「修改器」而非「阅读器」的真正的产品化方向。
 
 ## 三、未解问题与下一步建议
 
