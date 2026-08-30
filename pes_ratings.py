@@ -14,15 +14,28 @@ github.com/andinoferdi/efootball-pes2021-stats-converter 的 compute_pes_overall
 
 能力值下限统一按 40 处理（implyingrigged.info 字段表确认范围 [40,99]）。
 
+建模约束（2026-08-30 用户反馈 + PES 游戏机制，已落实）：
+- **只看注册位置(reg_pos)**：总评按球员的注册位置现算，不混入 PES master 界面上
+  同球员 13 个位置的独立总评。不同位置总评不同，反映的是"角色契合度"，位置加权结构即此机制。
+- **GK = 门将五项 + 跳起**：门将总评主要和门将五项(gk_*)及跳起有关，与余者关系很小
+  （见 OVERALL_WEIGHTS["GK"]，jump 取 0.06、门将五项整体缩至 0.94）。
+- **身高不单列**：身高确实与能力值相关（见 height_analysis.py：身高 vs 跳起 r=0.42 /
+  头球 0.55 / 身体接触 0.69 / 门将覆盖 0.39），但其影响已通过 jump/heading/physical_contact
+  等身体子项进入加权公式；公式不直接含身高项，否则与身体子项共线重复计数。
+- **熟练度/对称惩罚超出静态解码范围**：PES 中"注册位置有轻微加成、同侧双侧 A 熟练度时
+  非注册侧仍略低、低熟练度降低该位置评分"等机制，需要逐位置熟练度数据（存档未解/动态），
+  无法从静态能力值还原。本模块只输出"注册位置、满熟练度"下的总评，即 PES master 界面
+  展示的该球员主总评；这也是为什么与 PES master 仍有约 3-7 分残差。
+
 实证验证（2026-08-30，采集 PES master 真实球员页 compare?id=<pid> 共 273 名，
-按位置组对照其真实总评）：
+按注册位置组对照其真实总评）：
 - 本模块权重与 PES master 真实总评的平均绝对误差(MAE): FWD≈3.8 / MID≈3.7 /
   DEF≈4.1 / GK≈7.3（GK 样本少、波动大）。
 - 曾尝试用 NNLS 回归反推精确权重：因 25 项能力值高度共线、GK 仅 23 样本，
   纯数据拟合会塌成非物理角点解（如 DEF 的 low_pass 权重 0.58、GK 的 gk_clearing
-  权重 0.92），属"吸相关性"而非真公式。故保留文档化近似，不接退化的拟合权重。
+  权重 0.92、FWD 的 heading 0.14），其"更低 MAE"是吸共线相关性而非真公式。
 - 结论：Konami 精确总评权重从未公开，任何工具均为近似；本模块为忠实参考
-  PES master 位置加权结构的最佳可用近似，UI 中已如实标注。
+  PES master 位置加权结构 + 上述游戏机制约束的最佳可用近似，UI 中已如实标注。
 """
 
 # reg_pos 数字码 -> 位置名（与 edit_player_abilities.py 的 REG_POS_NAMES 对应）
@@ -36,8 +49,10 @@ POS_GROUP = {0: "GK", 1: "DEF", 2: "DEF", 3: "DEF",
 
 # 各位置组权重（加权平均值，权重和=1）。字段名与 edit_player_abilities.csv 列名一致。
 OVERALL_WEIGHTS = {
-    "GK": [("gk_awareness", 0.25), ("gk_catching", 0.20), ("gk_reflexes", 0.25),
-           ("gk_reach", 0.20), ("gk_clearing", 0.10)],
+    # GK: 门将五项 + 跳起(依据游戏机制: 门将主要和门将五项及跳起有关, 与余者关系很小)。
+    # jump 取 0.06, 门将五项整体按 0.94 缩放, 权重和=1。
+    "GK": [("gk_awareness", 0.235), ("gk_catching", 0.188), ("gk_reflexes", 0.235),
+           ("gk_reach", 0.188), ("gk_clearing", 0.094), ("jump", 0.060)],
     "DEF": [("defensive_awareness", 0.23), ("ball_winning", 0.22), ("aggression", 0.10),
             ("speed", 0.10), ("physical_contact", 0.12), ("heading", 0.08),
             ("jump", 0.07), ("low_pass", 0.08)],

@@ -104,9 +104,14 @@ def mae_of(w, X, y):
 
 # 各组活跃特征列(下标): 采用社区已确证的"每组相关能力值集合"作为特征,
 # 再用 NNLS 在 PES master 真实样本上精调系数 —— 既避免常量列退化/怪异扩散, 又用数据校准权重.
+# 约束(依据用户提醒 + PES 机制):
+#  - 只看注册位置(reg_pos): 下方按 reg_pos 归组, 不混入 PES master 的 13 位置总评.
+#  - GK 主要和门将五项 + 跳起有关, 与余者关系很小 -> GK 活跃特征 = GK5 + jump.
+#  - 身高/体重: 不直接进入总评加权公式, 其影响已通过 jump/heading/physical_contact 等
+#    身体子项体现(见 height_analysis); 故不列为独立特征, 避免与身体子项共线重复计数.
 def _idx(names):
     return [ABIL_ORDER.index(k) for k in names]
-GK_IDX = _idx(["gk_awareness", "gk_catching", "gk_reach", "gk_clearing", "gk_reflexes"])
+GK_IDX = _idx(["gk_awareness", "gk_catching", "gk_reach", "gk_clearing", "gk_reflexes", "jump"])
 FWD_IDX = _idx(["offensive_awareness", "finishing", "ball_control", "dribbling", "speed",
                 "acceleration", "kicking_power", "physical_contact", "heading", "jump"])
 MID_IDX = _idx(["ball_control", "dribbling", "tight_possession", "low_pass", "lofted_pass",
