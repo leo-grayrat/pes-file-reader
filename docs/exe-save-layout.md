@@ -177,7 +177,7 @@ c0 = ror(c1, 15); c1 = rol(c2, 11); c2 = rol(c3, 7); c3 = ror(c4, 13)
 | 68 | 4 | logoSize | 14,235 |
 | 72 | 4 | descSize | **384**（恒为 384，见下） |
 | 76 | 4 | serialLength | 45（字符数，非字节数） |
-| 80 | 64 | hash | 未解（见 §6，已排除简单哈希） |
+| 80 | 64 | hash | **64 B 随机 nonce**：`CryptGenRandom`，仅防篡改标记，加载不校验（见 §6） |
 | 144 | 32 | fileTypeString | `"BL"` / `"EDIT"` / `"ML"` |
 | 176 | 32 | gameVersionString | `"eFootball PES 2021 SEASON UPDATE"` |
 
@@ -274,34 +274,61 @@ S-1-5-21-1435437277-1052317143-1964327295-500
 
 ---
 
-## 6. 待解
+## 6. 已解 / 待解
 
-### hash[80:144]（64 B）—— 已做哪些排除
+### hash[80:144]（64 B）= **CryptGenRandom 生成的随机 nonce**（已解）
 
-实测：9 个存档全部非零、各不同、高熵；解密主流程 0x14115F0 对其**零访存**
-（加载时不参与校验）；加密流程后段有 `call 0x140F3A0`（尚未确认是否算此 hash）。
+**结论：这不是哈希，是 64 字节密码学随机数，作防篡改 / 版本标记，加载时不校验。**
 
-穷举碰撞（共 ~700 组合）均未命中，已排除：
+#### exe 实证（存档构造区 `build_save`，明文文件头在 `[rbp+0x40]`）
 
-- 无密钥：sha512/sha384/sha256/sha3/blake2b 作用于 `data` / `desc+logo+data` /
-  `desc+logo+data+serial` / `blob[528:]` 密文 / `logo+data` / `data+serial` /
-  `blob 整个文件` / `blob[:528]+data密文` 等
-- 带密钥拼接：以上数据分别前/后接 `mysteryData` / `rolling_key` / `MASTERKEY_PES21` /
-  `encHeader[0:64]` / `serial` / `fileHeader[0:80]` / `fileHeader[144:208]` / `desc`
-- HMAC（sha512/sha256/sha1）以上述密钥作用于上述数据
-- 拼接结构：前 16/20/32 或 后 32 字节不等于任何 MD5/SHA1/SHA256 输出
+文件头明文缓冲 `fileHeader[0:208]` 位于 `[rbp+0x40]`，故 `hash` 区 = `[rbp+0x40+0x50]`
+= `[rbp+0x90]`（偏移 80）。填充分三段式 —— CAPI `CryptoAPI` 标准 RNG 用法：
 
-候选方向（未验证）：
+```asm
+0x1412962: mov r9d, 1
+0x1412968: xor r8d, r8d
+0x141296B: xor edx, edx
+0x141296D: lea rcx, [rsp+0x40]        ; &hProv
+0x1412972: call [rip+0x1120c98]       ; CryptAcquireContext(&hProv, NULL, NULL, 1)
+0x1412978: test eax, eax
+0x141297A: je 0x14129a0               ; 失败则跳过（hash 留零）
+0x141297C: lea r8, [rbp+0x90]         ; r8 = &fileHeader[80]  ← hash 区
+0x1412983: mov edx, 0x40              ; rdx = 64
+0x1412988: mov rcx, [rsp+0x40]        ; rcx = hProv
+0x141298D: call [rip+0x1120cc5]       ; CryptGenRandom(hProv, 64, &fileHeader[80])
+0x1412993: xor edx, edx
+0x1412995: mov rcx, [rsp+0x40]
+0x141299A: call [rip+0x1120c78]       ; CryptReleaseContext(hProv, 0)
+```
 
-- 输入可能是 data 的**带 salt 子串 / 分块链式哈希**，salt 未知
-- hash 段可能是**加密的随机 nonce**（每次保存重算，仅作版本/防篡改标记，不参与加载校验）
-- 计算点在 `0x140F3A0`（加密侧），应反汇编确认其输入输出
+`CryptGenRandom(hProv, DWORD cbBuffer, BYTE* pbData)` 的 x64 快调约定正是
+`rcx=hProv, rdx=cbBuffer=64, r8=pbData=&hash` —— 与反汇编逐参数吻合；前后
+`CryptAcquireContext` / `CryptReleaseContext` 是 CAPI 取 CSP 句柄的标准开合。
+三个 IAT 槽（`0x1412972/0x141298D/0x141299A` → `0x2533610/0x2533658/0x2533618`）
+经 `exe_import_rng.py` 定位，属 **advapi32**（`CryptGenRandom` 现代 Windows 由
+`cryptsp.dll` 承载、自 `advapi32` 转发）。因本 exe 被加壳/保护，**导入名字符串已
+被剥离**（裸搜 `CryptGenRandom`、导入表名字字段均取不到），故 API 身份由**调用签名**
+唯一确定，而非字符串。
+
+#### 为什么此前 ~700 种哈希碰撞全失败 —— 因为它根本不是哈希
+
+| 观测 | 随机 nonce 解释 |
+|---|---|
+| 9 个存档各不同、非零、高熵 | 每次保存 `CryptGenRandom` 现抽 64 B |
+| 解密主流程 0x14115F0 对其零访存 | 仅写入、不参与加载校验 |
+| sha512/sha384/sha256/sha3/blake2b/HMAC 共 ~700 组合全落空 | 内容无确定输入可重算 |
+| 加密主流程 `0x1412C1A` 内无哈希调用 | 随机数在更上层 `build_save` 生成，加密只负责 XOR |
+
+> 纠错记录：加密主流程之前的 `0x140F3A0`/`0x140F290` 早前被误判为"可能算此 hash"，
+> 实则为 MSVC `std::string`/`std::wstring` 成员方法（小字符串优化 + memcpy，被
+> `build_save` 用于拼 fileType/gameVersion 字符串），与哈希无关，已排除。
 
 ### 其余待解
 
 - logo 块的图像编码（尺寸/格式/调色板）
-- gameVersionString 已确认参与校验（0x140F200 比 gameVersionString 与常量串）
 - serial 不匹配时游戏的具体行为（拒绝加载 / 提示 / 只读）
+- gameVersionString 已确认参与校验（0x140F200 比 gameVersionString 与常量串）
 
 复现脚本（均已入库）：
 
@@ -310,6 +337,7 @@ python exe_mt_hunt.py    "<exe>"          # 常量鱼钩定位 MT19937
 python exe_xref_mt.py    "<exe>"          # 反查谁调用了 MT19937
 python exe_dis_callers.py "<exe>" 0x140FC93 ...   # 调用点 → 所属函数 + 常量指纹
 python exe_dis_func.py   "<exe>" 0x140FC30 0x140FDE6 xref   # 反汇编 + 反查调用者
+python exe_import_rng.py "<exe>"          # 定位 hash 区三个 IAT 调用（CryptGenRandom 三连）
 python exe_validate_layout.py examples    # 在真实存档上核对布局
 ```
 
