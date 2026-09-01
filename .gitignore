@@ -41,3 +41,9 @@ outputs/cpk_extract/
 # 脚本生成的超大产物（可由脚本随时重建，不入库）
 outputs/player_browser.html
 outputs/edit_player_abilities.csv
+
+# exe 反汇编中转 dump（脚本随时可重建，不入库）
+outputs/exe_dis_*.txt
+
+# 本机敏感信息（Windows SID 等，勿入库）
+outputs/current_sid.txt
