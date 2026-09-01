@@ -172,14 +172,27 @@ c0 = ror(c1, 15); c1 = rol(c2, 11); c2 = rol(c3, 7); c3 = ror(c4, 13)
 
 | 偏移 | 长度 | 字段 | 实测值（EDIT00000000） |
 |---|---|---|---|
-| 0 | 64 | mysteryData | — |
+| 0 | 64 | mysteryData = **reverse_longs(主密钥)**，见 §5 | 所有存档相同（常量） |
 | 64 | 4 | dataSize | 10,995,800 |
 | 68 | 4 | logoSize | 14,235 |
 | 72 | 4 | descSize | **384**（恒为 384，见下） |
 | 76 | 4 | serialLength | 45（字符数，非字节数） |
-| 80 | 64 | hash | — |
+| 80 | 64 | hash | 未解（见 §6，已排除简单哈希） |
 | 144 | 32 | fileTypeString | `"BL"` / `"EDIT"` / `"ML"` |
 | 176 | 32 | gameVersionString | `"eFootball PES 2021 SEASON UPDATE"` |
+
+**exe 独立印证**：解密主流程 0x14115F0 的文件头基址 = `rbp+0x90`，exe 内每一处访存
+都精确对应上表偏移 —— 不依赖任何 Python 实现：
+
+```asm
+cmp dword [rbp+0xD8], 0x180   ; 文件头+72 = descSize 必须 == 384
+lea rcx, [rbp+0x120]          ; 文件头+144 = fileTypeString
+lea rcx, [rbp+0x140]          ; 文件头+176 = gameVersionString
+mov [rbp+0xD0] = dataSize     ; 文件头+64
+```
+
+该校验函数在 `0x140F200`（全 exe 仅 `0x141161B` 一处调用），先比文件头[0:64]与调用者
+传入的 64 字节（即 reverse_longs 主密钥），再比 descSize==384、fileType、gameVersion。
 
 ---
 
@@ -198,6 +211,16 @@ c0 = ror(c1, 15); c1 = rol(c2, 11); c2 = rol(c3, 7); c3 = ror(c4, 13)
 | ML00000001 | 19,759,485 | 384 | 16,284 | 19,742,199 | 90 | ✅ |
 | ML00000002 | 19,628,604 | 384 | 16,284 | 19,611,318 | 90 | ✅ |
 | ML00000013 | 19,759,442 | 384 | 16,284 | 19,742,156 | 90 | ✅ |
+
+### mysteryData（64 B，固定）= reverse_longs(主密钥)，密钥校验副本
+
+前 8 字节：`f8 24 77 43 66 d8 61 90` = `MASTERKEY_PES21[0:8]` 的逐字节镜像。
+实证：`reverse_longs(mysteryData, MASTERKEY_PES21)` 输出与文件头[0:64] **逐字节相等**。
+
+它是解密后明文存在文件头里的**主密钥变换副本**，游戏在加载时校验它是否等于
+`reverse_longs(MASTERKEY)`，不等则视为"非本版本密钥加密 / 损坏"而拒绝 —— 这正解释了
+PES 各年主密钥不同会导致老存档无法加载的机制。注意它不泄露主密钥（单向变换，
+且解密文件头本身就需要主密钥，不能反推）。
 
 ### desc（384 B，固定）= 存档在游戏内显示的名字
 
@@ -253,9 +276,31 @@ S-1-5-21-1435437277-1052317143-1964327295-500
 
 ## 6. 待解
 
-- `mysteryData[0:64]` 与 `hash[80:144]` 各是什么（hash 是对哪段数据、用何算法）
+### hash[80:144]（64 B）—— 已做哪些排除
+
+实测：9 个存档全部非零、各不同、高熵；解密主流程 0x14115F0 对其**零访存**
+（加载时不参与校验）；加密流程后段有 `call 0x140F3A0`（尚未确认是否算此 hash）。
+
+穷举碰撞（共 ~700 组合）均未命中，已排除：
+
+- 无密钥：sha512/sha384/sha256/sha3/blake2b 作用于 `data` / `desc+logo+data` /
+  `desc+logo+data+serial` / `blob[528:]` 密文 / `logo+data` / `data+serial` /
+  `blob 整个文件` / `blob[:528]+data密文` 等
+- 带密钥拼接：以上数据分别前/后接 `mysteryData` / `rolling_key` / `MASTERKEY_PES21` /
+  `encHeader[0:64]` / `serial` / `fileHeader[0:80]` / `fileHeader[144:208]` / `desc`
+- HMAC（sha512/sha256/sha1）以上述密钥作用于上述数据
+- 拼接结构：前 16/20/32 或 后 32 字节不等于任何 MD5/SHA1/SHA256 输出
+
+候选方向（未验证）：
+
+- 输入可能是 data 的**带 salt 子串 / 分块链式哈希**，salt 未知
+- hash 段可能是**加密的随机 nonce**（每次保存重算，仅作版本/防篡改标记，不参与加载校验）
+- 计算点在 `0x140F3A0`（加密侧），应反汇编确认其输入输出
+
+### 其余待解
+
 - logo 块的图像编码（尺寸/格式/调色板）
-- gameVersionString 是否参与合法性校验
+- gameVersionString 已确认参与校验（0x140F200 比 gameVersionString 与常量串）
 - serial 不匹配时游戏的具体行为（拒绝加载 / 提示 / 只读）
 
 复现脚本（均已入库）：

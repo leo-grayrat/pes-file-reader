@@ -180,7 +180,8 @@ def _decrypt_block(rolling_key, fmt_buf, param, blob, pos, length):
 
 def parse_file_header(hdr):
     return {
-        "mysteryData": hdr[0:64],
+        "mysteryData": hdr[0:64],  # 已解：= reverse_longs(MASTERKEY)，主密钥校验副本（见 docs/exe-save-layout.md §5）
+
         "dataSize": struct.unpack_from("<I", hdr, 64)[0],
         "logoSize": struct.unpack_from("<I", hdr, 68)[0],
         "descSize": struct.unpack_from("<I", hdr, 72)[0],
