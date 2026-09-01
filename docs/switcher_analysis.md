@@ -1,17 +1,17 @@
 # FL23 switcher.exe 深度静态逆向报告
 
 分析对象：`game/FL23 switcher.exe`（392,905 字节 = 0x5FEC9，约 384KB）
-方法：全程只读静态分析（未执行该程序），可复现脚本见仓库根目录
-[switcher_probe.py](../switcher_probe.py)（纯标准库）。
+方法：全程只读静态分析（未执行该程序），可复现脚本见仓库 `core/` 子目录
+[switcher_probe.py](core/switcher_probe.py)（纯标准库）。
 
 ```
-python switcher_probe.py all      # 全量
-python switcher_probe.py pe       # PE 概览 + overlay + 导入表
-python switcher_probe.py sig      # 安装器类型签名扫描
-python switcher_probe.py records  # 文件安装记录 + 载荷鉴别
-python switcher_probe.py cpk      # 内嵌 CPK/@UTF 表
-python switcher_probe.py overlay  # overlay 压缩流边界
-python switcher_probe.py urls     # URL / 路径 / 注册表键普查
+python core/switcher_probe.py all      # 全量
+python core/switcher_probe.py pe       # PE 概览 + overlay + 导入表
+python core/switcher_probe.py sig      # 安装器类型签名扫描
+python core/switcher_probe.py records  # 文件安装记录 + 载荷鉴别
+python core/switcher_probe.py cpk      # 内嵌 CPK/@UTF 表
+python core/switcher_probe.py overlay  # overlay 压缩流边界
+python core/switcher_probe.py urls     # URL / 路径 / 注册表键普查
 ```
 
 ---
@@ -179,9 +179,9 @@ python switcher_probe.py urls     # URL / 路径 / 注册表键普查
 
 ```
 cd d:\File\Git\pes-file-reader
-python switcher_probe.py all > _tmp_probe_out.txt   # 全量报告（编码为终端默认）
-python switcher_probe.py records                     # 文件安装记录与载荷鉴别
-python switcher_probe.py cpk                         # 内嵌 CPK 文件清单
+python core/switcher_probe.py all > _tmp_probe_out.txt   # 全量报告（编码为终端默认）
+python core/switcher_probe.py records                     # 文件安装记录与载荷鉴别
+python core/switcher_probe.py cpk                         # 内嵌 CPK 文件清单
 ```
 
 脚本特点：纯标准库（os/re/sys/zlib/struct）、对目标文件只读打开、不执行任何可执行文件、无副作用产物。

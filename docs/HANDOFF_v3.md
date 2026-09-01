@@ -96,9 +96,9 @@ GitHub `kickoffsage/pes2021-transfer-tool`（MIT）。
 下一步：剥掉头字段后对余下 ~240B 做同槽跨帧差分/异或，观察是否有 float32 坐标/速度
 的低字节相关性；或反汇编写出例程 0x01FDC500 后续逻辑（见 `docs/exe_analysis.md` 第六节）。
 
-### 5.5 `exe_xref.py`（未入库）
+### 5.5 `exe_xref.py`（已收纳至 `exe/`）
 
-根目录有未提交脚本 `exe_xref.py`：对 `game/FL_2023.exe` 做字符串→代码引用反查，
+`exe/exe_xref.py`：对 `game/FL_2023.exe` 做字符串→代码引用反查，
 定位 ML 资金字段的读写例程。思路是找 .text 段里 rip-relative 引用
 `MLBudgetSetting`/`MLSeasonSalary`/`MLAccounting*` 等字符串 RVA 的指令，
 顺藤追到存档写出例程。**已写就但未提交、未记录运行结果**，接手者可先跑一次看是否产出有用 xref。

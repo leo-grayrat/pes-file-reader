@@ -24,6 +24,11 @@ EX_DIR = os.path.join(ROOT, "examples")
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
+# pes_decrypt 已收纳到 core/，需把 core/ 加入搜索路径
+CORE_DIR = os.path.join(ROOT, "core")
+if CORE_DIR not in sys.path:
+    sys.path.insert(0, CORE_DIR)
+
 import pes_decrypt as p  # noqa: E402
 
 # (相对 examples/ 的样本路径, 期望的 fileTypeString)

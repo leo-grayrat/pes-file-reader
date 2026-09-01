@@ -2,8 +2,8 @@
 
 > 分析对象：`game/` 目录下 PES2021（mod 版）游戏本体与随附 dll。
 > 方法：**纯只读静态分析**（只读 mmap 读取，绝不执行/加载/修改任何二进制）。
-> 工具：仓库根目录 [`exe_probe.py`](../exe_probe.py)（纯标准库），所有结论可用
-> `python exe_probe.py all` 复现。
+> 工具：仓库 `exe/exe_probe.py`（纯标准库），所有结论可用
+> `python exe/exe_probe.py all` 复现。
 > 分析日期：2026-08-27。
 
 ---
@@ -121,7 +121,7 @@
 ## 四、字符串锚点与普查
 
 全文件提取 ASCII 串 2,659,521 条、UTF-16LE 串 834 条（主题过滤结果可用
-`python exe_probe.py strings` 复现）。重点命中：
+`python exe/exe_probe.py strings` 复现）。重点命中：
 
 | 字符串 | 位置（文件偏移） | 意义 |
 |---|---|---|
@@ -231,7 +231,7 @@ exe 内确认球员/球队/赛事全库不在存档中，而是从 CPK 包内加
   需从 `Player.bin` 获取；后续若需解存档球员字段语义，应把 `Player.bin`
   （可从游戏 CPK 解包或社区工具提取）纳入对照，存档记录内 5~6 位整数与球员 ID 的映射即可在 Player.bin 中验证。
 - 验证方法：用 CPK 解包工具打开游戏数据包，确认存在 `common/etc/pesdb/Player.bin`；
-  或以 `python exe_probe.py consts` 复现字符串命中（确定性结果）。
+  或以 `python exe/exe_probe.py consts` 复现字符串命中（确定性结果）。
 - 另注：同区还发现 `WE-PES 2014`、`TmpdbMenuStack`/`TmpdbProcessStack` 等遗留标识，
   说明该子系统历史悠久，表格式大概率与 PES2017~2021 一脉相承。
 
@@ -255,12 +255,12 @@ exe 内确认球员/球队/赛事全库不在存档中，而是从 CPK 包内加
 ## 八、复现方式
 
 ```powershell
-python exe_probe.py pe        # PE 概览 + 导入表
-python exe_probe.py key       # 主密钥锚点（含全部变体）
-python exe_probe.py consts    # 结构常数 + 字符串锚点（低命中常数附 hex 转储）
-python exe_probe.py strings   # 全量字符串主题普查
-python exe_probe.py ctx --off 0x01FB6358 0x01FDC56A --radius 64   # 指定偏移深挖
-python exe_probe.py all       # 以上全部
+python exe/exe_probe.py pe        # PE 概览 + 导入表
+python exe/exe_probe.py key       # 主密钥锚点（含全部变体）
+python exe/exe_probe.py consts    # 结构常数 + 字符串锚点（低命中常数附 hex 转储）
+python exe/exe_probe.py strings   # 全量字符串主题普查
+python exe/exe_probe.py ctx --off 0x01FB6358 0x01FDC56A --radius 64   # 指定偏移深挖
+python exe/exe_probe.py all       # 以上全部
 ```
 
 脚本只读打开目标文件、不产生任何写操作；全部输出为确定性结果，可重复验证。

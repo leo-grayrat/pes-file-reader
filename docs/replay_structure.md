@@ -2,7 +2,7 @@
 
 > 分析对象：`examples/rep/REPLAY00000000~00000031`（50 个，十六进制编号）经
 > `pes_decrypt.py` 解密后的 data 块，存放于 `decoded/rep_REPLAY*.data`。
-> 分析脚本：根目录 `replay_analyze.py`（子命令：`entropy` / `strings` / `header` /
+> 分析脚本：`replay/replay_analyze.py`（子命令：`entropy` / `strings` / `header` /
 > `consensus` / `period` / `tail` / `records` / `fields` / `boundary` / `headseg` /
 > `frames` / `events`，默认 `all`）。
 > 本文档如实记录当前进展，分【已确认】【疑似】【未解】三档。
@@ -114,7 +114,7 @@
 - 槽内结构：12B 头（`01 XX 00…`，个别槽头 +6 处带 `98 4C 4C` 等标记）+
   **20×i16 小整数序列**（逐帧变化，样本0 槽12 帧0/1/2 仅 4/20 相同，疑为姿态/动画码）+
   约 248B **高熵 blob**（熵接近随机，疑为压缩或加密的运动轨迹数据）。
-- 已按上述规则切出前 100 个槽包并逐条给出候选解读（`python replay_analyze.py events`）。
+- 已按上述规则切出前 100 个槽包并逐条给出候选解读（`python replay/replay_analyze.py events`）。
 
 ### 1.7 全局长度公式
 
