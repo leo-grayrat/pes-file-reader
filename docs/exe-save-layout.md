@@ -340,6 +340,10 @@ S-1-5-21-1435437277-1052317143-1964327295-500
 - **serial 全貌** → 已解，见 §8.4（UTF-16LE Windows SID，绑定创建存档的账户）
 - **保存侧摘要写入路径** → 已解，见 §7.2（`0x140E160` 一次性 SHA-512，唯一调用者 `0x1412B21`；
   摘要写出后经 `0x140DFF0` 折叠成 rolling_key，与 `pes_decrypt.py` 逐步互逆）
+- **data 块的结构化解析器位置**（球员/球队/事件在 exe 里由谁解析）—— **仍未定位**，
+  见 §7.3：旧版"就在 `0x1416xxx`–`0x1431xxx` 反序列化模块里"的结论已被推翻
+  （该区间实为存档管理层，只搬字节、不认识 data 内部结构，player/team 类名命中 0）。
+  下一步需换鱼钩：搜球员/球队相关 AVS property 名或类名字符串再反查 xref。
 - serial 不匹配时游戏的具体行为（拒绝加载 / 提示 / 只读）—— **仍为开放项**：机制上 = SID 账户校验（跨账户/跨机不通用），但 exe 只调 `ConvertSidToStringSidW` 转串、未做 `LookupAccountSidW` 反查，校验/拒绝逻辑在更上层或数据层，本轮未在 exe 内定位
 - gameVersionString 已确认参与校验（0x140F200 比 gameVersionString 与常量串）
 
@@ -484,7 +488,8 @@ encHeader 明文（320 B）
 
 这是**第二次**把 MSVC 字符串成员方法误判为哈希（第一次是 §6 记录过的 `0x140F3A0`/`0x140F290`）。
 判据要记住：**SHA-512 的识别特征是 64 位旋转 + 80 轮 + 128 B 分块**，
-不是"跟哈希函数地址相近"。`0x1413A20` 有 30 个调用者，正因为它只是个通用字符串工具。
+不是"跟哈希函数地址相近"。`0x1413A20` 有 30 个调用者、遍布整个存档管理层，
+正因为它只是个字符串工具（真正的 SHA-512 三件套各只有 1 / 3 / 4 个调用者，见 §7.3）。
 
 > 另：`0x1412C1A`（加密主流程）与 `0x14115F0`（解密主流程）**都没有直接调用者**
 > （全 exe 扫 `E8` 命中 0），二者都经**间接分派**进入 —— 与 §7 末尾记录一致。
@@ -496,13 +501,70 @@ encHeader 明文（320 B）
 这与 `.ecode`/`.data1` 打包壳一致，也是为什么朴素字节签名扫不到 SHA-512——算法身份只能由
 代码层旋转模式唯一确定，不能靠常量表。
 
-### 结构化解析器位置（data 的球员/球队/事件怎么被读）
+### 7.3 这一片到底是什么模块 —— 存档管理层，不是反序列化层（本轮纠正旧假结论）
 
-调用 SHA-512 辅助（0x1413A20 / 0x1413B60 等同区间函数）的调用者集中在 **`0x1416xxx`–`0x1431xxx`**
-（xref 命中数十处），即一整个**存档数据反序列化模块**：每个调用点对应一种块的解析函数。
-`data` 的球员/球队/事件解析由该模块的编排函数驱动，下游接我们已用社区 wiki 法解出的
-240B 球员、球队块、事件表等结构。该编排函数经**间接调用**进入 `decrypt_main`
-（直接的 `E8` 调用为零命中），故接驳点需沿虚表/间接分派追，本轮未继续下钻。
+> ⚠️ **旧结论已推翻。** 本节旧版曾写：「调用 SHA-512 辅助（0x1413A20 / 0x1413B60）的调用者
+> 集中在 `0x1416xxx`–`0x1431xxx`，即一整个**存档数据反序列化模块**，每个调用点对应一种块的
+> 解析函数」。这句话**两处都错**：前提错（那两个函数不是 SHA-512 辅助，是 `std::wstring` /
+> `std::string` 方法，见 §7.2），推论也错（该模块不解析 data 的内部结构）。
+
+#### 先说 xref 分布：观测对，但不能用来证明模块归属
+
+`exe_caller_dist.py` 实测（flat 口径）：
+
+| 目标 | 直接调用者数 | 调用者跨度 | 64KB 桶数 |
+|---|---|---|---|
+| `0x1413A20`（wstring 插入/追加） | 30 | `0x140D311 ~ 0x143036A` | 3 |
+| `0x1413B60`（string 赋值） | 18 | `0x140E4F5 ~ 0x1431B46` | 4 |
+
+调用者确实高度聚集（468 MB 的 exe 里只挤在 0.15 MB 内）——但这**不是**因为它们是
+业务专用函数，而是 **MSVC 模板实例化的副作用**：每个翻译单元会生成自己的
+`basic_string` 实例副本，COMDAT 折叠后该副本只被引用它的那些翻译单元使用。
+所以聚集范围反映的是「**这些代码属于同一批翻译单元**」，即同一个模块的代码范围，
+而不是「这些调用点都在解析存档块」。
+
+**方法论**：这个副作用反过来是个好用的模块边界探测器 —— 找一个模块专用的 STL 模板实例，
+它的 xref 跨度就是该模块的代码范围。本项目由此界定出存档相关代码位于 **`0x140D000 ~ 0x1432000`**
+（`crypt_stream` 0x140FC30、`decrypt_main` 0x14115F0、`encrypt_main` 0x1412C1A、
+SHA-512 三件套 0x1413950/0x1413CB0/0x1413DF0 全部落在其中，互相印证）。
+
+#### 再说模块身份：让它自己报名字
+
+`exe_module_strings.py` 扫该区间全部 `lea reg,[rip+disp32]` 引用的字符串常量
+（406 个 rip-relative lea，去重后 52 个可读字符串）：
+
+| 字符串 | 指向的职责 |
+|---|---|
+| `SystemBaseFileUtility::Write` | 文件写入工具类 |
+| `on/menu/general/saveDataSelect.bin` | **存档选择界面**的 UI 资源 |
+| `saveIcon`、`pk_dat/common/render/thumbnail/ui_empty/ui_empty.dds` | 存档缩略图 + 空槽占位图 |
+| `ListSaveEdit-0` / `ListSaveEdit-1` | 存档列表项（Edit 类存档） |
+| `setNumChoices_2` / `setNumChoices_3`、`headline`、`4lines` | 确认对话框的选项数/标题/行数 |
+| `avs-property.h`、`put_type`、`property_mode_input_type`、`__tostring` | Konami AVS2 SDK property / Lua 绑定 |
+
+**该区间内 player / team / squad / league 类名字符串命中数 = 0。**
+
+所以结论是：
+
+> `0x140D000 ~ 0x1432000` = **存档管理层**（save data management）：
+> 存档文件读写、加解密、逐块 SHA-512 完整性校验、路径处理、存档选择界面与确认对话框。
+> 它把 `data` 当**不透明字节块**处理，不认识里面的球员/球队/事件结构 ——
+> 与我们自己的 `pes_decrypt.py` 分层方式完全一致。
+
+抽查佐证：`0x1417990`（该区间内 wstring 调用最密集的函数，4 处）实为**路径处理**——
+`lea edx,[r12+0x5c]`（字符 `'\'`）→ `call 0x1418990`（rfind）→ `call 0x1418A60`（substr），
+取路径里最后一个反斜杠切目录名，失败置错误码 7。与球员解析毫无关系。
+
+顺带印证 §5 的 logo 结论：`saveIcon` + `ui_empty.dds`（空槽占位图）说明 `logo` 块就是
+**存档选择界面里显示的那张缩略图**，`ui_empty.dds` 是没有存档时的占位图。
+
+#### 那 data 的结构化解析器在哪 —— 仍未定位
+
+既然存档管理层只搬字节，球员/球队/事件的解析必然在**更上层的游戏逻辑模块**。
+下一步该换鱼钩：不再从加解密层往下追（此路已证不通），而是全 exe 搜球员/球队相关的
+**AVS property 名或类名字符串**，再反查 xref 定位解析代码（`exe_xref.py` 已有此能力，
+当年用于 FL_2023.exe 的 ML 资金字段）。注意加/解密主流程均**无直接调用者**、经虚分派进入，
+所以「从 decrypt_main 往上找编排函数」在纯静态下不可行。
 
 ---
 
@@ -648,12 +710,21 @@ python exe_validate_layout.py examples    # 在真实存档上核对布局
 python exe_dis_func.py   "<exe>" 0x14115F0 0x1411BD9 xref   # 解密主流程：找调用者(间接,0命中)
 python exe_dis_func.py   "<exe>" 0x1413DF0 0x1414600       # SHA-512 压缩函数(0x1413DF0)
 python exe_dis_func.py   "<exe>" 0x1413950 0x1413A20 xref   # 位缓冲喂入器 + 其调用者(xref)
-python exe_dis_func.py   "<exe>" 0x1413950 0x1413DF1 xref   # SHA-512 三件套调用者 → 反序列化模块 0x1416xxx~0x1431xxx
+python exe_dis_func.py   "<exe>" 0x1413950 0x1413DF1 xref   # SHA-512 三件套的调用者（各 1/3/4 个，全在存档管理层内）
 # —— 本轮 §7.2（保存侧闭环）——
 python exe_dis_func.py   "<exe>" 0x140E100 0x140E250 xref   # 反查 sha512 便捷函数 → 唯一调用者 0x1412B21
 python exe_dis_func.py   "<exe>" 0x1412AA0 0x1412C20        # 保存侧：算摘要 → 写出 → 折叠 → xor 0xD0
 python exe_dis_func.py   "<exe>" 0x140E1C0 0x140E340        # 标准 SHA-512 的 8 个 IV 立即数（明文）
 python exe_dis_func.py   "<exe>" 0x1412C1A 0x1412C1B xref   # 加密主流程调用者：0 命中（间接分派）
+# —— 本轮 §7.3（模块身份纠正）——
+python exe/exe_caller_dist.py 0x1413A20 0x1413B60 0x1413DF0 0x1413950 0x1413CB0
+                                  # 调用者「地址分布」而非个数：区分通用库函数 / 模块专用模板实例
+python exe/exe_caller_dist.py --group 0x1413A20 0x1413B60
+                                  # 把 48 个调用点归组到 34 个所属函数（候选清单）
+python exe/exe_module_strings.py --min 5   # ★让模块自报身份：扫区间内 rip-relative 引用的字符串
+python exe/exe_module_strings.py 0x140D000 0x1432000 --min 4 | grep -iE "player|team|squad"
+                                  # 命中 0 —— 证明该层不认识 data 的内部结构
+python exe_dis_func.py   "<exe>" 0x1417990 0x1417AA0        # 抽查：rfind('\')+substr，是路径处理
 ```
 
 > 需要 capstone：`pip install capstone`（本项目用隔离 venv，
