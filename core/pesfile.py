@@ -37,10 +37,14 @@ EDIT_WT_OFF = 0x0B
 TP_START = 0x9D4648
 TP_STRIDE = 284
 TP_N = 694
-# ML
-TEAM_START, TEAM_STRIDE, TEAM_N = 0x100, 0x690, 700
-TEAM_OFF_NAME, TEAM_OFF_ABBR, TEAM_OFF_STADIUM = 0x5E4, 0x62A, 0x630
-TEAM_OFF_BUDGET, TEAM_OFF_SEQ = 0x598, 0x1DC
+# ML（队块起始/字段偏移经 exe 装载同步 §7.9 + 数据侧校准 §7.9.1 修正：
+#  真队块表从 data+0x50 起；pesfile 旧用 TEAM_START=0x100，使队名/缩写/球场整体读到
+#  下一队（块错位），预算因偏移巧合恰好对齐。Squad 为 [squad_index, player_id] @+0x14C。）
+TEAM_START, TEAM_STRIDE, TEAM_N = 0x50, 0x690, 700
+TEAM_OFF_NAME, TEAM_OFF_ABBR, TEAM_OFF_STADIUM = 0x04, 0x4A, 0x50
+TEAM_OFF_BUDGET, TEAM_OFF_SEQ = 0x648, 0x28C
+TEAM_OFF_SQUAD = 0x14C
+# Squad 槽 = [squad_index u32, player_id u32] stride 8（与赛程 slot [squad_index, player_id,…] 同序）
 EVENT_BASE = 0x12A72FD
 EVENT_STRIDE = 0x24
 EVENT_N = 100                    # 环形缓冲容量（99 真实 + 1 哨兵）
@@ -255,14 +259,15 @@ def parse_ml(path):
         stadium = cstr(b, o + TEAM_OFF_STADIUM, 64).strip()
         budget = u32(b, o + TEAM_OFF_BUDGET)
         seq = u32(b, o + TEAM_OFF_SEQ)
-        # 阵容表 @+0xA0 stride 8 = [player_id][squad_index]; 读到哨兵(0/0xFFFFFFFF)为止
+        # 阵容表 @+0x14C stride 8 = [squad_index][player_id]（序号在前、ID 在后，
+        # 与赛程 slot 字段序一致）；读到哨兵(pid 0 / 0xFFFFFFFF)为止
         squad = []
-        so = o + 0xA0
+        so = o + TEAM_OFF_SQUAD
         for k in range(60):
-            pid = u32(b, so + k * 8)
+            sidx = u32(b, so + k * 8)
+            pid = u32(b, so + k * 8 + 4)
             if pid == 0 or pid == 0xFFFFFFFF:
                 break
-            sidx = u32(b, so + k * 8 + 4)
             squad.append((pid, sidx))
         teams.append({"idx": r, "name": name, "abbr": abbr,
                       "stadium": stadium, "budget_raw": budget,
