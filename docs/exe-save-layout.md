@@ -51,7 +51,8 @@ MSVC `std::mt19937` + `std::seed_seq` 实现区 **`0x1414CE0 ~ 0x1415400`**。
 | `0x1412C1A` | 1089B | **存档加密主流程** | 5 个 `crypt_stream` 调用，块序号 xor 0/1/2/3 |
 | `0x1414CE0` | — | `mt19937::genrand_int32` | 被 `crypt_stream` 循环调用 |
 | `0x1415110` | — | `seed_seq` 初始化（`init_by_array`） | `crypt_stream` prologue 内调用 |
-| `0x140DFF0` | — | `reverse_longs` / `xor_repeating_blocks` | `crypt_header` 内带 `r8d=0x40`(64) 调用两次 |
+| `0x140DFF0` | — | **`xor_repeating_blocks`** | 保存侧 `0x1412B77` 以 `r8d=0x100`(256) 调用，折叠摘要表成 rolling_key；`crypt_header` 内另以 `r8d=0x40`(64) 调用两次 |
+| `0x140E160` | — | **一次性 SHA-512 便捷函数** | 8 个 `movabs` 装载标准 SHA-512 IV（见 §7.2），ctx 大小 `0xD0`(208) |
 
 ---
 
@@ -337,6 +338,8 @@ S-1-5-21-1435437277-1052317143-1964327295-500
   §7.1（摘要表就是加载期完整性校验的比对目标，59/59 样本实测）。
   ⚠️ 旧版"encHeader = 192B 随机 + 64B 固定常量 + 64B 随机 tail"已被推翻，见 §8.2。
 - **serial 全貌** → 已解，见 §8.4（UTF-16LE Windows SID，绑定创建存档的账户）
+- **保存侧摘要写入路径** → 已解，见 §7.2（`0x140E160` 一次性 SHA-512，唯一调用者 `0x1412B21`；
+  摘要写出后经 `0x140DFF0` 折叠成 rolling_key，与 `pes_decrypt.py` 逐步互逆）
 - serial 不匹配时游戏的具体行为（拒绝加载 / 提示 / 只读）—— **仍为开放项**：机制上 = SID 账户校验（跨账户/跨机不通用），但 exe 只调 `ConvertSidToStringSidW` 转串、未做 `LookupAccountSidW` 反查，校验/拒绝逻辑在更上层或数据层，本轮未在 exe 内定位
 - gameVersionString 已确认参与校验（0x140F200 比 gameVersionString 与常量串）
 
@@ -410,6 +413,82 @@ encHeader 明文（320 B）
 > 局部摘要表，由外层从 encHeader 拷入。这也解释了为何喂入器 `0x1413950` 的三个调用者
 > （`0x14107AE` / `0x14109EE` / `0x14118FE`）里**不含加密主流程**：摘要在更上层的
 > `build_save` 算好后传入，加/解密主流程只负责比对与 XOR。
+
+### 7.2 保存侧闭环：谁算摘要、写到哪、怎么变密钥（本轮新解）
+
+§7.1 解决了"加载时跟谁比"，本节解决**"保存时谁写的"**。
+
+#### 一次性 SHA-512 便捷函数 `0x140E160`
+
+`0x1413DF0`（压缩）全 exe 只有 **1 处**直接调用 —— `0x140E2C1`，落在 `0x140E160` 起的这个函数里。
+它一次算完整条消息的摘要（`0x140E2C1` 压缩整块 → `0x140E2DC` memcpy 余尾 → `0x140E2ED` final
+→ `0x140E300` 输出 64 B）。
+
+**身份铁证：8 个 `movabs` 装载的 IV 与标准 SHA-512 逐位相等**（偏移量 flat image）：
+
+```asm
+0x140E1E2: movabs rax, 0x6a09e667f3bcc908   ; IV[0]
+0x140E1F4: movabs rcx, 0xbb67ae8584caa73b   ; IV[1]
+0x140E206: movabs rdx, 0x3c6ef372fe94f82b   ; IV[2]
+0x140E210: movabs r8,  0xa54ff53a5f1d36f1   ; IV[3]
+0x140E21A: movabs r9,  0x510e527fade682d1   ; IV[4]
+0x140E224: movabs r10, 0x9b05688c2b3e6c1f   ; IV[5]
+0x140E22E: movabs r11, 0x1f83d9abfb41bd6b   ; IV[6]
+0x140E238: movabs r12, 0x5be0cd19137e2179   ; IV[7]
+0x140E1EC: mov qword [rbp+0x38], 0xd0       ; ctx 大小 208 = 64 状态+128 缓冲+16 长度
+```
+
+这补上了 §7 只靠"旋转模式"定性的最后一环：**K 表虽被壳混淆，IV 却是明文立即数**
+（编译器内联进代码，壳没混淆到代码区的立即数）。配合 K[0] 明文可读，
+**游戏用的就是标准 SHA-512，无任何自定义常数** —— 这也是 `probe_block_hashes.py`
+能直接用 `hashlib.sha512` 一击命中的根本原因。
+
+#### 保存路径 `0x1412B21`（紧邻加密主流程之前）
+
+`0x140E160` 全 exe 只有 **1 个**调用者：`0x1412B21`，落在 `0x1412C1A`（加密主流程）之前 249 字节处。
+逐段对照 `pes_decrypt.py`：
+
+```asm
+0x1412B1A: lea rcx,[rbp+0x110]   ; out（摘要 64 B）
+0x1412B21: call 0x140E160        ; ★ SHA-512 → [rbp+0x110]
+0x1412B2B: lea rdx,[rbp+0x110]
+0x1412B32: mov rcx, r14          ; 文件句柄
+0x1412B35: call 0x140FDF0        ; 写出这 64 B
+
+0x1412B3A~62: movaps ×4          ; [rbp-0x40..-0x01] ← [rbp+0x110] 的 64 B（rolling_key 初值）
+0x1412B66: mov r8d, 0x100        ; 256 字节
+0x1412B6C: lea rdx,[rbp+0x150]   ; 源 = +0x40 起的后续 256 B（另三条摘要 + salt）
+0x1412B73: lea rcx,[rbp-0x40]    ; 目标就地折叠
+0x1412B77: call 0x140DFF0        ; ★ xor_repeating_blocks(out, in, 256)
+
+0x1412BA6: xor rax, 0xd0         ; 文件头密钥 = rolling_key ^ 208（逐 qword）
+0x1412C06: mov r9d, 0xd0         ; 长度 208
+```
+
+| exe 保存侧 | `pes_decrypt.py` 读取侧 |
+|---|---|
+| `sha512` → `[rbp+0x110]`（encHeader 明文 320 B 的头部） | `enc_header = crypt_header(blob[:320], mk)` |
+| `movaps` ×4 → `[rbp-0x40]` | `rolling_key = bytearray(enc_header[:64])` |
+| `xor_repeating_blocks(rcx=[rbp-0x40], rdx=[rbp+0x150], 0x100)` | `xor_repeating_blocks(rolling_key, enc_header[64:320], 256)` |
+| `xor rax, 0xd0` 逐 qword | `xor_with_long_param(rolling_key, intermediate, FILE_HEADER_SIZE)` |
+
+**写入侧与读取侧逐步互逆，加解密链条至此两头都闭合。**
+
+#### 顺带纠正：§7 旧版对 `0x1413A20` 的判断是错的
+
+旧版称"`0x1413A20` / `0x1413B60` 等同区间函数是 SHA-512 辅助，其调用者集中在
+`0x1416xxx`–`0x1431xxx`（反序列化模块）"。实测 **`0x1413A20` 不是哈希函数**：
+它内部是 `mov word ptr [rdx+rcx*2], ax`（2 字节宽字符）、SSO 阈值 `cmp qword [rbx+0x18], 8`、
+越界即抛异常 —— 是 **MSVC `std::wstring` 的插入/追加**。`0x1413B60` 同理是 `std::string` 赋值
+（构造 `std::string` 对象：`[+0]=缓冲, [+0x10]=size, [+0x18]=capacity`）。
+
+这是**第二次**把 MSVC 字符串成员方法误判为哈希（第一次是 §6 记录过的 `0x140F3A0`/`0x140F290`）。
+判据要记住：**SHA-512 的识别特征是 64 位旋转 + 80 轮 + 128 B 分块**，
+不是"跟哈希函数地址相近"。`0x1413A20` 有 30 个调用者，正因为它只是个通用字符串工具。
+
+> 另：`0x1412C1A`（加密主流程）与 `0x14115F0`（解密主流程）**都没有直接调用者**
+> （全 exe 扫 `E8` 命中 0），二者都经**间接分派**进入 —— 与 §7 末尾记录一致。
+> 故 `build_save` 的最外层入口在纯静态下不可达（保护器混淆 + 虚分派）。
 
 ### 常量池被壳混淆（顺带发现）
 
@@ -570,6 +649,11 @@ python exe_dis_func.py   "<exe>" 0x14115F0 0x1411BD9 xref   # 解密主流程：
 python exe_dis_func.py   "<exe>" 0x1413DF0 0x1414600       # SHA-512 压缩函数(0x1413DF0)
 python exe_dis_func.py   "<exe>" 0x1413950 0x1413A20 xref   # 位缓冲喂入器 + 其调用者(xref)
 python exe_dis_func.py   "<exe>" 0x1413950 0x1413DF1 xref   # SHA-512 三件套调用者 → 反序列化模块 0x1416xxx~0x1431xxx
+# —— 本轮 §7.2（保存侧闭环）——
+python exe_dis_func.py   "<exe>" 0x140E100 0x140E250 xref   # 反查 sha512 便捷函数 → 唯一调用者 0x1412B21
+python exe_dis_func.py   "<exe>" 0x1412AA0 0x1412C20        # 保存侧：算摘要 → 写出 → 折叠 → xor 0xD0
+python exe_dis_func.py   "<exe>" 0x140E1C0 0x140E340        # 标准 SHA-512 的 8 个 IV 立即数（明文）
+python exe_dis_func.py   "<exe>" 0x1412C1A 0x1412C1B xref   # 加密主流程调用者：0 命中（间接分派）
 ```
 
 > 需要 capstone：`pip install capstone`（本项目用隔离 venv，
