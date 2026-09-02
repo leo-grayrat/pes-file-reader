@@ -29,8 +29,9 @@ resources/
 # 第三方逆向工具与临时反编译项目（二进制体积大，不入库）
 tools/
 
-# WorkBuddy 项目数据（会话输出、 记忆日志，属本地工作区状态，不入库）
+# WorkBuddy/Kilo 项目数据（会话输出、 记忆日志，属本地工作区状态，不入库）
 .workbuddy/
+.kilo/
 
 # 提取出的原始游戏数据包（RAW bin，体积大，不入库）
 outputs/trace_seg.bin
