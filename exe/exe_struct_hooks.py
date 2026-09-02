@@ -26,6 +26,8 @@ exe_struct_hooks.py — 用「已解出的存档结构常量」当鱼钩，在 e
   python exe_struct_hooks.py                 # 扫全部已知结构常量
   python exe_struct_hooks.py 312 284         # 只扫指定常量（十进制或 0x 前缀）
   python exe_struct_hooks.py --raw 0x12A72FD # 额外搜裸 imm32（用于极特异的大偏移）
+  python exe_struct_hooks.py 0x254 --group   # 命中点按「所属函数」归组（推断算法族）
+  python exe_struct_hooks.py 0x690 --range 0x1300000 0x1360000  # 只看某代码区间
 """
 import mmap
 import os
@@ -101,6 +103,33 @@ def find_raw_imm32(mm, value):
     return out
 
 
+def func_start_hint(mm, off, back=0x600):
+    """向前找 int3(0xCC) 填充，猜函数入口。无符号表时的启发式，可能不准。"""
+    lo = max(0, off - back)
+    idx = mm.rfind(b"\xcc", lo, off)
+    if idx < 0:
+        return None
+    while idx + 1 < off and mm[idx + 1] == 0xCC:
+        idx += 1
+    return idx + 1
+
+
+def group_hits(mm, value, hits):
+    """把 imul 命中点按所属函数归组：同一函数里出现多次，说明该函数专职处理这张表。"""
+    owners = {}
+    for h in hits:
+        off = h[0] if isinstance(h, tuple) else h
+        st = func_start_hint(mm, off)
+        key = st if st is not None else (off & ~0xFFF)
+        owners.setdefault(key, []).append(off)
+    print("  —— 按所属函数归组：%d 个函数 ——" % len(owners))
+    for st in sorted(owners, key=lambda k: (-len(owners[k]), k)):
+        pts = owners[st]
+        print("    函数 0x%08X  命中 %d 处: %s"
+              % (st, len(pts), ", ".join("0x%X" % p for p in pts[:6])
+                 + (" ..." if len(pts) > 6 else "")))
+
+
 def report(value, label, hits, kind="imul"):
     print("=" * 74)
     print("鱼钩 %d (0x%X) —— %s" % (value, value, label))
@@ -126,9 +155,15 @@ def report(value, label, hits, kind="imul"):
 
 
 def main():
-    args = list(sys.argv[1:])
-    raw_mode = "--raw" in args
-    args = [a for a in args if not a.startswith("--")]
+    argv = list(sys.argv[1:])
+    raw_mode = "--raw" in argv
+    grp_mode = "--group" in argv
+    rng = None
+    if "--range" in argv:
+        i = argv.index("--range")
+        rng = (int(argv[i + 1], 0), int(argv[i + 2], 0))
+        del argv[i:i + 3]
+    args = [a for a in argv if not a.startswith("--")]
     if args:
         hooks = [(int(a, 0), "命令行指定") for a in args]
     else:
@@ -142,7 +177,15 @@ def main():
     with open(EXE, "rb") as f:
         with mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ) as mm:
             for value, label in hooks:
-                report(value, label, find_imul(mm, value))
+                hits = find_imul(mm, value)
+                if rng:
+                    lo, hi = rng
+                    hits = [h for h in hits
+                            if lo <= (h[0] if isinstance(h, tuple) else h) < hi]
+                    label += "（限 0x%X~0x%X）" % (lo, hi)
+                report(value, label, hits)
+                if grp_mode:
+                    group_hits(mm, value, hits)
                 if raw_mode:
                     report(value, label + "（裸 imm32）",
                            find_raw_imm32(mm, value), kind="裸 imm32")
