@@ -25,6 +25,7 @@ exe_struct_fields.py — 从编译器生成的「拷贝赋值代码」里反推 
   python exe_struct_fields.py <start_hex> [end_hex]
   python exe_struct_fields.py 0x131AB90 0x131AD80
   python exe_struct_fields.py 0x131AB90 0x131AD80 --expect 0x254   # 校验总大小
+  python exe_struct_fields.py 0x5C1CD0 0x5C2000 --max-disp 0x800     # 收紧字段偏移上限
 """
 import mmap
 import os
@@ -85,7 +86,7 @@ def mem_ref(piece):
     return (base, disp, size)
 
 
-def analyze(mm, start, end, expect=None):
+def analyze(mm, start, end, expect=None, max_disp=0x4000):
     md = Cs(CS_ARCH_X86, CS_MODE_64)
     md.detail = False
     fields = {}          # disp -> {"size":n, "read":bool, "write":bool, "masks":[...]}
@@ -156,11 +157,15 @@ def analyze(mm, start, end, expect=None):
                     batches.append((loop_count, origin))
                     loop_count = None
                 continue
-            if base in ("rsp", "rbp"):
-                continue          # 栈帧保存/恢复，不是结构字段
+            if base in ("rsp", "rbp", "rip"):
+                # rsp/rbp = 栈帧；rip = 全局/常量池，都不是结构字段。
+                # 不排 rip 的话覆盖终点会被算成几千万（实测踩过）。
+                continue
             if disp is None or size is None:
                 continue
             disp += alias.get(base, 0)
+            if disp > max_disp:
+                continue          # 超出合理结构大小，多为全局数组下标
             f = fields.setdefault(disp, {"size": size, "read": False,
                                          "write": False, "masks": []})
             f["size"] = max(f["size"], size)
@@ -210,6 +215,11 @@ def analyze(mm, start, end, expect=None):
 def main():
     argv = list(sys.argv[1:])
     expect = None
+    max_disp = 0x4000
+    if "--max-disp" in argv:
+        i = argv.index("--max-disp")
+        max_disp = int(argv[i + 1], 0)
+        del argv[i:i + 2]
     if "--expect" in argv:
         i = argv.index("--expect")
         expect = int(argv[i + 1], 0)
@@ -224,7 +234,7 @@ def main():
         return 1
     with open(EXE, "rb") as f:
         with mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ) as mm:
-            analyze(mm, start, end, expect)
+            analyze(mm, start, end, expect, max_disp)
     return 0
 
 
