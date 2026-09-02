@@ -44,9 +44,20 @@ TEAM_OFF_BUDGET, TEAM_OFF_SEQ = 0x598, 0x1DC
 EVENT_BASE = 0x12A72FD
 EVENT_STRIDE = 0x24
 EVENT_N = 100                    # 环形缓冲容量（99 真实 + 1 哨兵）
-SCHED_BASE = 0x3299B0
-SCHED_STRIDE = 0x254
-SCHED_OFF_SEQ, SCHED_OFF_DATE, SCHED_OFF_ROUND = 0x150, 0x158, 0x160
+# 赛程表。条目起点经 exe 字段图 + 数据侧三判据校准为 0x329B00
+# （旧值 0x3299B0 少了 0x150，字段偏移相应多 0x150，两个错误互相抵消，
+#  所以 seq/date/round 读出来是对的，但整条条目的字段对齐是错的，
+#  详见 docs/exe-save-layout.md §7.6 / exe/probe_sched_fields.py）
+SCHED_BASE = 0x329B00
+SCHED_STRIDE = 0x254             # = 596，exe 侧确认的 sizeof
+SCHED_CAP = 13000                # exe 侧读到的容量上限
+SCHED_OFF_SEQ, SCHED_OFF_FLAGS = 0x00, 0x04
+SCHED_OFF_DATE, SCHED_OFF_ROUND = 0x08, 0x10
+SCHED_OFF_HOME, SCHED_OFF_AWAY = 0x14, 0x18      # 低 14 位 = 球队块索引
+SCHED_TEAM_MASK = 0x3FFF
+SCHED_TEAM_FILL = 0x3FFF         # 未使用槽位填充（0x07F7FFFF 的低 14 位）
+# 双方名单：+0x24 起 2 组 × 17 slot × 16 B，slot=[squad_index, player_id, 0, x]
+SCHED_LINEUP_BASE, SCHED_SLOT, SCHED_GROUP_N = 0x24, 0x10, 17
 
 
 # ---------------- 基础工具 ----------------
@@ -274,18 +285,42 @@ def parse_ml(path):
                        "f7": f[7], "f8": f[8]})
     res["events"] = events
 
-    # 赛程表
+    # 赛程表：每条 596 B = 场次头 + 主客队引用 + 双方 17 人名单
     sched = []
-    o = SCHED_BASE
-    while o + SCHED_STRIDE <= len(b):
-        seq = u32(b, o + SCHED_OFF_SEQ)
-        if seq == 0xFFFF:
+    for i in range(SCHED_CAP):
+        o = SCHED_BASE + i * SCHED_STRIDE
+        if o + SCHED_STRIDE > len(b):
             break
+        if not any(b[o:o + SCHED_STRIDE]):
+            continue
         y = u16(b, o + SCHED_OFF_DATE)
-        mo, d = b[o + SCHED_OFF_DATE + 2], b[o + SCHED_OFF_DATE + 3]
-        rnd = u32(b, o + SCHED_OFF_ROUND)
-        sched.append({"seq": seq, "year": y, "month": mo, "day": d, "round": rnd})
-        o += SCHED_STRIDE
+        if not (1990 <= y <= 2100):
+            continue                          # 空槽 / 哨兵条
+        home = u32(b, o + SCHED_OFF_HOME) & SCHED_TEAM_MASK
+        away = u32(b, o + SCHED_OFF_AWAY) & SCHED_TEAM_MASK
+        if home == SCHED_TEAM_FILL or away == SCHED_TEAM_FILL:
+            continue                          # 未使用槽位（填充值）
+        lineups = []
+        for g in range(2):
+            grp = []
+            for s in range(SCHED_GROUP_N):
+                so = o + SCHED_LINEUP_BASE + (g * SCHED_GROUP_N + s) * SCHED_SLOT
+                sidx, pid = u32(b, so), u32(b, so + 4)
+                if u16(b, so) == 0xFFFF and u16(b, so + 2) == 0:
+                    continue                  # 空位
+                if sidx == 0 and pid == 0:
+                    continue
+                grp.append((sidx, pid))
+            lineups.append(grp)
+        sched.append({"slot": i,
+                      "seq": u16(b, o + SCHED_OFF_SEQ),
+                      "year": y,
+                      "month": b[o + SCHED_OFF_DATE + 2],
+                      "day": b[o + SCHED_OFF_DATE + 3],
+                      "round": b[o + SCHED_OFF_ROUND],
+                      "flags": u32(b, o + SCHED_OFF_FLAGS),
+                      "home": home, "away": away,
+                      "home_lineup": lineups[0], "away_lineup": lineups[1]})
     res["schedule"] = sched
     return res
 
@@ -335,10 +370,26 @@ def export_ml(ml, tag):
                ["slot", "f0", "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"],
                [[e["slot"], e["f0"], e["f1"], e["f2"], e["f3"], e["f4"],
                  e["f5"], e["f6"], e["f7"], e["f8"]] for e in ml["events"]])
+    tname = {t["idx"]: t["name"] for t in ml["teams"]}
     _write_csv(os.path.join(OUT, f"parsed_ml_schedule_{tag}.csv"),
-               ["seq", "year", "month", "day", "round"],
-               [[s["seq"], s["year"], s["month"], s["day"], s["round"]]
+               ["slot", "seq", "year", "month", "day", "round", "flags_hex",
+                "home_idx", "home_name", "away_idx", "away_name",
+                "n_home_lineup", "n_away_lineup"],
+               [[s["slot"], s["seq"], s["year"], s["month"], s["day"], s["round"],
+                 f"0x{s['flags']:08X}",
+                 s["home"], tname.get(s["home"], ""),
+                 s["away"], tname.get(s["away"], ""),
+                 len(s["home_lineup"]), len(s["away_lineup"])]
                 for s in ml["schedule"]])
+    _write_csv(os.path.join(OUT, f"parsed_ml_schedule_lineups_{tag}.csv"),
+               ["slot", "seq", "side", "team_idx", "team_name",
+                "squad_index", "player_id"],
+               [[s["slot"], s["seq"], side, s[key], tname.get(s[key], ""),
+                 sidx, pid]
+                for s in ml["schedule"]
+                for side, key, lst in (("home", "home", s["home_lineup"]),
+                                       ("away", "away", s["away_lineup"]))
+                for sidx, pid in lst])
     # 队块外 596B 'e5 07' 队际球员链接记录表
     links = parse_ml_linktable(open(os.path.join(DEC, tag + ".data"), "rb").read())
     _write_csv(os.path.join(OUT, f"parsed_ml_link_records_{tag}.csv"),

@@ -50,3 +50,6 @@ outputs/current_sid.txt
 
 # 抽取的存档缩略图（probe_logo.py 随时可重建，不入库）
 outputs/logo_*.png
+
+# 赛程双方名单展开表（每场 22 行、单文件 6 MB+，pesfile.py 随时可重建，不入库）
+outputs/parsed_ml_schedule_lineups_*.csv
