@@ -1060,6 +1060,56 @@ python exe/exe_dis_func.py   "<exe>" 0x013FE100 0x013FE400        # 类型7 容�
 - **球员归属**：M0 表内 24 名球员 = 威尼斯(块319) 21 人 + 瑞士/塞内加尔/清水心跳 各 1 人；M2 40 名 = 队486 23 人 + 八队散兵。一主队 + 散兵 ⇒ 疑似"注册/阵容名单"（威尼斯/队486 = 各存档玩家俱乐部候选），**但存在国家队散兵，语义未完全确定**。
 - **诚实边界**：+0x18 年份、+0x28 小计数有"合约"味但**无法单靠这 4 个样本定案**（M0/M1/M13 表内容相同 ⇒ 无同球员跨周差分样本）。**ML 合约/成长/训练字段仍未定位**，下轮两条路：(a) 追 ML 周结/推进代码（exe，权威语义），(b) 收集连续周存档做同球员差分。
 
+### 7.9.3 ML 周结/赛季推进机制（方向 1 成果：exe 权威定位，已排除"静态触顶"）
+
+方向 1 = 静态定位 ML 时间推进（周结/赛季结算）代码，靠字段写点拿权威语义。用 CT 的
+AOB 签名（`INJECT_TrainingOnChange` / `INJECT_TrainingOnEnter` / `INJECT_ClubBudget` /
+`INJECT_ptrPlayer` 等，均唯一命中）+ 全局偏移扫描，**完整定位了 ML 推进机制**——
+无需运行时，纯静态可达（⚠️ 修正此前的"可能触顶"预判）。
+
+#### ① ML 焦点/训练对象 = `[global + 0x16ECBE0]`（语义已锁）
+
+- `+0x00 ~ +0x07`：**8 个训练分类的焦点桶**（byte）
+- `+0x0A`：**剩余训练点数 Focus Points（byte，上限 0x15=21）**——与 CT `ptrFocusPoints(+A)` 吻合
+- `+0x0B`：21；`+0x0C`/`+0x10`：0x6C=108（每周刷新量？）
+- 训练界面进入 `0xBBEC80`（`lea rax,[rcx+0x16ecbe0]` → 存 `[r14+0x90]`）；
+  **分配焦点 `0xBBEB10`**（AOB TrainingOnChange）：`add [focus+bucket], dl` + `sub [focus+0x0A], dl`（花费点入分类桶），上限判定 `cmp eax,0x15`。
+
+#### ② ML 周结推进函数 `0x012E40E0`（唯一调用者 `0x126AC93` 推进周确认，浮点阈值 0.5/0.65/0.75/0.9）
+
+流程：
+1. 遍历**全部 380B 球员**（0..`[global+0xd0bce8]`、`imul 0x17C`），对每名球员调
+   - `0x12dcfb0`：周处理①，读写球员 `+0x2C`(主键)/`+0x2D`/`+0x30`/`+0x6C` 字段
+   - `0x15358e0`：周处理②，写入 `[global+0x1676324 + id*8 + 0x186A4]` 位域
+     （`and/or 0x22222222`）、`+0x186A8`、`+0x186AB`（byte=0）；id<0x61A9 才处理
+2. **重置焦点对象**：`mov word [focus+0x0A], 0x1515`（总点数=21、+0x0B=21）、
+   `+0x0C`/`+0x10`=108；清空 +0x00..+0x07 八个桶并把余值退回 +0x0A
+   （`movzx [bucket]; mov [bucket]=0; add [focus+0x0A], al` ×8）
+
+#### ③ 赛季初始化 `0x012E3DA0`（唯一调用者 `0x1309404` 新赛季编排，按文件类型 8/9/10 分派）
+
+- 赛季组织为 **82 周（0x52）**，周表基址 `[global + 0x1676324]`（`imul 0x170` 步长索引周槽）
+- 每周槽处理 `+0x154`=0x6C、`+0x768A4` 等写点；从赛程推进周、结算状态。
+
+#### ④ 其它已锁定锚点
+- **转会预算** `[global + 0x16ECBF4]`（AOB `INJECT_ClubBudget`：`mov eax,[rdi+0x16ECBF4]`）
+- 球员对象拷贝/取 `ptrPlayer` @ `0xC6D60D`（`mov eax,2` + 16B 循环，380B）；`ptrPlayerTwo`（读 +0x2C 8B主键）@ `0x8E1933`
+- 比赛时间 `INJECT_MatchTime` @ `0xA3BBC7`；体能 `INJECT_UnlimitedStamina` @ `0xA5834B`（`idiv [rbp+0x18]`）
+
+#### 诚实边界
+- 周处理①（0x12dcfb0）读写的 `+0x2D/0x30/0x6C` 与周处理②的 `+0x186A4` 位域的**具体语义
+  （是否合约/成长）尚未逐一展开**——机制（何时+对谁+写哪里）已确证，"字段叫什么"仍需
+  下轮把 0x12dcfb0/0x15358e0 内联逐字段解完。ML 存档侧对应字段位置待后续对接。
+
+#### 复现
+```bash
+# 全 7 个 CT ML 注入 AOB 唯一命中
+python exe/exe_aobscan.py --file <aob_sigs.txt> --around 6
+python exe/exe_dis_func.py "<exe>" 0x012E40E0 0x012E40E1 xref   # 周推进 → 0x126AC93
+python exe/exe_dis_func.py "<exe>" 0x012E3DA0 0x012E3DA1 xref   # 赛季初始化 → 0x1309404
+python exe/exe_dis_func.py "<exe>" 0x00BBEB10 0x00BBED20        # 训练分配焦点
+```
+
 ---
 
 ## 8. encHeader 内部结构与 serial 全貌（本轮新解）
