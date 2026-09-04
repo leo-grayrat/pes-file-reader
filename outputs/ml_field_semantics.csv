@@ -17,3 +17,11 @@ scale,location,offset,func,semantics,evidence,known
 加密,encHeader,[0:256],0x1413A20 系,四段 SHA-512 摘要（desc/logo/data/serial）,§8,此前未知
 加密,encHeader,[256:320],-,salt=header_key 源,§8,此前未知
 外壳,FileHeader,+76 serial,-,serial=Windows SID（绑定创建账户）,§5,此前未知
+成长,系数索引 edi,"clamp(+0x2D−模式位,0,25)",0x1533230,横轴=赛季/年龄进度（+0x2D 逐年+1）,㉕,此前未知
+成长,系数表 tag 0x0F,0x0F,-,控球 ball_control（EDIT 位打包）,㉖,此前未知
+成长,系数表 tag 0x13,0x13,-,长传 lofted_pass / 射门 finishing 区段,㉖,此前未知
+成长,系数表 tag 0x1E,0x1E,-,GK 接球 gk_catching（EDIT 位打包）,㉖,此前未知
+状态,380B +0x13C&0xF,值 1..6,0x12e3820 等,1/2/3=位图活跃路径、5/6=跳过、4=独立,㉗,此前未知
+状态,球员 +0x144,位 0x800000,0x132b120,挂牌/状态标志（ML 阵容刷新清除）,㉙,此前未知
+装载,类型 9（ML）,0x132b120,0x132b020/0x22b*,ML 阵容刷新 + 赛季表推进 + 专属对象族,㉙,此前未知
+装载,类型 7（BL）,容器+0x50,0x13fe100,球员 380B×2400 直存（与 ML 队块结构不同）,㉚,此前未知
