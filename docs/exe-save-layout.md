@@ -1534,6 +1534,20 @@ filePtr=0x2533400），需按段换算。新工具 `exe/exe_pe_const.py`（PE �
 - **诚实**：+0x10 高16位 {8,12,16,20,24} 是 4 递进档、尾数随记录各异，具体编码
   （成长档/能力等级/身价段？）待 exe 消费点确认；+0x2C/+0x3C 取值待结合状态位判定。
 
+#### ㉔ link 记录与事件表现状（4 样本收尾核实）
+
+**link 记录（596B 表，`outputs/parsed_ml_link_records_*.csv`）跨样本一致**：
+- ML0/1/13 = 6180/6181/6170 条（队名全部命中）；ML2 = 3305 条（不同游戏状态）；
+- 总条目 ~199k~202k；EDIT 球员 ID 命中率 30~54%（ML2 为 0，状态差异所致）；
+- 已含 h3=队名、edit_id_links、sample_entries 字段（`core/analyze_linktable*.py`）。
+
+**事件表（0x24 × 100 槽，`outputs/event_table_named*.csv`）解析现状**：
+- 字段命名：v1_status（0/1，推测 1=已签约/已结算）、**v3=金额×100**、v7_flag、
+  f2_hi=球员ID、v8、v4/v5/v6（v6 空=0xFFFFFFFF）；
+- **v7_flag=1 ⇔ v6 恒空**（39 行 100% 互斥，已修正 probe48 的 v6==0 误判）；
+- v3 异常大值 = 打包/哨兵（6 idx 三样本同值），非真实转会费；
+- 事件表 exe 侧访问代码仍为开放项（§7 已注：0x24 步长 imul 信噪比不可用，非阻塞）。
+
 #### 复现
 ```bash
 # 全 7 个 CT ML 注入 AOB 唯一命中
