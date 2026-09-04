@@ -1690,6 +1690,23 @@ EDIT 解析（7-bit 能力值）与 380B 共享编码成立；连续赛季存档
 **可消费产物**：`outputs/ml_field_semantics.csv`（26 行字段语义，25 项"此前未知"，
 `core/export_ml_field_semantics.py` 生成）。
 
+### 7.9.5 Phase 5 收尾：回放 blob / 修改器校验链 / BL 动态状态
+
+**① 回放 248B blob（结论：非加密、坐标不在 blob 内）**
+- `docs/replay_structure.md` §7 已闭环：非 zlib/gzip/deflate、非 float32、坐标由运行时
+  从 20×i16 姿态/动画码重建（§8.5），**blob 内无 (x,y) 原始坐标对**（负结果已记录）；
+- 结构：72×u16 头（计数/时间戳）+ 24×u16 结构化区 + 枚举字段 + 52B 零尾。
+
+**② 修改器校验链（本轮定案）**
+- **`encHeader[128:192] = SHA-512(data 明文)`**，加载期 `decrypt_main` 逐块比对
+  （`exe/probe_block_hashes.py` 59/59 样本闭合）；
+- ⇒ **改 data 必须重算 SHA-512(data) 并更新 encHeader[128:192]**，否则游戏拒绝；
+- ⚠️ README 旧备注"哈希区似乎不校验"已作废（数据侧 + exe memcmp 双证据推翻）。
+
+**③ BL 动态状态（负结果）**
+- BL 容器基址 ≠ data 块起始（§㉚ 负结果）；BL 存档侧球员动态字段待定位，
+  与 ML 的对比需先解 BL 容器基址映射——如实记录。
+
 ---
 
 ## 8. encHeader 内部结构与 serial 全貌（本轮新解）
