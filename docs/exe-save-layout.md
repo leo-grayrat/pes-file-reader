@@ -2132,3 +2132,155 @@ python exe/exe_trace_section_digests.py  # 反汇编 3 个喂入器调用点，�
 
 > 需要 capstone：`pip install capstone`（本项目用隔离 venv，
 > `C:\Users\34788\.workbuddy\binaries\python\envs\default\Scripts\python.exe`）
+
+---
+
+## 9. 球员字段描述符表全解 + 25 项能力位布局定稿（2026-09-23）
+
+本轮把 09-15 定位到的**字段描述符表**彻底转储，并沿调用链补上 `0xc2d180` 与
+序列化器 `0x1F14670` 的结构，最终得到 **25 项能力的精确位域**（getter 读 + setter 写
+双向验证）。产出：`outputs/field_descriptors.md`、`outputs/serialize_cases.md`、
+`outputs/setter_layout.md`；复现脚本 `exe/exe_field_desc.py`、`exe/exe_field_serialize.py`、
+`exe/exe_field_setter.py`。
+
+### 9.1 查表函数 `0x1407E70` 与两张描述符表
+
+```
+cmp r8d, 0x79 / ja            ; ID ≤ 121 走表1
+lea r9, [rip + 0x20f2433]     ; 表1 基址
+  → RVA 0x34FACB0 → off 0x34F9CB0（.ecode，Δ=0x1000）
+cmp r8d,[rcx]; je / add rcx,0x30; cmp eax,0x7a; jb   ; 线性查找，步长 0x30
+命中后 movups ×3 拷 48B 描述符给 rdx
+```
+
+- **表1**：ID `0x00`~`0x79`，**122 项 × 0x30**（下标与 ID 严格一致）
+- **表2**（ID `0x7A`~`0x7C`）：3 项 × `0x28`，同一函数内第二段
+- 描述符里存的是 **VA**（非 flat 偏移），须段换算：`.data1` 的 RVA=0x1000 / filePtr=0x600，
+  代码 flat = VA − ImageBase − 0xA00
+
+**描述符 48B 布局（实测）**：
+
+| 偏移 | 内容 |
+|---|---|
+| `+0x00` | 字段 ID（0..121） |
+| `+0x08` | getter VA —— 从对象取位域 |
+| `+0x10` | setter VA —— 写回对象位域 |
+| `+0x18` | **最小值**（能力恒 40、身高 100、体重 30、年龄 15） |
+| `+0x20` | **最大值**（能力恒 99、身高 250、体重 150、年龄 50） |
+| `+0x24` | **位宽**（能力 7、身高/体重 8、布尔 1、熟练度类 2） |
+
+> ⚠️ 修正 09-15 的初稿描述：`+0x18/+0x20/+0x24` 是 **min / max / 位宽**，
+> **不是**“312B 记录内偏移”。真正落到记录上是由 setter 完成的（见 §9.3）。
+
+### 9.2 getter 与 setter：同一位域的读/写两侧
+
+getter 形态（`rcx`=对象，`rdx`=输出）：
+
+```asm
+mov eax, dword ptr [rcx + 0x0c]
+shr eax, 0x17
+and eax, 0x7f
+mov dword ptr [rdx], eax
+```
+
+setter 形态 —— **xor 三连**（位偏移 0 时省略 `shl`）：
+
+```asm
+mov eax, dword ptr [rdx]        ; value
+shl eax, 0x10                   ; 位偏移
+xor eax, dword ptr [rcx + 0xc]  ; 与原值异或
+and eax, 0x7f0000               ; 掩码
+xor dword ptr [rcx + 0xc], eax  ; 写回
+```
+
+两者描述**同一个位域**，只是读法不同（`+0x0C` dword 的 bit16~22 ≡ `+0x0E` 字节的
+bit0~6）。全 122 项逐一比对，位域**完全一致** —— 互为交叉验证。
+
+### 9.3 `0xc2d180` 不是打包器，是“查表 + 校验 + 调 setter”的分派器
+
+```asm
+0xC2D191: call 0x1407e70          ; 查描述符（r8d=字段ID, rdx=48B 输出）
+0xC2D19A: mov r8, [rsp + 0x30]    ; desc+0x10 = setter
+0xC2D1A8: cmp eax, [rsp + 0x38]   ; desc+0x18 = min
+0xC2D1AE: cmp eax, [rsp + 0x40]   ; desc+0x20 = max
+0xC2D1BC: call r8                 ; setter(记录, &值)
+```
+
+语义：`bool pack(rec, field_id, value)` —— 查描述符 → 校验 `min ≤ value ≤ max`
+→ 调 setter 写回。越界直接返回 0（**这是游戏对能力值 40~99 范围的硬校验点**）。
+
+### 9.4 序列化器 `0x1F14670` 的 switch 结构
+
+MSVC 双表跳转（13 个分支、125 个 ID）：
+
+```asm
+cmp ebx, 0x7c                                    ; ID ≤ 124
+lea r8, [rip - 0x1f150ac]                        ; r8 归零技巧
+movzx eax, byte ptr [r8 + rbx + 0x1f15444]       ; 索引表：ID → case 号
+mov   ecx, dword ptr [r8 + rax*4 + 0x1f15410]    ; 跳转表：case → 代码
+jmp   rcx
+```
+
+- 索引表 off `0x1F14A44`（125×u8）；跳转表 off `0x1F14A10`（13×u32）
+- 少数 ID 有**专用 case**（`0x0B/0x0C` 直拷、`0x0D` 年龄、`0x0E` 直接位域写、
+  `0x0F/0x10/0x11`、`0x40`、`0x7A~0x7C`）
+- **绝大多数 ID（含全部 25 项能力）走通用 case 12**，其关键一句是
+  `mov r8d, ebx` —— 传给 `0xc2d180` 的字段 ID 就是 `rbx`（专用 case 只是把它内联成立即数：
+  ID `0x0D`→13、`0x10`→16、`0x11`→17、`0x40`→64）
+
+### 9.5 25 项能力位域（定稿，getter/setter 双向验证）
+
+| 能力 | 偏移 | 位 | 能力 | 偏移 | 位 |
+|---|---|---|---|---|---|
+| offensive_awareness | `+0x0C` | 16 | stamina | `+0x18` | 0 |
+| ball_control | `+0x0C` | 23 | ball_winning | `+0x18` | 7 |
+| tight_possession | `+0x28` | 0 | aggression | `+0x18` | 14 |
+| low_pass | `+0x10` | 0 | gk_awareness | `+0x18` | 21 |
+| lofted_pass | `+0x10` | 7 | gk_catching | `+0x24` | 0 |
+| finishing | `+0x10` | 14 | gk_reach | `+0x1C` | 0 |
+| place_kicking | `+0x10` | 21 | defensive_awareness | `+0x1C` | 7 |
+| curl | `+0x24` | 14 | gk_clearing | `+0x1C` | 14 |
+| speed | `+0x14` | 0 | heading | `+0x1C` | 21 |
+| acceleration | `+0x14` | 7 | dribbling | `+0x24` | 7 |
+| jump | `+0x14` | 14 | gk_reflexes | `+0x2C` | 6 |
+| physical_contact | `+0x14` | 21 | kicking_power | `+0x20` | 0 |
+| balance | `+0x2C` | 13 | | | |
+
+**定序依据**：描述符表 ID `0x12`~`0x2A` 的顺序与 EDIT 位流顺序
+（`core/fit_weights.py` 的 `ABIL_ORDER`）逐条吻合，且与 implyingrigged 的 EDIT 布局一致
+（`ball_control` = `+0x0E` 的第 2 个 7-bit ≡ `+0x0C` bit23 ✓）。
+
+> **关于“这是 380B 对象还是 312B 记录”**：本表位域与 EDIT 存档记录布局逐条吻合
+> （能力自 `+0x0E` 起 7-bit），说明**至少对存档记录成立**。09-15 起标注的“380B 运行时
+> 对象”应理解为：游戏把记录区直接作为对象前部（或两者前 0x30 字节同构）——
+> 二者不矛盾，但**存档侧读写应以本表为准**。
+
+### 9.6 其他字段组
+
+| 组 | 判据 | 说明 |
+|---|---|---|
+| 身高 / 体重 | min/max = 100~250 / 30~150，`位宽=8` | `+0x0A` / `+0x0B` |
+| 年龄 | min/max = 15~50，`位宽=6` | `+0x20` bit7 |
+| **2bit 组（15 项）** | `位宽=2 且 max=2` | 与熟练度 `0=C/1=B/2=A` 吻合；`+0x28` 的 bit7/9/11…29 是 12 个连续 2bit 槽，形态最像数组式字段。**哪 13 个对应 13 个可踢位置尚未验证** |
+| **1bit 组（约 47 项）** | `位宽=1` | `+0x30` dword 全 32 位 + `+0x34` word bit0~14，疑似技能卡 / COM 风格位图，**语义待定** |
+
+### 9.7 本轮开放项
+
+1. **2bit 组与 1bit 组的语义**（熟练度 / 技能卡）—— 需用已知球员的 13 位熟练度串、
+   技能卡位图反查定位。
+2. **表2（ID `0x7A`~`0x7C`）** 语义未定（min=20 / max=61，走 `0x1ef7e60` 而非 `0xc2d180`）。
+3. **`+0x00`~`+0x08` 三个整字段**（32/32/16 bit）具体含义未定（疑球员主键 / ID）。
+
+### 9.8 复现
+
+```bash
+python exe/exe_field_desc.py            # → outputs/field_descriptors.md（122 字段全表）
+python exe/exe_field_serialize.py --verbose  # → outputs/serialize_cases.md（switch 双表）
+python exe/exe_field_setter.py --verbose     # → outputs/setter_layout.md（记录位布局）
+python exe/exe_dis_func.py "<exe>" 0x1407E70 0x1407F80   # 查表函数
+python exe/exe_dis_func.py "<exe>" 0xc2d180 0xc2d2a0     # 分派器
+python exe/exe_dis_func.py "<exe>" 0x1F14670 0x1F14760   # 序列化器头部
+```
+
+> 教训：capstone 对 **< 10 的立即数输出十进制**（`shr eax, 7` 而非 `shr eax, 0x7`），
+> 正则同时匹配两种写法才不会把小位偏移全部漏成 0。
